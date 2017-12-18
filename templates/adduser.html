@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+{% block body %}
+<link rel="stylesheet" href="/static/style.css" type="text/css">
+<html>
+<head>
+  <title>Home</title>
+  <script src="https://unpkg.com/vue"></script>
+</head>
+<body>
+ 
+  
+
+
+
+  <div id="autoCompleteSearchApp" align="center">
+
+      <h1 align="center">TWO CLEAR </h1>
+    
+   
+        
+      <table class= "tb">
+        
+          
+          <th align="right">{{register}}</th>
+          <th align="center">{{view}}</th>
+          
+        
+        <tr>
+          <td align="right">Username: <input type="text" name="tbUser"></td>
+          <td align="right">Search User: 
+            
+    
+              <form action="#" method="get">
+                  <input list="selections" name="selection">
+                  <datalist id="selections">
+                      <dynamic-option v-for="user in users" v-bind:todo="user"></dynamic-option>
+				  </datalist>
+        </form>
+      </td>
+      <tr>
+        <td align="right" >
+            Name: <input v-model="message" placeholder="ex: juan dela cruz" name="tbName">
+        </td>
+        <td align="right"><input type="submit"></td>
+      </tr>
+				
+                
+              
+        
+        </tr>
+        <tr>
+        <td align="right">Address: <input v-model="message" placeholder="ex: general santos city"></td>
+        <td align="right">Username: <input v-model="message" name="tbUserView" readonly="true"></td>
+        
+        <tr>
+        <td align="right">Contact #:  <input v-model="message" placeholder="ex: 09123456789"></td>
+        <td align="right">Name: <input v-model="message" name="tbNameView" readonly="true"></td>
+        
+        </tr>
+        <tr>
+            <td align="right"><input id="btnAdd" type="submit" value="Add"></td>
+            <td align="right">Address: <input v-model="message" name="tbAdressview" readonly="true"></td>
+            
+        </tr>
+        <tr>
+          <td align="right"></td>
+          <td align="right">Contact #: <input v-model="message" name="tbContactview" readonly="true"></td>
+        </tr>
+        
+        
+        <tr>
+          <td></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td></td>
+          <td></td>
+        </tr>
+      
+          <tr>
+            <td align="right">Containers in Stock <input type="text" name="tbStock" readonly="false"></td>
+           <td></td>
+          </tr>
+      
+          <tr>
+            <td></td>
+           <td></td>
+          </tr>
+          <tr>
+            <td></td>
+            <td align="right"><input id="btnUpdate" type="submit" value="Add"></td>
+          </tr>  
+      </table>
+   
+    <br>
+    <br>
+      <input id="Logout" type="Submit" value="log-out">
+  </div>
+
+
+
+
+
+
+
+  <script src="C:\Users\HP\projects\ojt\static\js\vuescript.js"></script></sct>
+</body>
+</html>
+{% endblock %}

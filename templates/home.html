@@ -1,17 +1,217 @@
+<<<<<<< HEAD
 <link rel="stylesheet" href="/static/css/bootstrap.css" type="text/css"> 
 <div class="home">
 		{% block body %}
 	<h1 align="center">TWO CLEAR</h1>
-	<fieldset>	
+	<fieldset>
 		<div class="table">
 
 			<table class="tb" style="width:70%" align="center">
-				<th> <input value="Admin Panel" type="submit"> <link href="fields.html"> </th>
-				<th> <input value="View Customers" type="submit"></th>
-				<th> <input value="Inventory" type="submit"></th>
-				<th> <input value="View Reports" type="submit"></th>
+				<th>
+					<th>Add Customer</th>
+					<th>View Customer Transactions</th>
+
+				</th>
+				<tr>
+					<td align="right">Customer ID:
+						<input type="text" name="tbID">
+					</td>
+					<td align="right">Search:
+						<input list="browsers" name="browser">
+
+						<datalist id="browsers">
+		
+							{% for customer in customers %}
+							<option value= '{{ customer.CustomerName }}'>{{ customer.CustomerName }}</option>
+							{% endfor %}
+						</datalist>
+						<input value="Select" type="submit">
+					</td>
+					<td></td>
+				</tr>
+				<tr>
+					<td align="right">Customer Name:
+						<input type="text" name="tbName" value='test' >
+					</td>
+					<td align="right">Customer ID:
+						<input type="text" name="tbIDview" readonly="true">
+					</td>
+					<td></td>
+					<tr>
+						<td align="right">Customer Adress:
+							<input type="text" name="tbAdress">
+						</td>
+						<td align="right">Customer Name:
+							<input type="text" name="tbNameView" readonly="true">
+						</td>
+						<td></td>
+					</tr>
+					<tr>
+						<td align="right">Contact #:
+							<input type="text" name="tbContact">
+						</td>
+						<td align="right">Customer Adress:
+							<input type="text" name="tbAdressview" readonly="true">
+						</td>
+						<td></td>
+					</tr>
+					<tr>
+						<td align="right">
+							<input id="btnAdd" type="submit" value="Add">
+						</td>
+						<td align="right">Contact #:
+							<input type="text" name="tbContactview" readonly="true">
+						</td>
+					</tr>
+
+
+					<tr>
+						<td></td>
+						<td></td>
+					</tr>
+
+
+					<tr>
+						<td align="right">Containers in Stock:
+							<input type="text" name="tbStock">
+						</td>
+						<td align="right">Customer Order(s):
+							<input type="text" name="tbRequest">
+						</td>
+					</tr>
+
+					<tr>
+						<td></td>
+						<td align="right">Date/time delivered:
+							<input type="text" name="tbdtdeliver">
+						</td>
+					</tr>
+					<tr>
+						<td></td>
+						<td align="right">
+							<input id="btnDeliver" type="submit" value="Add">
+						</td>
+					</tr>
+
+			</table>
 	</fieldset>
 	</div>
 	</fieldset>
+
+
 {% endblock %}
 </div>
+=======
+<!DOCTYPE html>
+{% block body %}
+<link rel="stylesheet" href="/static/style.css" type="text/css">
+<html>
+<head>
+  <title>Home</title>
+  <script src="https://unpkg.com/vue"></script>
+</head>
+<body>
+ 
+  
+
+
+
+  <div id="autoCompleteSearchApp" align="center">
+
+      <h1 align="center">TWO CLEAR </h1>
+    
+   
+        
+      <table class= "tb">
+        
+          
+          <th align="right">{{add}}</th>
+          <th align="center">{{view}}</th>
+          
+        
+        <tr>
+          <td align="right">Customer ID: <input type="text" name="tbID"></td>
+          <td align="right">Search: 
+            
+    
+              <form action="#" method="get">
+                  <input list="selections" name="selection">
+                  <datalist id="selections">
+                      <dynamic-option v-for="user in users" v-bind:todo="user"></dynamic-option>
+				  </datalist>
+        </form>
+      </td>
+      <tr>
+        <td align="right" >
+            Customer Name: <input v-model="message" placeholder="ex: juan dela cruz">
+        </td>
+        <td align="right"><input type="submit"></td>
+      </tr>
+				
+                
+              
+        
+        </tr>
+        <tr>
+        <td align="right">Customer Address: <input v-model="message" placeholder="ex: general santos city"></td>
+        <td align="right">Customer ID: <input v-model="message" name="tbIDview" readonly="true"></td>
+        
+        <tr>
+        <td align="right">Contact #:  <input v-model="message" placeholder="ex: 09123456789"></td>
+        <td align="right">Customer Name: <input v-model="message" name="tbNameView" readonly="true"></td>
+        
+        </tr>
+        <tr>
+            <td align="right"><input id="btnAdd" type="submit" value="Add"></td>
+            <td align="right">Customer Address: <input v-model="message" name="tbAdressview" readonly="true"></td>
+            
+        </tr>
+        <tr>
+          <td align="right"></td>
+          <td align="right">Contact #: <input v-model="message" name="tbContactview" readonly="true"></td>
+        </tr>
+        
+        
+        <tr>
+          <td></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td></td>
+          <td></td>
+        </tr>
+      
+          <tr>
+            <td align="right">Containers in Stock <input type="text" name="tbStock" readonly="true"></td>
+            <td align="right">Order(s) <input type="text" name="tbRequest"></td>
+          </tr>
+      
+          <tr>
+            <td></td>
+            <td align="right">Date/time delivered: <input type="text" name="tbdtdeliver"></td>
+          </tr>
+          <tr>
+            <td></td>
+            <td align="right"><input id="btnDeliver" type="submit" value="Add"></td>
+          </tr>  
+      </table>
+   
+    <br>
+    <br>
+      <input id="btnDeliver" type="Submit" value="log-out">
+  </div>
+
+
+
+
+
+
+
+  <script src="C:\Users\HP\projects\ojt\static\js\vuescript.js"></script>
+</body>
+</html>
+<<<<<<< HEAD
+{% endblock %}
+=======
+>>>>>>> b8ea68c1d8d9204a49a90dbd6726c4f3486c0ecc
+>>>>>>> 97ba0f021fa4c7a8a58c63c394f08d7c2bdc3e05
