@@ -17,7 +17,7 @@ app.secret_key = os.urandom(12)
 def home():
     users = User.query.all()    
 
-    customers = Customer.query.all()
+    customers = Customer.query.all() 
     if session.get('logged_in'):
         return render_template('home.html', customers=customers,users=users)
     else:
@@ -52,6 +52,13 @@ def do_admin_login():
 def logout():
     session['logged_in'] = False
     return redirect('/')
+
+@app.route("/reportviewer")
+def reportviewer():
+    customers = Customer.query.all() 
+    users = User.query.all() 
+    session['logged_in'] = True 
+    return render_template('fields.html', customers=customers,users=users)
 
 if __name__ == "__main__":
     from db import db
