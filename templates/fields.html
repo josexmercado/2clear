@@ -5,7 +5,7 @@
 	<fieldset>
 		<div class="table">
 
-			<table class="tb" style="width:100%" align="center">
+			<table class="tb" style="width:100%" align="left">
 	
 				<form action="/adminpanel" </form>
 				<th> <input value="Admin Panel" type="submit"></th>
@@ -13,7 +13,7 @@
 						
 	
 				<th> <input value="View Customers/Reports" type="submit"></th>
-				
+				<th><input v-model="message" name="DISPLAY" readonly="true"> </th>
 				<form action="/logout" </form>
 					<th> <input value="LOGOUT" type="submit"</th>
 					</form>
