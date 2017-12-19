@@ -60,6 +60,13 @@ def reportviewer():
     session['logged_in'] = True 
     return render_template('fields.html', customers=customers,users=users)
 
+@app.route("/adminpanel")
+def adminpanel():
+    customers = Customer.query.all() 
+    users = User.query.all() 
+    session['logged_in'] = True 
+    return render_template('adminpanel.html', customers=customers,users=users)
+
 if __name__ == "__main__":
     from db import db
     db.init_app(app)
