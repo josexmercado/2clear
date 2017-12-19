@@ -25,6 +25,7 @@
           <td align="left">Username: </td>
           <td></td>
           <td align="left">Search User: </td>
+
           </tr>
             <tr>
             <td align="left">
@@ -33,8 +34,15 @@
           <td></td> 
           <td>
                         <form action="#" method="get">
-                            <input list="selections" name="selection">
-                            <datalist id="selections">
+                            	<input list="browsers" name="browser">
+										<datalist id="browsers">
+						
+											{% for customer in customers %}
+											<option value= '{{ customer.CustomerName }}'>{{ customer.CustomerName }}</option>
+                      {% endfor %}
+                      
+                    </datalist>
+									</td>
                                 <dynamic-option v-for="user in users" v-bind:todo="user"></dynamic-option>
                     </datalist>
                   </form>
@@ -50,13 +58,7 @@
               <td>
             <input v-model="message" placeholder="ex: juan dela cruz" name="tbName">
           </td>
-          <td></td>
-          <td align="left"><input type="submit"></td>
           </tr>
-        
-				
-                
-              
         
         <tr>
         <td align="left">Address:
