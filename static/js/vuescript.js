@@ -4,15 +4,10 @@
         })
 
         var autoCompleteSearchApp = new Vue({
-            el: '#autoCompleteSearchApp',
+            el: '#home',
             data: {
-                users: [
-                    { text: 'sample' },
-                    { text: 'sample2' },
-                    { text: 'sample3' }
-                ],
                 add: 'Add Customer',
-    view: 'View Customer Records',
+                view: 'View Customer Records',
     custname: 'Customer Name: ',
     custid: 'Customer ID: ',
     custadd: 'Customer Address: ',
