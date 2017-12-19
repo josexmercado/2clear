@@ -53,26 +53,33 @@
         <td align="left" >
             Name: 
             </td>
+            <td></td>
+            <td align="left">Username:
+            </td>
+
             </tr>
             <tr>
               <td>
             <input v-model="message" placeholder="ex: juan dela cruz" name="tbName">
           </td>
+          <td></td>
+          <td><input v-model="message" name="tbUserView" readonly="true"></td>
+
           </tr>
         
         <tr>
         <td align="left">Address:
         </td>
         <td></td>
-        <td align="left">Username:
-        </td>
+        <td align="left">Name: </td>
         </tr>
         <tr>
           <td>
             <input v-model="message" placeholder="ex: general santos city"></td>
           </td>
           <td></td>
-          <td><input v-model="message" name="tbUserView" readonly="true"></td>
+          <td><input v-model="message" name="tbNameView" readonly="true"></td>
+          
         </tr>
          
         
@@ -80,14 +87,15 @@
         <td align="left">Password:
         </td>
         <td></td>
-        <td align="left">Name: </td>
+        <td align="left">Address:</td>
+
         </tr>
         <tr>
           <td>
           <input v-model="message" placeholder="*******">
           </td>
           <td></td>
-          <td><input v-model="message" name="tbNameView" readonly="true"></td>
+          <td><input v-model="message" name="tbAdressview" readonly="true"></td>
           </tr>
          
         
@@ -96,15 +104,17 @@
             <td align="left">Confirm Password:
           </td>
           <td></td>
-          <td align="left">Address:
-          </td>
+          <td align="left">Password: </td>
         </tr>
         <tr>
           <td>
               <input v-model="message" placeholder="*******">
             </td>
             <td></td>
-            <td><input v-model="message" name="tbAdressview" readonly="true"></td>
+            <td>
+              <input v-model="message" name="tbpw" readonly="true">
+            </td>
+
             </tr>
             
             
@@ -112,14 +122,12 @@
         <tr>
             <td align="right"><input id="btnAdd" type="submit" value="REGISTER"></td>
             <td></td>
-            <td align="left">Password: </td>
+            
         </tr>
         <tr> 
             <td></td>
           <td></td>
-          <td>
-            <input v-model="message" name="tbpw" readonly="true">
-          </td>
+         
         </tr>
         
         
