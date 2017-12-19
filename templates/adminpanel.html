@@ -3,20 +3,19 @@
 		{% block body %}
 	<h1 align="center">TWO CLEAR</h1>
 	<fieldset>
+	<fieldset>
 		<div class="table">
 
-			<table class="tb" style="width:70%" align="center">
+			<table class="tb" style="width:100%" align="center">
 
 				<form action="/adminpanel" </form>
 				<th> <input value="Admin Panel" type="submit"></th>
 				</form>
 
-				<th> <input value="View Customers" type="submit"></th>
-
-				<th> <input value="Inventory" type="submit"></th>
+				
 
 				<form action=/reportviewer </form>
-					<th> <input value="View Reports" type="submit"></th>
+					<th> <input value="View Customers/Reports" type="submit"></th>
 					</form>
 				<form action="/logout" </form>
 					<th> <input value="LOGOUT" type="submit"</th>
@@ -24,12 +23,121 @@
 </table>
 </fieldset>
 
-<fieldset>
-
 		<div class="table" align="left">
 				
-				<table class="tb" style="width:70%" align="left">
-				
+				<table class="tb" style="width:100%" align="left">
+						<table class= "tb">
+								
+								  
+								  <th align="left">Add User</th>
+								  <th></th>
+								  <th align="left">View User</th>
+								  
+								
+								<tr>
+								  <td align="left">Username: </td>
+								  <td></td>
+								  <td align="left">Search User: </td>
+						
+								  </tr>
+									<tr>
+									<td align="left">
+									<input type="text" name="tbUser">
+								  </td> 
+								  <td></td> 
+								  <td>
+												<form action="#" method="get">
+														<input list="browsers" name="browser">
+																<datalist id="browsers">
+												
+																	{% for customer in customers %}
+																	<option value= '{{ customer.CustomerName }}'>{{ customer.CustomerName }}</option>
+											  {% endfor %}
+											  
+											</datalist>
+															</td>
+														<dynamic-option v-for="user in users" v-bind:todo="user"></dynamic-option>
+											</datalist>
+										  </form>
+										</td>
+								  </tr>
+								  
+							  <tr>
+								<td align="left" >
+									Name: 
+									</td>
+									<td></td>
+									<td align="left">Username:
+									</td>
+						
+									</tr>
+									<tr>
+									  <td>
+									<input v-model="message" placeholder="ex: juan dela cruz" name="tbName">
+								  </td>
+								  <td></td>
+								  <td><input v-model="message" name="tbUserView" readonly="true"></td>
+						
+								  </tr>
+								
+								<tr>
+								<td align="left">Address:
+								</td>
+								<td></td>
+								<td align="left">Name: </td>
+								</tr>
+								<tr>
+								  <td>
+									<input v-model="message" placeholder="ex: general santos city"></td>
+								  </td>
+								  <td></td>
+								  <td><input v-model="message" name="tbNameView" readonly="true"></td>
+								  
+								</tr>
+								 
+								
+								<tr>
+								<td align="left">Password:
+								</td>
+								<td></td>
+								<td align="left">Address:</td>
+						
+								</tr>
+								<tr>
+								  <td>
+								  <input v-model="message" placeholder="*******">
+								  </td>
+								  <td></td>
+								  <td><input v-model="message" name="tbAdressview" readonly="true"></td>
+								  </tr>
+								 
+								
+								</tr>
+								<tr>
+									<td align="left">Confirm Password:
+								  </td>
+								  <td></td>
+								  <td align="left">Password: </td>
+								</tr>
+								<tr>
+								  <td>
+									  <input v-model="message" placeholder="*******">
+									</td>
+									<td></td>
+									<td>
+									<input v-model="message" name="tbpw" readonly="true">
+								  </td>
+						
+									</tr>
+									
+									
+								</tr>
+								<tr>
+									<td align="right"><input id="btnAdd" type="submit" value="REGISTER"></td>
+									<td></td>
+									
+								</tr>
+							
 			
 				</table>
 
