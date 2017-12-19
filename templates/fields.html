@@ -11,9 +11,8 @@
 				<th> <input value="Admin Panel" type="submit"></th>
 				</form>
 						
-				<th> <input value="View Customers" type="submit"></th>
-				<th> <input value="Inventory" type="submit"></th>
-				<th> <input value="View Reports" type="submit"></th>
+	
+				<th> <input value="View Customers/Reports" type="submit"></th>
 				
 				<form action="/logout" </form>
 					<th> <input value="LOGOUT" type="submit"</th>
@@ -21,85 +20,102 @@
 				<tr>
 					<table class="tb" style="width:100%">
 							
-									<th align="right">Add Customer</th>
-									<th align="right">View Customer Transactions</th>
+									<th align="left">Add Customer</th>
+									<th align="left">View Customer Transactions</th>
 				
 								<tr>
-									<td align="right">Customer ID:
+									<td align="left">Customer ID: </td>
+									<td align="left">Search: </td>
+								</tr>
+								<tr>
+									<td>
 										<input type="text" name="tbID">
+									</td>	
+									<td>
+											<input list="browsers" name="browser">
+											<datalist id="browsers">
+							
+												{% for customer in customers %}
+												<option value= '{{ customer.CustomerName }}'>{{ customer.CustomerName }}</option>
+												{% endfor %}
+											</datalist>
 									</td>
-									<td align="right">Search:  
-										<input list="browsers" name="browser">
-										<datalist id="browsers">
-						
-											{% for customer in customers %}
-											<option value= '{{ customer.CustomerName }}'>{{ customer.CustomerName }}</option>
-											{% endfor %}
-										</datalist>
-										<input value="Select" name="btnSubmit"type="submit">
+								</tr>
+									 
+										
 									</td>
 									
 								</tr>
 								<tr>
-									<td align="right">Customer Name:
-										<input v-model="message" name ="tbName"placeholder="ex: juan dela cruz">
-									</td>
-									<td align="right">Customer ID:
-										<input type="text" name="tbIDview" readonly="true">
-									</td>
-									
+									<td align="left">Customer Name:</td>
+									<td align="left">Customer Name:</td>
+											
+								</tr>
 									<tr>
-										<td align="right">Customer Adress:
+										<td>
+									<input v-model="message" name ="tbName"placeholder="ex: juan dela cruz">
+										</td>
+										<td>
+												<input type="text" name="tbNameView" readonly="true">
+										</td>
+									</tr>
+									<tr>
+									<td align="left">Customer Adress:</td>
+									<td align="left">Customer Adress: </td>
+									</tr>
+									<tr>
+										<td>
 											<input v-model="message" name="tbAdress" placeholder="ex: general santos city">
 										</td>
-										<td align="right">Customer Name:
-											<input type="text" name="tbNameView" readonly="true">
+										<td>
+											<input type="text" name="tbAdressview" readonly="true">
 										</td>
 									</tr>
 									<tr>
-										<td align="right">Contact #:
-											<input v-model="message" name="tbContact" placeholder="ex: 09123456789">
-										</td>
-										<td align="right">Customer Adress:
-											<input type="text" name="tbAdressview" readonly="true">
-										</td>
+										<td align="left">Contact #:</td>
+										<td align="left">Contact #: </td>
+									</tr>
+									<tr>
+											<td><input v-model="message" name="tbContact" placeholder="ex: 09123456789"></td>
+											<td>	<input type="text" name="tbContactview" readonly="true"></td>
+									</tr>
+										
+										
 									
 									</tr>
 									<tr>
-										<td align="right">
+										<td align="left">
 											<input id="btnAdd" type="submit" value="Add">
 										</td>
-										<td align="right">Contact #:
-											<input type="text" name="tbContactview" readonly="true">
+										<td align="left">Customer Order(s):
+										
 										</td>
 									</tr>
 				
 				
 									<tr>
-										<td></td>
-										<td></td>
+											<td></td>
+										<td><input v-model="message" name="tbRequest" ></td>
+										
 									</tr>
 				
 				
 									<tr>
-										<td align="right">Containers in Stock:
-											<input v-model="message" name="tbStock ">
-										</td>
-										<td align="right">Customer Order(s):
-											<input v-model="message" name="tbRequest" >
+										<td></td>
+										<td align="left">Date/time delivered:
 										</td>
 									</tr>
 				
 									<tr>
 										<td></td>
-										<td align="right">Date/time delivered:
-											
+										
+										<td>
 											<input v-model="message" name="tbdtdeliver" placeholder="ex: mm/dd/yyy hh/mm">
 										</td>
 									</tr>
 									<tr>
 										<td></td>
-										<td align="right">
+										<td align="left">
 											<input id="btnDeliver" type="submit" value="Add">
 										</td>
 									</tr>
