@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 {% block body %}
-<link rel="stylesheet" href="/static/style.css" type="text/css">
-<link rel="stylesheet" href="/static/css/bootstrap.css" type="text/css"> 
 <html>
+  <link rel="stylesheet" href="/static/style.css" type="text/css">
+  
 <head>
   <title>Home</title>
   <script src="https://unpkg.com/vue"></script>
@@ -22,45 +22,102 @@
           
         
         <tr>
-          <td align="right">Username: <input type="text" name="tbUser"></td>
-          <td align="right">Search User: 
-            
-    
-              <form action="#" method="get">
-                  <input list="selections" name="selection">
-                  <datalist id="selections">
-                      <dynamic-option v-for="user in users" v-bind:todo="user"></dynamic-option>
-				  </datalist>
-        </form>
-      </td>
+          <td align="left">Username: </td>
+          <td></td>
+          <td align="left">Search User: </td>
+          </tr>
+            <tr>
+            <td align="left">
+            <input type="text" name="tbUser">
+          </td> 
+          <td></td> 
+          <td>
+                        <form action="#" method="get">
+                            <input list="selections" name="selection">
+                            <datalist id="selections">
+                                <dynamic-option v-for="user in users" v-bind:todo="user"></dynamic-option>
+                    </datalist>
+                  </form>
+                </td>
+          </tr>
+          
       <tr>
-        <td align="right" >
-            Name: <input v-model="message" placeholder="ex: juan dela cruz" name="tbName">
-        </td>
-        <td align="right"><input type="submit"></td>
-      </tr>
+        <td align="left" >
+            Name: 
+            </td>
+            </tr>
+            <tr>
+              <td>
+            <input v-model="message" placeholder="ex: juan dela cruz" name="tbName">
+          </td>
+          <td></td>
+          <td align="left"><input type="submit"></td>
+          </tr>
+        
 				
                 
               
         
+        <tr>
+        <td align="left">Address:
+        </td>
+        <td></td>
+        <td align="left">Username:
+        </td>
         </tr>
         <tr>
-        <td align="right">Address: <input v-model="message" placeholder="ex: general santos city"></td>
-        <td align="right">Username: <input v-model="message" name="tbUserView" readonly="true"></td>
+          <td>
+            <input v-model="message" placeholder="ex: general santos city"></td>
+          </td>
+          <td></td>
+          <td><input v-model="message" name="tbUserView" readonly="true"></td>
+        </tr>
+         
         
         <tr>
-        <td align="right">Contact #:  <input v-model="message" placeholder="ex: 09123456789"></td>
-        <td align="right">Name: <input v-model="message" name="tbNameView" readonly="true"></td>
+        <td align="left">Password:
+        </td>
+        <td></td>
+        <td align="left">Name: </td>
+        </tr>
+        <tr>
+          <td>
+          <input v-model="message" placeholder="*******">
+          </td>
+          <td></td>
+          <td><input v-model="message" name="tbNameView" readonly="true"></td>
+          </tr>
+         
         
         </tr>
         <tr>
-            <td align="right"><input id="btnAdd" type="submit" value="Add"></td>
-            <td align="right">Address: <input v-model="message" name="tbAdressview" readonly="true"></td>
+            <td align="left">Confirm Password:
+          </td>
+          <td></td>
+          <td align="left">Address:
+          </td>
+        </tr>
+        <tr>
+          <td>
+              <input v-model="message" placeholder="*******">
+            </td>
+            <td></td>
+            <td><input v-model="message" name="tbAdressview" readonly="true"></td>
+            </tr>
+            
             
         </tr>
         <tr>
-          <td align="right"></td>
-          <td align="right">Contact #: <input v-model="message" name="tbContactview" readonly="true"></td>
+            <td align="right"><input id="btnAdd" type="submit" value="REGISTER"></td>
+            <td></td>
+            <td align="left">Password: </td>
+        </tr>
+        <tr> 
+            <td></td>
+          <td></td>
+          <td>
+            <input v-model="message" name="tbpw" readonly="true">
+          </td>
         </tr>
         
         
@@ -72,25 +129,6 @@
           <td></td>
           <td></td>
         </tr>
-      
-          <tr>
-            <td align="right">Containers in Stock <input type="text" name="tbStock" readonly="false"></td>
-           <td></td>
-          </tr>
-      
-          <tr>
-            <td></td>
-           <td></td>
-          </tr>
-          <tr>
-            <td></td>
-            <td align="right"><input id="btnUpdate" type="submit" value="Add"></td>
-          </tr>  
-      </table>
-   
-    <br>
-    <br>
-      <input id="Logout" type="Submit" value="log-out">
   </div>
 
 

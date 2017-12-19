@@ -1,24 +1,53 @@
 <link rel="stylesheet" href="/static/style.css" type="text/css">
-<div class="home">
+<div class="fields">
 		{% block body %}
 	<h1 align="center">TWO CLEAR</h1>
 	<fieldset>
 		<div class="table">
 
+
 			<table class="tb" style="width:100%" align="center">
+
+			<table class="tb" style="width:70%" align="center">
+
+				<form action="/adminpanel" </form>
+
 				<th> <input value="Admin Panel" type="submit"></th>
+				</form>
+
 				<th> <input value="View Customers" type="submit"></th>
+
 				<th> <input value="Inventory" type="submit"></th>
-				<th> <input value="View Reports" type="submit"></th>
+
+				<form action=/reportviewer </form>
+					<th> <input value="View Reports" type="submit"></th>
+					</form>
+
 				<form action="/logout" </form>
 					<th> <input value="LOGOUT" type="submit"</th>
 					</form>
 </table>
-            <table class"tb" style="width:70%" align="center"> 
-                <th> TEST </th>
-            
+</fieldset>
 
-</table>
+<fieldset>
+
+		<div class="table" align="left">
+				
+				<table class="tb" style="width:70%" align="left">
+				
+				<form action="/adduser" </form>
+					<th> <input value="Add New User" type="submit"></th>
+				</form>
+		
+				<form action="/adduser" </form>
+					<th> <input value="Add New Customer" type="submit"></th>
+				</form>
+
+				</table>
+
+</fieldset>
+
+
   <script src="C:\Users\HP\projects\ojt\static\js\vuescript.js"></script>
 </body>
 </html>
