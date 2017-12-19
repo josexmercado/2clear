@@ -60,6 +60,13 @@ def reportviewer():
     session['logged_in'] = True 
     return render_template('fields.html', customers=customers,users=users)
 
+@app.route("/adduser")
+def adduser():
+    customers = Customer.query.all() 
+    users = User.query.all() 
+    session['logged_in'] = True 
+    return render_template('adduser.html', customers=customers,users=users)
+
 @app.route("/adminpanel")
 def adminpanel():
     customers = Customer.query.all() 
