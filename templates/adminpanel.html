@@ -32,8 +32,7 @@
 								  <th align="left">Add User</th>
 								  <th></th>
 								  <th align="left">View User</th>
-								  
-								
+		
 								<tr>
 								  <td align="left">Username: </td>
 								  <td></td>
@@ -50,11 +49,11 @@
 														<input list="browsers" name="browser">
 																<datalist id="browsers">
 												
-																	{% for customer in customers %}
-																	<option value= '{{ customer.CustomerName }}'>{{ customer.CustomerName }}</option>
+																	{% for user in users %}
+																	<option value= '{{ user.name }}'>{{ user.name }}</option>
+																	{% endfor %}
 																	
-											  {% endfor %}
-											  
+																	
 											</datalist>
 															</td>
 														<dynamic-option v-for="user in users" v-bind:todo="user"></dynamic-option>
@@ -74,10 +73,10 @@
 									</tr>
 									<tr>
 									  <td>
-									<input v-model="message" placeholder="ex: juan dela cruz" name="tbName">
+									<input v-model="message" placeholder="ex: juan dela cruz" name="tbName" value=>
 								  </td>
 								  <td></td>
-								  <td><input v-model="message" id="userview" name="tbUserView" readonly="true" value="tst" ></td>
+								  <td><input v-model="message" id="userview" name="tbUserView" readonly="true" value = "t" ></td>
 						
 								  </tr>
 								

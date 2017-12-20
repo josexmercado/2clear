@@ -3,6 +3,11 @@
 {% if session['logged_in'] %}
 <p>You're logged in already!</p>
 {% else %}
+
+{% for users in users %}
+{{ users.name }}
+{% endfor %}
+
 <form action="/login" method="POST">
 	<div class="login">
 		<div class="login-screen">
