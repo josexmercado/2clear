@@ -76,3 +76,22 @@
       display: block;
         margin-top: 12px;
     }
+    .wadu {
+      animation:slide-in 2000ms cubic-bezier(.36,.37,.55,1.41) forwards;
+      }
+      @keyframes slide-in {
+        0% {
+          left:100%;
+          }
+        100% {
+          left:0%;
+          }
+        }
+        @keyframes slide-inR {
+        0% {
+          right:100%;
+          }
+        100% {
+          right:0%;
+          }
+        }
