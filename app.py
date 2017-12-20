@@ -60,18 +60,32 @@ def reportviewer():
     session['logged_in'] = True 
     return render_template('fields.html', customers=customers,users=users)
 
-@app.route("/adduser")
-def adduser():
-    customers = Customer.query.all() 
-    users = User.query.all() 
-    session['logged_in'] = True 
-    return render_template('adduser.html', customers=customers,users=users)
-
 @app.route("/adminpanel")
 def adminpanel():
     customers = Customer.query.all() 
     users = User.query.all() 
     return render_template('adminpanel.html', customers=customers,users=users)
+
+@app.route('/adduser', methods=['GET', 'POST'])
+def adduser():     
+
+    POST_USERNAME = str(request.form['tbUser'])
+    POST_NAME = str(request.form['tbName'])
+    POST_ADDRESS = str(request.form['address'])
+    POST_PASS = str(request.form['pass'])
+    POST_CPASS = str(request.form['cpass'])
+
+    new_user = User(
+        username = POST_USERNAME,
+        password = POST_PASS,
+        name = POST_NAME
+    )
+    try:
+        new_user.insert()
+        return 'success'
+    except:
+        return 'error'
+
 
 
 
