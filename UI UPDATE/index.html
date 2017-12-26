@@ -27,6 +27,7 @@
         <li><a href="#">Address <input v-model="message" name="tbAdress" placeholder="ex: general santos city"></a></li>
         <li><a href="#">Contact number <input align="right" v-model="message" name ="tbcontact"placeholder="ex: 09123456789"></a></li>
         <li><a href="#">Role <input align="right" v-model="message" name ="tbcontact"placeholder="TEMPORARY"></a></li>
+        <li><a href="#"><input v-model="button" id="btnAdduser" type="submit" value="Add"></a></li>
       </ul>
     </li>
   </form>
@@ -59,6 +60,7 @@
         <li><a href="#">Contact number <input align="right" v-model="message" name ="tbcontact"placeholder="ex: 09123456789"></a></li>
         <li><a href="#">Order(s) <input align="right" v-model="message" name ="tbOrder"placeholder="int"></a></li>
         <li><a href="#">Date/Time Delivered <input align="right" v-model="message" name ="tbDT"placeholder="mm/dd/yyyy - hh/mm"></a></li>
+        <li><a href="#"><input v-model="button" id="btnAddcustomer" type="submit" value="Add"></a></li>
       </ul>
     </li>
   </form>
@@ -79,6 +81,12 @@
       <a href="#" data-toggle="dropdown">Product <i class="icon-arrow"></i></a>
       <ul class="dropdown-menu">
         <li><a href="#">Water Containers <input align="right" v-model="message" name ="tbContainers"placeholder="int" readonly="true"></a></li>
+      </ul>
+    </li>
+    <li class="dropdown">
+      <a href="#" data-toggle="dropdown">Product <i class="icon-arrow"></i></a>
+      <ul class="dropdown-menu">
+        <li><a href="#">Log-out <input align="right" v-model="message" name ="tbContainers"placeholder="int" readonly="true"></a></li>
       </ul>
     </li>
   </ul>
