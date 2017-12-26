@@ -32,8 +32,7 @@
 								  <th align="left">Add User</th>
 								  <th></th>
 								  <th align="left">View User</th>
-								  
-								
+		
 								<tr>
 								  <td align="left">Username: </td>
 								  <td></td>
@@ -42,7 +41,7 @@
 								  </tr>
 									<tr>
 									<td align="left">
-									<input type="text" name="tbUser">
+									<input type="text" name="tbUser" value="add">
 								  </td> 
 								  <td></td> 
 								  <td>
@@ -50,11 +49,9 @@
 														<input list="browsers" name="browser">
 																<datalist id="browsers">
 												
-																	{% for customer in customers %}
-																	<option value= '{{ customer.CustomerName }}'>{{ customer.CustomerName }}</option>
-																	
-											  {% endfor %}
-											  
+																	{% for user in users %}
+																	<option value= '{{ user.name }}'>{{ user.name }}</option>
+																	{% endfor %}	
 											</datalist>
 															</td>
 														<dynamic-option v-for="user in users" v-bind:todo="user"></dynamic-option>
@@ -74,10 +71,10 @@
 									</tr>
 									<tr>
 									  <td>
-									<input v-model="message" placeholder="ex: juan dela cruz" name="tbName">
+									<input v-model="message" placeholder="ex: juan dela cruz" name="tbName" value="ADD">
 								  </td>
 								  <td></td>
-								  <td><input v-model="message" id="userview" name="tbUserView" readonly="true" value="tst" ></td>
+								  <td><input v-model="message" id="userview" name="tbUserView" readonly="true" value = "t" ></td>
 						
 								  </tr>
 								
@@ -89,7 +86,7 @@
 								</tr>
 								<tr>
 								  <td>
-									<input v-model="message" placeholder="ex: general santos city"></td>
+									<input v-model="message" name="address" placeholder="ex: general santos city"></td>
 								  </td>
 								  <td></td>
 								  <td><input v-model="message" name="tbNameView" readonly="true" value = "numal" ></td>
@@ -106,7 +103,7 @@
 								</tr>
 								<tr>
 								  <td>
-								  <input v-model="message" placeholder="*******">
+								  <input v-model="message" name="pass" placeholder="*******">
 								  </td>
 								  <td></td>
 								  <td><input v-model="message" name="tbAdressview" readonly="true"></td>
@@ -122,7 +119,7 @@
 								</tr>
 								<tr>
 								  <td>
-									  <input v-model="message" placeholder="*******">
+									  <input v-model="message" name="cpass" placeholder="*******">
 									</td>
 									<td></td>
 									<td>
@@ -134,7 +131,10 @@
 									
 								</tr>
 								<tr>
+
+									<form action="/adduser" method="POST" </form>
 									<td align="right"><input id="btnAdd" type="submit" value="REGISTER"></td>
+									</form>
 									<td></td>
 									
 								</tr>
