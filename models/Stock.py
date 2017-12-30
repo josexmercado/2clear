@@ -1,13 +1,15 @@
 from db import db
 
-class User(db.Model):
-    __tablename__ = 'users'
+class Stock(db.Model):
+    __tablename__ = 'stocks'
 
-    id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String(45))
-    password = db.Column(db.String(45))
-    role = db.Column(db.String(45))
-    name = db.Column(db.String(45))
+    stockid = db.Column(db.Integer, primary_key=True)
+    Type = db.Column(db.String(45))
+    Amount = db.Column(db.Integer)
+    Date = db.Column(db.String(45))
+    Totalcontainers = db.Column(db.Integer)
+    containersonhand = db.Column(db.Integer)
+    
 
     def __init__(self, *args, **kwargs):
         for name, value in kwargs.items():

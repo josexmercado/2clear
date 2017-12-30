@@ -2,6 +2,8 @@ import os
 from flask import Flask, abort, flash, redirect, render_template, request,session
 from models.Customer import Customer
 from models.User import User
+from datetime import datetime
+from models.Stock import Stock
 
 # all models
 app = Flask(__name__)
@@ -75,6 +77,49 @@ def Adduser():
 
     customers = Customer.query.all() 
     return render_template('adduser.html',customers=customers)
+
+
+@app.route("/stockin")
+def stockin():
+
+
+    return render_template('stockin.html')
+
+@app.route("/recordstockin" , methods=['POST'])
+def recordstockin():
+
+    POST_TYPE = "Stock In"
+    POST_AMOUNT = request.form['tbstockin']
+    POST_DATE = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+
+    new_stockin = Stock(
+
+        Type = POST_TYPE,
+        Amount = POST_AMOUNT,
+        Date = POST_DATE,
+        Totalcontainers = POST_AMOUNT,
+        containersonhand = POST_AMOUNT
+        
+    )
+    new_stockin.insert()
+    return redirect("/updatestockin")    
+
+@app.route("/updatestockin", methods=['POST','GET'])
+def updatestockin():
+
+
+
+    container = Stock.query.filter_by(stockid = '1').first()
+    container.Totalcontainers = str(container.Totalcontainers) + POST_AMOUNT
+    container.insert()
+
+    return render_template('adminpanel.html')
+
+
+@app.route("/stockout")
+def stockout():
+ 
+    return render_template('stockout.html')
 
 @app.route("/recordnewcustomer",  methods=['POST'])
 def recordnewcustomer():
