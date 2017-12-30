@@ -1,13 +1,11 @@
 import os
 from flask import Flask, abort, flash, redirect, render_template, request,session
-
 from models.Customer import Customer
 from models.User import User
 
 # all models
 app = Flask(__name__)
-
-dbname   = 'mysql+pymysql://root:@127.0.0.1/2clear_inventory'
+dbname   = 'mysql+pymysql://root:admin@127.0.0.1/2clear_inventory'
 app.config['DEBUG'] = True
 app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL', dbname)
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
@@ -29,7 +27,6 @@ def home():
     else:
         return render_template('login.html', users=users)
  
-
 @app.route('/login', methods=['POST'])
 def do_admin_login():
     POST_USERNAME = str(request.form['username'])
@@ -58,15 +55,47 @@ def reportviewer():
     customers = Customer.query.all() 
     users = User.query.all() 
     session['logged_in'] = True 
-    return render_template('fields.html', customers=customers,users=users)
+    return render_template('Reports.html', customers=customers,users=users)
 
 @app.route("/adminpanel")
 def adminpanel():
+
     customers = Customer.query.all() 
     users = User.query.all() 
     return render_template('adminpanel.html', customers=customers,users=users)
 
-@app.route('/adduser', methods=['GET', 'POST'])
+@app.route("/AddCustomer")
+def AddCustomer():
+
+    customers = Customer.query.all() 
+    return render_template('addcustomer.html',customers=customers)
+
+@app.route("/Adduser")
+def Adduser():
+
+    customers = Customer.query.all() 
+    return render_template('adduser.html',customers=customers)
+
+@app.route("/recordnewcustomer",  methods=['POST'])
+def recordnewcustomer():
+    users = User.query.all()
+
+    POST_CNAME = request.form['tbName']
+    POST_CADDRESS = request.form['tbAddress']
+    POST_CCONTACT = request.form['tbContact']
+
+    new_customer = Customer(
+        CustomerName = POST_CNAME,
+        CustomerAddress = POST_CADDRESS,
+        CustomerNumber = POST_CCONTACT
+    )
+    new_customer.insert()
+
+    customers = Customer.query.all()
+
+    return render_template('adminpanel.html', customers=customers,users=users)
+
+@app.route('/adduser', methods=['POST'])
 def adduser():     
 
     POST_USERNAME = str(request.form['tbUser'])
@@ -85,9 +114,6 @@ def adduser():
         return 'success'
     except:
         return 'error'
-
-
-
 
 if __name__ == "__main__":
     from db import db

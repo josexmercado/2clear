@@ -1,0 +1,72 @@
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="/static/style.css" type="text/css">
+<div class="tb">
+<div class="container">
+		{% block body %}
+	<h1 class="title">TWO CLEAR</h1>
+<fieldset>
+
+		
+		<form action="/adminpanel">
+		<input id="return" type="submit" value="Back">
+		</form>
+
+		<div class="container">
+				<tr>
+					<table class="icon-arrow" style="width:100%" align="center">
+							<form action="/recordnewcustomer" method="post">
+									<th align="left">Add Customer</th>
+										
+									</td>
+									
+								</tr>
+								<tr>
+									<td align="left">Customer Name:</td>
+									
+								</tr>
+									<tr>
+										<td>
+									<input v-model="message" name ="tbName" placeholder="ex: juan dela cruz">
+										</td>
+										
+									</tr>
+									<tr>
+									<td align="left">Customer Adress:</td>
+									
+									</tr>
+									<tr>
+										<td>
+											<input v-model="message" name="tbAddress" placeholder="ex: general santos city">
+										</td>
+										
+									</tr>
+									<tr>
+										<td align="left">Contact #:</td>
+										
+									</tr>
+									<tr>
+											<td><input v-model="message" name="tbContact" placeholder="ex: 09123456789"></td>
+											
+									</tr>
+										
+										
+									
+									</tr>
+									<tr>
+
+										<td align="left">
+											<input id="btnAdd" type="submit" value="Add New Customer">
+										</form>
+										</td>
+									
+									</tr>
+							</form>
+						</table>
+				</div>
+				</fieldset>
+			</table>
+
+            <script  src="js/index.js"></script>
+{% endblock %}
+</div>
+</div>

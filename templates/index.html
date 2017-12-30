@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>TWO CLEAR</title>
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+
+  
+      <link rel="stylesheet" href="static/css/style.css">
+
+  
+</head>
+
+<body>
+  <div class="container">
+  <h1 class="title">TWO CLEAR</h1>
+  
+  <ul>
+      <form class="adduser" action="#" method="GET">
+    <li class="dropdown">
+      <a href="#" data-toggle="dropdown">Add User <i class="icon-arrow"></i></a>
+      <ul class="dropdown-menu">
+
+        <li><a href="#">Username <input align="right" v-model="message" name ="tbUName"placeholder="ex: juandc69"></a></li>
+        <li><a href="#">Name <input v-model="message" name ="tbName"placeholder="ex: juan dela cruz"></a></li>
+        <li><a href="#">Address <input v-model="message" name="tbAdress" placeholder="ex: general santos city"></a></li>
+        <li><a href="#">Contact number <input align="right" v-model="message" name ="tbcontact"placeholder="ex: 09123456789"></a></li>
+        <li><a href="#">Role <input align="right" v-model="message" name ="tbcontact"placeholder="TEMPORARY"></a></li>
+      </ul>
+    </li>
+  </form>
+  <form class="viewuser" action="#" method="POST">
+    <li class="dropdown">
+      <a href="#" data-toggle="dropdown">View User<i class="icon-arrow"></i></a>
+      <ul class="dropdown-menu">
+        <li><a href="#">Search users <form action="#" method="get">
+            <input list="selections" name="selection">
+            <datalist id="selections">
+                <dynamic-option v-for="user in users" v-bind:todo="user"></dynamic-option>
+    </datalist>
+  </form></a></li>
+  <li><a href="#">Username <input align="right" v-model="message" name ="tbUName"placeholder="ex: juandc69" readonly="true"></a></li>
+  <li><a href="#">Name <input v-model="message" name ="tbName"placeholder="ex: juan dela cruz" readonly="true"></a></li>
+  <li><a href="#">Address <input v-model="message" name="tbAdress" placeholder="ex: general santos city" readonly="true"></a></li>
+  <li><a href="#">Contact number <input align="right" v-model="message" name ="tbcontact"placeholder="ex: 09123456789" readonly="true"></a></li>
+  <li><a href="#">Role <input align="right" v-model="message" name ="tbcontact"placeholder="TEMPORARY" readonly="true"></a></li>
+      </ul>
+    </li>
+  </form>
+
+  <form class="addcustomer" action="#" method="POST">
+    <li class="dropdown">
+      <a href="#" data-toggle="dropdown">Add Customer <i class="icon-arrow"></i></a>
+      <ul class="dropdown-menu">
+        <li><a href="#">Customer ID <input align="right" v-model="message" name ="tbUName"placeholder="int"></a></li>
+        <li><a href="#">Customer Name <input v-model="message" name ="tbName"placeholder="ex: juan dela cruz"></a></li>
+        <li><a href="#">Address <input v-model="message" name="tbAdress" placeholder="ex: general santos city"></a></li>
+        <li><a href="#">Contact number <input align="right" v-model="message" name ="tbcontact"placeholder="ex: 09123456789"></a></li>
+        <li><a href="#">Order(s) <input align="right" v-model="message" name ="tbOrder"placeholder="int"></a></li>
+        <li><a href="#">Date/Time Delivered <input align="right" v-model="message" name ="tbDT"placeholder="mm/dd/yyyy - hh/mm"></a></li>
+      </ul>
+    </li>
+  </form>
+    <form class="viewcustmer" action="#" method="POST">
+    <li class="dropdown">
+      <a href="#" data-toggle="dropdown">View Customer <i class="icon-arrow"></i></a>
+      <ul class="dropdown-menu">
+        <li><a href="#">Customer ID <input align="right" v-model="message" name ="tbUName"placeholder="int" readonly="true"></a></li>
+        <li><a href="#">Customer Name <input v-model="message" name ="tbNameview"placeholder="ex: juan dela cruz" readonly="true"></a></li>
+        <li><a href="#">Address <input v-model="message" name="tbAdressview" placeholder="ex: general santos city" readonly="true"></a></li>
+        <li><a href="#">Contact number <input align="right" v-model="message" name ="tbcontactview"placeholder="ex: 09123456789" readonly="true"></a></li>
+        <li><a href="#">Order(s) <input align="right" v-model="message" name ="tbOrderview"placeholder="int" readonly="true"></a></li>
+        <li><a href="#">Date/Time Delivered <input align="right" v-model="message" name ="tbDTview"placeholder="mm/dd/yyyy - hh/mm" readonly="true"></a></li>
+      </ul>
+    </li>
+  </form>
+    <li class="dropdown">
+      <a href="#" data-toggle="dropdown">Product <i class="icon-arrow"></i></a>
+      <ul class="dropdown-menu">
+        <li><a href="#">Water Containers <input align="right" v-model="message" name ="tbContainers"placeholder="int" readonly="true"></a></li>
+      </ul>
+    </li>
+  </ul>
+</div>
+  
+    <script  src="js/index.js"></script>
+
+</body>
+</html>
