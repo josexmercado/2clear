@@ -1,0 +1,25 @@
+<link rel="stylesheet" href="/static/style.css" type="text/css">
+<div class="fields">
+		{% block body %}
+	<h1 align="center">TWO CLEAR</h1>
+<fieldset>
+		<div class="table">
+	<fieldset>
+			<table class="tb" style="width:100%" align="left">
+				<form action="/adminpanel">
+				<th> <input value="Admin Panel" type="submit"></th>
+				</form>
+
+				<form action=/transaction>
+					<th> <input value="Deliver" type="submit"></th>
+					</form>
+					
+				<th> <input value="View Customers/Reports" type="submit"></th>
+			
+				<form action="/logout">
+					<th> <input value="LOGOUT" type="submit"> </th>
+				</form>
+			</table>
+
+{% endblock %}
+</div>

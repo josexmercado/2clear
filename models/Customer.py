@@ -14,7 +14,7 @@ class Customer(db.Model):
             setattr(self, name, value)
 
     def insert(self):
-        db.session.add()
+        db.session.add(self)
         db.session.commit()
     
     def delete(self):

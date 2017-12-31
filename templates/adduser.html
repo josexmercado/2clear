@@ -1,0 +1,78 @@
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="/static/style.css" type="text/css">
+<div class="tb">
+<div class="container">
+		{% block body %}
+	<h1 class="title">TWO CLEAR</h1>
+<fieldset>
+
+		<form action="/adminpanel">
+			<input id="return" type="submit" value="Back">
+			</form>
+
+		<div class="container">
+				<tr>
+					<table class="icon-arrow" style="width:100%" align="center">
+							
+											<th align="left">Add New User:</th>
+																	
+								</tr>
+									
+								</tr>
+								<tr>
+									<td align="left">User Name:</td>	
+								</tr>
+									<tr>
+										<td>
+									<input v-model="message" name ="tbName"placeholder="ex: juan dela cruz">
+										</td>
+										
+									</tr>
+
+									<tr>
+									<td align="left">Username:</td>
+									
+									</tr>
+									<tr>
+										<td>
+											<input v-model="message" name="tbusername" placeholder="ex: username">
+										</td>
+									</tr>
+
+									<tr>
+											<td align="left">Password:</td>
+											
+											</tr>
+											<tr>
+												<td>
+													<input v-model="message" name="tbpassword" placeholder="ex: password">
+												</td>
+											</tr>
+
+									<tr>
+											<td align="left">Confirm password:</td>
+													
+											</tr>
+											<tr>
+												<td>
+													<input v-model="message" name="conpassword" placeholder="ex: password">
+												</td>
+											</tr>
+												
+									</tr>
+									<tr>
+										<td align="left">
+											<input id="btnAdd" type="submit" value="Add">
+										</td>
+									
+									</tr>
+							</form>
+						</table>
+				</div>
+				</fieldset>
+			</table>
+
+            <script  src="js/index.js"></script>
+{% endblock %}
+</div>
+</div>
