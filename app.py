@@ -57,7 +57,7 @@ def reportviewer():
     customers = Customer.query.all() 
     users = User.query.all() 
     session['logged_in'] = True 
-    return render_template('Reports.html', customers=customers,users=users)
+    return render_template('display.html', customers=customers,users=users)
 
 @app.route("/adminpanel")
 def adminpanel():
@@ -99,18 +99,20 @@ def recordstockin():
         Date = POST_DATE,
         Totalcontainers = POST_AMOUNT,
 
-        containersonhand = container.Totalcontainers + POST_AMOUNT
+    container = Stock.query.filter_by(stockid = '1').first()
+    #containersonhand = container.Totalcontainers + POST_AMOUNT
     )
     new_stockin.insert()
   
     return render_template('adminpanel.html')   
 
-@app.route("/updatestockin", methods=['POST','GET'])
-def updatestockin():
-
+@app.route("/updatestockin/<int:_id>", methods=['POST','GET'])
+def updatestockin(_id):
+    return _id
     POST_AMOUNT = request.form['tbstockin']
 
-    container = Stock.query.filter_by.first()
+    container = Stock.query.filter_by(stockid = '1').first()
+    return container.json()
     container.Totalcontainers = str(container.Totalcontainers) + POST_AMOUNT
     container.insert()
 
