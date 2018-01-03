@@ -97,11 +97,14 @@ def recordstockin():
         Type = POST_TYPE,
         Amount = POST_AMOUNT,
         Date = POST_DATE,
+
+
         Totalcontainers = POST_AMOUNT,
 
-    container = Stock.query.filter_by(stockid = '1').first()
-    #containersonhand = container.Totalcontainers + POST_AMOUNT
+        container = Stock.query.order_by('stockid').first(),
+        containersonhand = container.containersonhand + POST_AMOUNT
     )
+    container.insert()
     new_stockin.insert()
   
     return render_template('adminpanel.html')   
@@ -110,8 +113,6 @@ def recordstockin():
 def updatestockin(_id):
     return _id
     POST_AMOUNT = request.form['tbstockin']
-
-    container = Stock.query.filter_by(stockid = '1').first()
     return container.json()
     container.Totalcontainers = str(container.Totalcontainers) + POST_AMOUNT
     container.insert()
