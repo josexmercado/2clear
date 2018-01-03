@@ -12,29 +12,27 @@
 	{%block body%}
 <div class="content">
 	<div class="card">
-		<div class="card-header"> <h1>Stocks</h1>  </div>
+		<div class="card-header"> <h1>CUSTOMERZ</h1>  </div>
 		<div class="card-body">
 			<table class="table table-bordered">
 				<thead>
 					<tr>
 						<th>ID</th>
-						<th>Type</th>
-						<th>Amount</th>
-						<th>Date</th>
-						<th>Total Containers</th>
-						<th>On Hand</th>
-						<th>Action</th>
+						<th>Name</th>
+						<th>Customer Address</th>
+						<th>Customer Number</th>
+						<th>Containers On Hand</th>
 					</tr>
 				</thead>
 				<tbody>
-					{% for row in stocks %}
+					{% for row in customers %}
 						<tr>
-							<td>{{ row.stockid }}</td>
-							<td>{{ row.Type }}</td>
-							<td>{{ row.Amount }}</td>
-							<th>{{ row.Date }}</th>
-							<td>{{ row.Totalcontainers }}</td>
-							<td>{{ row.containersonhand }}</td>
+							<td>{{ row.Customerid }}</td>
+							<td>{{ row.CustomerName }}</td>
+							<td>{{ row.CustomerAddress }}</td>
+							<th>{{ row.CustomerNumber }}</th>
+							<td>{{ row.ContainersOnHand }}</td>
+		
 					
 							<td> <a class="btn btn-primary" href="/stocks/{row.id}"><i class="fa fa-search"></i>View</a> </td>
 						</tr>

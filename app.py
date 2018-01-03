@@ -56,8 +56,25 @@ def logout():
 def reportviewer():
     customers = Customer.query.all() 
     users = User.query.all() 
+    stocks = Stock.query.all()
     session['logged_in'] = True 
-    return render_template('display.html', customers=customers,users=users)
+    return render_template('reports.html', stocks=stocks,customers=customers,users=users)
+
+@app.route("/stockview")
+def stockview():
+    customers = Customer.query.all() 
+    users = User.query.all() 
+    stocks = Stock.query.all()
+    session['logged_in'] = True 
+    return render_template('stocks.html', stocks=stocks,customers=customers,users=users)
+
+@app.route("/viewcustomers")
+def customerview():
+    customers = Customer.query.all() 
+    users = User.query.all() 
+    stocks = Stock.query.all()
+    session['logged_in'] = True 
+    return render_template('customers.html', stocks=stocks,customers=customers,users=users)
 
 @app.route("/adminpanel")
 def adminpanel():
@@ -92,6 +109,8 @@ def recordstockin():
     POST_AMOUNT = request.form['tbstockin']
     POST_DATE = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
 
+    container = Stock.query.order_by(Stock.stockid.desc()).first()
+
     new_stockin = Stock(
 
         Type = POST_TYPE,
@@ -99,15 +118,14 @@ def recordstockin():
         Date = POST_DATE,
 
 
-        Totalcontainers = POST_AMOUNT,
-
-        container = Stock.query.order_by('stockid').first(),
-        containersonhand = container.containersonhand + POST_AMOUNT
+        Totalcontainers = container.Totalcontainers + int(POST_AMOUNT),
+        containersonhand = container.containersonhand + int(POST_AMOUNT)
     )
+  
     container.insert()
     new_stockin.insert()
   
-    return render_template('adminpanel.html')   
+    return render_template('adminpanel.html')       
 
 @app.route("/updatestockin/<int:_id>", methods=['POST','GET'])
 def updatestockin(_id):
