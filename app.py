@@ -98,18 +98,19 @@ def recordstockin():
         Amount = POST_AMOUNT,
         Date = POST_DATE,
         Totalcontainers = POST_AMOUNT,
-        containersonhand = POST_AMOUNT
-        
+
+        containersonhand = container.Totalcontainers + POST_AMOUNT
     )
     new_stockin.insert()
-    return redirect("/updatestockin")    
+  
+    return render_template('adminpanel.html')   
 
 @app.route("/updatestockin", methods=['POST','GET'])
 def updatestockin():
 
+    POST_AMOUNT = request.form['tbstockin']
 
-
-    container = Stock.query.filter_by(stockid = '1').first()
+    container = Stock.query.filter_by.first()
     container.Totalcontainers = str(container.Totalcontainers) + POST_AMOUNT
     container.insert()
 
