@@ -7,7 +7,7 @@ from models.Stock import Stock
 
 # all models
 app = Flask(__name__)
-dbname   = 'mysql+pymysql://root:admin@127.0.0.1/2clear_inventory'
+dbname   = 'mysql+pymysql://root:@127.0.0.1/2clear_inventory'
 app.config['DEBUG'] = True
 app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL', dbname)
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False

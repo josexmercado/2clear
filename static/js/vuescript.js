@@ -4,7 +4,7 @@
         })
 
         var autoCompleteSearchApp = new Vue({
-            el: '#home',
+            el: '#container',
             data: {
                 add: 'Add Customer',
                 view: 'View Customer Records',
