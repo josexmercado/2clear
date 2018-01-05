@@ -1,4 +1,5 @@
 <link rel="stylesheet" href="css/style.css">
+
 <link rel="stylesheet" href="/static/style.css" type="text/css">
 
 <div class="tb">
@@ -21,7 +22,7 @@
 								</tr>
 									<tr>
 										<td>
-											<select name="customers" id="customers">
+											<select class="dropdown" name="customers" id="customers">
 												{% for customer in customers %}
 													<option value="{{ customer.Customerid }}">{{ customer.CustomerName }}</option>
 												{% endfor %}

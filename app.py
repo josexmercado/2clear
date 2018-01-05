@@ -13,14 +13,13 @@ from models.Stock import Stock
 
 # all models
 app = Flask(__name__)
-<<<<<<< HEAD
+
 dbname   = 'mysql+pymysql://root:@127.0.0.1/2clear_inventory'
-=======
-dbname   = 'mysql+pymysql://root:admin@127.0.0.1/2clear_inventory'
+
 
 CORS(app, supports_credentials=True, resources={r"*": {"origins": "*"}})
 
->>>>>>> 36d9469e75d275125554d80778a6ed3cff8ce081
+
 app.config['DEBUG'] = True
 app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL', dbname)
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
