@@ -1,5 +1,11 @@
+#core dependencies
 import os
-from flask import Flask, abort, flash, redirect, render_template, request,session
+from flask import Flask, abort, flash, redirect, render_template, request,session, make_response, jsonify
+from flask_cors import CORS
+from flask_restful import Api
+
+
+#models and libs
 from models.Customer import Customer
 from models.User import User
 from datetime import datetime
@@ -7,11 +13,27 @@ from models.Stock import Stock
 
 # all models
 app = Flask(__name__)
+<<<<<<< HEAD
 dbname   = 'mysql+pymysql://root:@127.0.0.1/2clear_inventory'
+=======
+dbname   = 'mysql+pymysql://root:admin@127.0.0.1/2clear_inventory'
+
+CORS(app, supports_credentials=True, resources={r"*": {"origins": "*"}})
+
+>>>>>>> 36d9469e75d275125554d80778a6ed3cff8ce081
 app.config['DEBUG'] = True
 app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL', dbname)
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.secret_key = os.urandom(12)
+
+api = Api(app)
+
+@api.representation('application/json')
+def output_json(data, code, headers=None):
+    resp = make_response(jsonify(data), code)
+    resp.headers.extend(headers or {})
+    return resp
+
 
 @app.route('/')
 def home():
@@ -83,6 +105,12 @@ def adminpanel():
     users = User.query.all() 
     return render_template('adminpanel.html', customers=customers,users=users)
 
+@app.route("/transaction")
+def TRANSACT():
+
+    customers = Customer.query.all() 
+    return render_template('transaction.html',customers=customers)
+
 @app.route("/AddCustomer")
 def AddCustomer():
 
@@ -117,15 +145,74 @@ def recordstockin():
         Amount = POST_AMOUNT,
         Date = POST_DATE,
 
-
         Totalcontainers = container.Totalcontainers + int(POST_AMOUNT),
         containersonhand = container.containersonhand + int(POST_AMOUNT)
+    )
+
+    container.insert()
+    new_stockin.insert()
+
+    return render_template('adminpanel.html') 
+
+@app.route("/recordtransact" , methods=['POST'])
+def recordtransact():
+
+    POST_TYPE = "Delivery"
+    POST_AMOUNT = request.form['tbAmount']
+    POST_DATE = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+
+    container = Stock.query.order_by(Stock.stockid.desc()).first()
+
+    new_stockin = Stock(
+
+        Type = POST_TYPE,
+        Amount = POST_AMOUNT,
+        Date = POST_DATE,
+
+        Totalcontainers = container.Totalcontainers,
+        containersonhand = container.containersonhand - int(POST_AMOUNT)
+    )
+  
+    container.insert()
+    new_stockin.insert()
+
+
+   # customer = Stock.query.order_by(Customer.ContainersOnHand.first()
+
+    new_transaction = Customer(
+        
+        ContainersOnHand = customer.containersonhand + int(POST_AMOUNT)
+    )
+  
+    container.insert()
+    new_transaction.insert()
+  
+    return render_template('adminpanel.html')     
+
+@app.route("/recordstockout" , methods=['POST'])
+def recordstockout():
+
+    POST_TYPE = "Stock Out"
+    POST_AMOUNT = request.form['tbstockout']
+    POST_DATE = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+
+    container = Stock.query.order_by(Stock.stockid.desc()).first()
+
+    new_stockin = Stock(
+
+        Type = POST_TYPE,
+        Amount = POST_AMOUNT,
+        Date = POST_DATE,
+
+
+        Totalcontainers = container.Totalcontainers - int(POST_AMOUNT),
+        containersonhand = container.containersonhand - int(POST_AMOUNT)
     )
   
     container.insert()
     new_stockin.insert()
   
-    return render_template('adminpanel.html')       
+    return render_template('adminpanel.html')  
 
 @app.route("/updatestockin/<int:_id>", methods=['POST','GET'])
 def updatestockin(_id):
@@ -142,6 +229,20 @@ def updatestockin(_id):
 def stockout():
  
     return render_template('stockout.html')
+
+
+@app.route("/Deliver")
+def deliver():
+    
+    customers = Customer.query.all() 
+    # base_url = request.url
+    return render_template('Deliver.html', customers=customers)
+
+
+@app.route("/return")
+def returnn():
+ 
+    return render_template('return.html')
 
 @app.route("/recordnewcustomer",  methods=['POST'])
 def recordnewcustomer():
@@ -181,6 +282,13 @@ def adduser():
         return 'success'
     except:
         return 'error'
+
+@app.route('/customer/<int:_id>', methods=['GET'])
+def getCustomer(_id):
+    customer = Customer.getById(_id)
+
+    return jsonify(customer.json())
+
 
 if __name__ == "__main__":
     from db import db
