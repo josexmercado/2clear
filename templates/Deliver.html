@@ -67,10 +67,10 @@
 			var id = $(this).children('option').filter(':selected').val();
 			var jqaxhr = $.ajax({
 				method: "GET",
-				url: "localhost:4000/customer/"+id 
+				url: window.location.origin+"/customer/"+id 
 			})
 			.done( function(data){
-				alert(data);
+				$('#address').val(data.address);
 			})
 			.fail(function(e){
 				alert('error')

@@ -6,14 +6,17 @@ from flask_restful import Api
 
 
 #models and libs
-from models.Customer import Customer
+from models.CustomerModel import CustomerModel
 from models.User import User
 from datetime import datetime
 from models.Stock import Stock
 
-# all models
+# all resources
+from resources.Customer import Customer
+
+
 app = Flask(__name__)
-dbname   = 'mysql+pymysql://root:admin@127.0.0.1/2clear_inventory'
+dbname   = 'mysql+pymysql://root:dinakoiingon@127.0.0.1/2clear_inventory'
 
 CORS(app, supports_credentials=True, resources={r"*": {"origins": "*"}})
 
@@ -35,7 +38,7 @@ def output_json(data, code, headers=None):
 def home():
     users = User.query.all()    
 
-    customers = Customer.query.all() 
+    customers = CustomerModel.query.all() 
     if session.get('logged_in'):
         return render_template('home.html', customers=customers,users=users)
     else:
@@ -72,7 +75,7 @@ def logout():
 
 @app.route("/reportviewer")
 def reportviewer():
-    customers = Customer.query.all() 
+    customers = CustomerModel.query.all() 
     users = User.query.all() 
     stocks = Stock.query.all()
     session['logged_in'] = True 
@@ -80,7 +83,7 @@ def reportviewer():
 
 @app.route("/stockview")
 def stockview():
-    customers = Customer.query.all() 
+    customers = CustomerModel.query.all() 
     users = User.query.all() 
     stocks = Stock.query.all()
     session['logged_in'] = True 
@@ -88,7 +91,7 @@ def stockview():
 
 @app.route("/viewcustomers")
 def customerview():
-    customers = Customer.query.all() 
+    customers = CustomerModel.query.all() 
     users = User.query.all() 
     stocks = Stock.query.all()
     session['logged_in'] = True 
@@ -97,26 +100,26 @@ def customerview():
 @app.route("/adminpanel")
 def adminpanel():
 
-    customers = Customer.query.all() 
+    customers = CustomerModel.query.all() 
     users = User.query.all() 
     return render_template('adminpanel.html', customers=customers,users=users)
 
 @app.route("/transaction")
 def TRANSACT():
 
-    customers = Customer.query.all() 
+    customers = CustomerModel.query.all() 
     return render_template('transaction.html',customers=customers)
 
 @app.route("/AddCustomer")
 def AddCustomer():
 
-    customers = Customer.query.all() 
+    customers = CustomerModel.query.all() 
     return render_template('addcustomer.html',customers=customers)
 
 @app.route("/Adduser")
 def Adduser():
 
-    customers = Customer.query.all() 
+    customers = CustomerModel.query.all() 
     return render_template('adduser.html',customers=customers)
 
 
@@ -175,7 +178,7 @@ def recordtransact():
 
    # customer = Stock.query.order_by(Customer.ContainersOnHand.first()
 
-    new_transaction = Customer(
+    new_transaction = CustomerModel(
         
         ContainersOnHand = customer.containersonhand + int(POST_AMOUNT)
     )
@@ -230,7 +233,7 @@ def stockout():
 @app.route("/Deliver")
 def deliver():
     
-    customers = Customer.query.all() 
+    customers = CustomerModel.query.all() 
     # base_url = request.url
     return render_template('Deliver.html', customers=customers)
 
@@ -248,14 +251,14 @@ def recordnewcustomer():
     POST_CADDRESS = request.form['tbAddress']
     POST_CCONTACT = request.form['tbContact']
 
-    new_customer = Customer(
+    new_customer = CustomerModel(
         CustomerName = POST_CNAME,
         CustomerAddress = POST_CADDRESS,
         CustomerNumber = POST_CCONTACT
     )
     new_customer.insert()
 
-    customers = Customer.query.all()
+    customers = CustomerModel.query.all()
 
     return render_template('adminpanel.html', customers=customers,users=users)
 
@@ -279,11 +282,9 @@ def adduser():
     except:
         return 'error'
 
-@app.route('/customer/<int:_id>', methods=['GET'])
-def getCustomer(_id):
-    customer = Customer.getById(_id)
 
-    return jsonify(customer.json())
+#api routes
+api.add_resource(Customer, '/customer/<int:_id>')
 
 
 if __name__ == "__main__":

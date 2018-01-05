@@ -1,6 +1,6 @@
 from db import db
 
-class Customer(db.Model):
+class CustomerModel(db.Model):
     __tablename__ = 'customers'
 
     Customerid = db.Column(db.Integer, primary_key=True)
@@ -22,9 +22,9 @@ class Customer(db.Model):
             'onhand': self.ContainersOnHand
         }
 
-    @classmethod
-    def getById(cls, _id):
-        return cls.query.filter_by(Customerid=_id).first()
+    @staticmethod
+    def getById(_id):
+        return CustomerModel.query.filter_by(Customerid=_id).first()
 
 
     def insert(self):
