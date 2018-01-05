@@ -8,12 +8,6 @@
             data: {
                 add: 'Add Customer',
                 view: 'View Customer Records',
-    custname: 'Customer Name: ',
-    custid: 'Customer ID: ',
-    custadd: 'Customer Address: ',
-    contnum: 'Contact #: ',
-    containers: 'Containers in Stock: ',
-    orders:'Customer Order(s): ',
-    dt: 'Date/Time delivered: ',
+                custname: 'Customer Name: ',
             }
         })
