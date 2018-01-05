@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>2-Clear</title>
+
+	<link rel="stylesheet" type="text/css" href="/static/css/bootstrap.min.css">
+	<script type="text/javascript" src="/static/js/bootstrap.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body>
+	{% extends "Reports.html" %}
+	{%block body%}
+<div class="content">
+	<div class="card">
+		<div class="card-header"> <h1>CUSTOMERZ</h1>  </div>
+		<div class="card-body">
+			<table class="table table-bordered">
+				<thead>
+					<tr>
+						<th>ID</th>
+						<th>Name</th>
+						<th>Customer Address</th>
+						<th>Customer Number</th>
+						<th>Containers On Hand</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for row in customers %}
+						<tr>
+							<td>{{ row.Customerid }}</td>
+							<td>{{ row.CustomerName }}</td>
+							<td>{{ row.CustomerAddress }}</td>
+							<th>{{ row.CustomerNumber }}</th>
+							<td>{{ row.ContainersOnHand }}</td>
+		
+					
+							<td> <a class="btn btn-primary" href="/stocks/{row.id}"><i class="fa fa-search"></i>View</a> </td>
+						</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>
+</body>
+
+{% endblock %}
+</html>

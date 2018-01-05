@@ -14,6 +14,9 @@ class Stock(db.Model):
     def __init__(self, *args, **kwargs):
         for name, value in kwargs.items():
             setattr(self, name, value)
+                
+    def json(self):
+       return {'stockid':self.stockid}
 
     def insert(self):
         db.session.add(self)
@@ -22,3 +25,4 @@ class Stock(db.Model):
     def delete(self):
         db.session.delete(self)
         db.session.commit()
+

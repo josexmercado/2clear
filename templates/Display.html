@@ -1,0 +1,24 @@
+<html>
+    <body>
+        <table>
+            <thead>
+                <tr>
+                    <td>ID</td>
+                    <td>Customer Name</td>
+                    <td>Quantity</td>
+                    <td>Action</td>
+                </tr>
+            </thead>
+            <tbody>
+                {% for row in customers %}
+                <tr>
+                    <td>{{ row.Customerid }}</td>
+                    <td>{{ row.CustomerName }}</td>
+                    <td>{{ row.CustomerAddress }}</td>
+                    <td><a href="/update/{row.id}" class="btn btn-primary">Update</a> <a href="/delete/{row.id}">Delete</a></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </body>
+</html>

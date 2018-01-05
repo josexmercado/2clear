@@ -56,8 +56,25 @@ def logout():
 def reportviewer():
     customers = Customer.query.all() 
     users = User.query.all() 
+    stocks = Stock.query.all()
     session['logged_in'] = True 
-    return render_template('Reports.html', customers=customers,users=users)
+    return render_template('reports.html', stocks=stocks,customers=customers,users=users)
+
+@app.route("/stockview")
+def stockview():
+    customers = Customer.query.all() 
+    users = User.query.all() 
+    stocks = Stock.query.all()
+    session['logged_in'] = True 
+    return render_template('stocks.html', stocks=stocks,customers=customers,users=users)
+
+@app.route("/viewcustomers")
+def customerview():
+    customers = Customer.query.all() 
+    users = User.query.all() 
+    stocks = Stock.query.all()
+    session['logged_in'] = True 
+    return render_template('customers.html', stocks=stocks,customers=customers,users=users)
 
 @app.route("/adminpanel")
 def adminpanel():
@@ -92,24 +109,29 @@ def recordstockin():
     POST_AMOUNT = request.form['tbstockin']
     POST_DATE = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
 
+    container = Stock.query.order_by(Stock.stockid.desc()).first()
+
     new_stockin = Stock(
 
         Type = POST_TYPE,
         Amount = POST_AMOUNT,
         Date = POST_DATE,
-        Totalcontainers = POST_AMOUNT,
-        containersonhand = POST_AMOUNT
-        
+
+
+        Totalcontainers = container.Totalcontainers + int(POST_AMOUNT),
+        containersonhand = container.containersonhand + int(POST_AMOUNT)
     )
+  
+    container.insert()
     new_stockin.insert()
-    return redirect("/updatestockin")    
+  
+    return render_template('adminpanel.html')       
 
-@app.route("/updatestockin", methods=['POST','GET'])
-def updatestockin():
-
-
-
-    container = Stock.query.filter_by(stockid = '1').first()
+@app.route("/updatestockin/<int:_id>", methods=['POST','GET'])
+def updatestockin(_id):
+    return _id
+    POST_AMOUNT = request.form['tbstockin']
+    return container.json()
     container.Totalcontainers = str(container.Totalcontainers) + POST_AMOUNT
     container.insert()
 

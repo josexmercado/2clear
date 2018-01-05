@@ -1,7 +1,18 @@
-<link rel="stylesheet" href="/static/style.css" type="text/css">
-<div class="home">
-		{% block body %}
-	<h1 align="center">TWO CLEAR</h1>
+<!DOCTYPE html>
+<html>
+<head>
+	<title>2-Clear</title>
+	<link rel="stylesheet" href="/static/style.css" type="text/css">
+	<script src="https://unpkg.com/vue"></script>
+
+	<link rel="stylesheet" type="text/css" href="/static/css/bootstrap.min.css">
+	<script type="text/javascript" src="/static/js/bootstrap.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body>
+
+	<div class="home">
+			<div class="card-header"> <h1>2CLEAR INVENTORY</h1>  </div>
 	<fieldset>
 			<div class="table">
 	
@@ -20,16 +31,22 @@
 						</form>
 	
 					<form action="/logout">
+<<<<<<< HEAD
 						<th> <input  value="LOGOUT" type="submit"></th>
 						</form>
 	</table>
+=======
+						<th> <input value="LOGOUT" type="submit"></th>
+					</form>
+				</table>
+			</div>
+		</fieldset>
+>>>>>>> 5d2e503cb9f51308e77914384c27a254e86d5fe0
 </div>
-</fieldset>
 
-
-<link rel="stylesheet" href="/static/style.css" type="text/css">
-  <script src="https://unpkg.com/vue"></script>
-</head>
-  <script src="C:\Users\HP\projects\ojt\static\js\vuescript.js"></script>
-</html>
+{% block body %}
 {% endblock %}
+  <script src="C:\Users\HP\projects\ojt\static\js\vuescript.js"></script>
+</body>
+</html>
+
