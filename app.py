@@ -16,7 +16,7 @@ from resources.Customer import Customer
 
 
 app = Flask(__name__)
-dbname   = 'mysql+pymysql://root:admin@127.0.0.1/2clear_inventory'
+dbname   = 'mysql+pymysql://root:admin@127.0.0.1/2_clear'
 
 CORS(app, supports_credentials=True, resources={r"*": {"origins": "*"}})
 
@@ -102,7 +102,7 @@ def adminpanel():
 
     customers = CustomerModel.query.all() 
     users = User.query.all() 
-    return render_template('adminpanel.html', customers=customers,users=users)
+    return render_template('admintest.html', customers=customers,users=users)
 
 @app.route("/transaction")
 def TRANSACT():
@@ -252,9 +252,9 @@ def recordnewcustomer():
     POST_CCONTACT = request.form['tbContact']
 
     new_customer = CustomerModel(
-        CustomerName = POST_CNAME,
-        CustomerAddress = POST_CADDRESS,
-        CustomerNumber = POST_CCONTACT
+        name = POST_CNAME,
+        address = POST_CADDRESS,
+        number = POST_CCONTACT
     )
     new_customer.insert()
 

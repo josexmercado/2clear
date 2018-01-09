@@ -3,11 +3,13 @@ from db import db
 class CustomerModel(db.Model):
     __tablename__ = 'customers'
 
-    Customerid = db.Column(db.Integer, primary_key=True)
-    CustomerName = db.Column(db.String(45))
-    CustomerAddress = db.Column(db.String(45))
-    CustomerNumber = db.Column(db.String(45))
-    ContainersOnHand = db.Column(db.Integer())
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(45))
+    number = db.Column(db.String(45))
+    address = db.Column(db.String(45))
+    onhandid = db.Column(db.String(45))
+    topay = db.Column(db.String(45))
+    account = db.Column(db.String(45))
 
     def __init__(self, *args, **kwargs):
         for name, value in kwargs.items():
@@ -15,16 +17,17 @@ class CustomerModel(db.Model):
 
     def json(self):
         return {
-            'id':self.Customerid,
-            'name': self.CustomerName,
-            'address': self.CustomerAddress,
-            'number': self.CustomerNumber,
-            'onhand': self.ContainersOnHand
+            'id':self.id,
+            'name': self.name,
+            'address': self.address,
+            'number': self.number,
+            'topay': self.topay,
+            'account': self.account,
         }
 
     @staticmethod
     def getById(_id):
-        return CustomerModel.query.filter_by(Customerid=_id).first()
+        return CustomerModel.query.filter_by(id=_id).first()
 
 
     def insert(self):
