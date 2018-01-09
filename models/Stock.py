@@ -3,12 +3,11 @@ from db import db
 class Stock(db.Model):
     __tablename__ = 'stocks'
 
-    stockid = db.Column(db.Integer, primary_key=True)
+    id = db.Column(db.Integer, primary_key=True)
     Type = db.Column(db.String(45))
+    product = db.Column(db.String(45))
     Amount = db.Column(db.Integer)
     Date = db.Column(db.String(45))
-    Totalcontainers = db.Column(db.Integer)
-    containersonhand = db.Column(db.Integer)
     
 
     def __init__(self, *args, **kwargs):

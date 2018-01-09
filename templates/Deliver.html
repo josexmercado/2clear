@@ -9,7 +9,6 @@
 	<h1 class="title">Deliver:</h1>
 <fieldset>
 
-
 		<div class="container">
 				<tr>
 					<table class="icon-arrow" style="width:100%" align="center">
@@ -27,15 +26,29 @@
 													<option value="{{ customer.Customerid }}">{{ customer.CustomerName }}</option>
 												{% endfor %}
 											</select>
-                                        <!-- <dynamic-option v-for="customer in customers" v-bind:todo="customer"></dynamic-option>
-                                     </datalist> -->
-                                    </tr>	
-                                </tr>
-                                <tr>
-                                    <td>
-                                <input id="address" name ="tbAddress" placeholder="Customer Address">
-                                    </td>
-                                    
+									</tr>
+									
+								</tr>
+								<td align="left">Customer Address:</td>
+                                <tr>									
+                                    <td>		
+                                <input id="address" name ="tbAddress" placeholder="Customer Address" readonly = "true">
+									</td>
+									
+								</tr>
+								<td align="left">Customer Number:</td>
+                                <tr>									
+                                    <td>		
+                                <input id="number" name ="tbNumber" placeholder="Customer Number" readonly = "true">
+									</td>	
+
+								</tr>
+								<td align="left">Containers On Hand:</td>
+                                <tr>									
+                                    <td>		
+                                <input id="onhand" name ="tbcontainers" placeholder="Containers On Hand" readonly = "true">
+									</td>
+									
                             </tr>
 								<tr>
 								<td align="left">Deliver Amount:</td>
@@ -68,10 +81,12 @@
 			var id = $(this).children('option').filter(':selected').val();
 			var jqaxhr = $.ajax({
 				method: "GET",
-				url: "localhost:4000/customer/"+id 
+				url: window.location.origin+"/customer/"+id 
 			})
 			.done( function(data){
-				alert(data);
+				$('#address').val(data.address);
+				$('#number').val(data.number);
+				$('#onhand').val(data.onhand);
 			})
 			.fail(function(e){
 				alert('error')
