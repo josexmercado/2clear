@@ -16,13 +16,7 @@ from resources.Customer import Customer
 
 
 app = Flask(__name__)
-<<<<<<< HEAD
-
-dbname   = 'mysql+pymysql://root:@127.0.0.1/2clear_inventory'
-
-=======
 dbname   = 'mysql+pymysql://root:admin@127.0.0.1/2_clear'
->>>>>>> api-testing
 
 CORS(app, supports_credentials=True, resources={r"*": {"origins": "*"}})
 
