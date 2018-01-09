@@ -11,7 +11,10 @@ from models.User import User
 from datetime import datetime
 from models.Stock import Stock
 
-# all models
+#blueprints
+from apps.sampleBlueprint import sample
+
+
 app = Flask(__name__)
 dbname   = 'mysql+pymysql://root:admin@127.0.0.1/2clear_inventory'
 
@@ -285,6 +288,9 @@ def getCustomer(_id):
 
     return jsonify(customer.json())
 
+
+#register blueprints here
+app.register_blueprint(sample, url_prefix='/sample')
 
 if __name__ == "__main__":
     from db import db
