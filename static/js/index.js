@@ -27,3 +27,11 @@ dropdownArray.forEach(function(el){
 Element.prototype.hasClass = function(className) {
     return this.className && new RegExp("(^|\\s)" + className + "(\\s|$)").test(this.className);
 };
+
+
+function setfalse1() {
+    document.getElementById("rp").readOnly = false;
+}
+function setfalse2() {
+    document.getElementById("sp").readOnly = false;
+}

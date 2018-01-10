@@ -21,20 +21,22 @@
 						<th>Name</th>
 						<th>Customer Address</th>
 						<th>Customer Number</th>
-						<th>Containers On Hand</th>
+						<th>Payables</th>
+						<th>Account</th>
+						<th>Products On Hand</th>
 					</tr>
 				</thead>
 				<tbody>
 					{% for row in customers %}
 						<tr>
-							<td>{{ row.Customerid }}</td>
-							<td>{{ row.CustomerName }}</td>
-							<td>{{ row.CustomerAddress }}</td>
-							<th>{{ row.CustomerNumber }}</th>
-							<td>{{ row.ContainersOnHand }}</td>
-		
-					
-							<td> <a class="btn btn-primary" href="/stocks/{row.id}"><i class="fa fa-search"></i>View</a> </td>
+							<td>{{ row.id }}</td>
+							<td>{{ row.name }}</td>
+							<td>{{ row.address }}</td>
+							<th>{{ row.number }}</th>
+							<th>${{ row.topay }}</th>
+							<th>${{ row.account }}</th>
+
+							<td><a href="/update/{row.id}" class="btn btn-primary">View</a></td>
 						</tr>
 					{% endfor %}
 				</tbody>

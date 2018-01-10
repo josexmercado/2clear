@@ -3,11 +3,11 @@
             template: "<option :value='todo.text'>"
         })
 
-        var autoCompleteSearchApp = new Vue({
-            el: '#home',
+         new Vue({
+            el: '#container',
             data: {
-                add: 'Add Customer',
-                view: 'View Customer Records',
-                custname: 'Customer Name: ',
+                
+                    checkedproducts: []
+                  
             }
         })
