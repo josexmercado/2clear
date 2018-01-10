@@ -105,7 +105,7 @@ def adminpanel():
 
     customers = CustomerModel.query.all() 
     users = User.query.all() 
-    return render_template('admintest.html', customers=customers,users=users)
+    return render_template('adminpanel.html', customers=customers,users=users)
 
 @app.route("/transaction")
 def TRANSACT():
