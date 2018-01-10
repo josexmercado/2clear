@@ -11,6 +11,8 @@ from models.User import User
 from datetime import datetime
 from models.Stock import Stock
 
+#blueprints
+from apps.sampleBlueprint import sample
 # all resources
 from resources.Customer import Customer
 
@@ -287,6 +289,9 @@ def adduser():
 #api routes
 api.add_resource(Customer, '/customer/<int:_id>')
 
+
+#register blueprints here
+app.register_blueprint(sample, url_prefix='/sample')
 
 if __name__ == "__main__":
     from db import db
