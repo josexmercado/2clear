@@ -45,13 +45,13 @@ def home():
     if session.get('logged_in'):
         return render_template('home.html', customers=customers,users=users)
     else:
-        return render_template('login.html', users=users,customers=customers)
+        return render_template('home.html', users=users,customers=customers)
 
 
     if session.get('logged_in'):
         return render_template('home.html')
     else:
-        return render_template('login.html', users=users)
+        return render_template('home.html', users=users)
  
 @app.route('/login', methods=['POST'])
 def do_admin_login():
