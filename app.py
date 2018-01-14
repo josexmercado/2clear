@@ -43,15 +43,15 @@ def home():
 
     customers = CustomerModel.query.all() 
     if session.get('logged_in'):
-        return render_template('index.html', customers=customers,users=users)
+        return render_template('home.html', customers=customers,users=users)
     else:
-        return render_template('index.html', users=users,customers=customers)
+        return render_template('home.html', users=users,customers=customers)
 
 
     if session.get('logged_in'):
-        return render_template('index.html')
+        return render_template('home.html')
     else:
-        return render_template('index.html', users=users)
+        return render_template('home.html', users=users)
  
 @app.route('/login', methods=['POST'])
 def do_admin_login():
