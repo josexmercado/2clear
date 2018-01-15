@@ -4,6 +4,7 @@
       <meta charset="utf-8">
       <meta http-equiv="X-UA-Compatible" content="IE=edge">
       <title>2clear</title>
+      <!-- Tell the browser to be responsive to screen width -->
       <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
       <link rel="stylesheet" href="/static/bower_components/bootstrap/dist/css/bootstrap.min.css">
       <link rel="stylesheet" href="/static/bower_components/font-awesome/css/font-awesome.min.css">
@@ -58,7 +59,7 @@
               <div class="content-wrapper">
                 
                 <section class="content">
-                    <h1>         Products        <small>2clear</small>       </h1>
+                    <h1>        User/Customer Registration        <small>2clear</small>       </h1>
                   <div class="row">
                     <div class="col-lg-3 col-xs-6">
                       <div class="small-box bg-aqua">
@@ -104,7 +105,7 @@
                         <div class="inner">
                           <h3>65</h3>
             
-                          <p>Manage Accounts</p>
+                          <p>Manage Accountss</p>
                         </div>
                         <div class="icon">
                           <i class="ion ion-pie-graph"></i>
@@ -117,45 +118,79 @@
             <div class="row">
               <section class="col-lg-7 connectedSortable">
                       <div class="nav-tabs-custom">
-                          <div class="box box-primary">
-                              <div class="box-header with-border">
-                                  <h3 class="box-title">Products</h3>
+                    <div class="box box-primary">
+                        <div class="box-header with-border">
+                            <h3 class="box-title">Add User</h3>
+                          </div>
+                          <form role="form" action="/recordnewuser" method="post"> <div class="input-group">
+                            <input type="text" name="q" class="form-control" placeholder="Search...">
+                            <span class="input-group-btn">
+                                  <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i>
+                                  </button>
+                                </span>
+                          </div>
+                              <div class="box-body">
+                              <div class="form-group">
+                              <label for="user_name">Name:</label>
+                                                <input v-model="message" id="user_name" class="form-control" name ="tbName"placeholder="ex: juan dela cruz" readonly="true">
+                              </div>
+                                <div class="form-group">
+                                                    <label for="username">Username:</label>
+                                                        <input v-model="message" id="username" class="form-control" name="tbusername" placeholder="ex: username" readonly="true">
                                 </div>
-                                          <form role="form" action="/addproducts" method="get">
-                                              <div class="box-body">
-                                                  <div class="form-group">        
-                                                          <label for="left">Product name:</label>
-                                                          <input v-model="message" id="productname" name ="tbproductname" class="form-control" placeholder="ex: Mineral water">
-                                                  </div>
-                                                  <div class="form-group">
-                                                          <label>Product type:</label>
-                                                  </div>
-                                                  <div class="form-group">
-                                                          <label for="checkbox1">Rent: </label>
-                                                          <input type="checkbox" id="checkbox1"  onclick="setfalse1()">
-                                                  </div>
-                                                  <div class="form-group">    
-                                                          <label for="checkbox2">Sell: </label>
-                                                          <input type="checkbox" id="checkbox2"  onclick="setfalse2()">
-                                                  </div>
-                                                  <div class="form-group">       
-                                                          <label for="rp">Product Rent Price</label>
-                                                          <input type="message" name="tbrentprice" id="rp" class="form-control" placeholder="ex:$$$/week" readonly="true">       
-                                                  </div>
-                                                  <div class="form-group">        
-                                                          <label for="sp">Product Sale Price</td>
-                                                          <input type="message" name="tbsaleprice" id="sp" class="form-control" placeholder="ex:$$$$$" readonly="true">
-                                                  </div>
-                                                  <div class="box-footer">            
-                                                          <input id="btnAdd" type="submit" class="btn btn-primary"value="Add Products">
-                                                  </div>
-                                              </div>
-                                          </form>
-                      
+            
+                                <div class="form-group">
+                                                        <label for="password">Password:</label>	
+                                                        <input v-model="message" id="password" class="form-control" name="tbpassword" placeholder="ex: password" readonly="true">
+                                </div>
+                                <div class="form-group">
+                                                        <label for="confirmpassword">Confirm password:</label>	
+                                                        <input v-model="message" id="confirmpassword" class="form-control" name="tbconpassword" placeholder="ex: password" readonly="true">
+                                                    </div>
+                                                    <div class="box-footer">
+                                                        <input id="userbtnedit" type="submit" class="btn btn-primary" value="Edit">
+                                                        <input id="userbtndelete" type="submit" class="btn btn-primary" value="Delete">
+                                </div>
+                              </form>
+                            </div>
+                      <div class="box box-primary">
+                          <div class="box-header with-border">
+                              <h3 class="box-title">Add Customer</h3>
+                            </div>
+                          <form action="/recordnewcustomer" method="post">
+                            <div class="input-group">
+                                <input type="text" name="q2" class="form-control" placeholder="Search...">
+                                <span class="input-group-btn">
+                                      <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i>
+                                      </button>
+                                    </span>
+                              </div>
+                            <div class="box-body">
+                                <div class="form-group">
+                                    <label for="customername">Customer Name:</label>
+                                    <input v-model="message" id="customername" name ="tbName" placeholder="ex: juan dela cruz" readonly="true">
+                                </div>
+                                <div class="form-group">
+                                    <label for="customeraddress">Customer Adress:</label>
+                                    <input v-model="message" id="customeraddress" name="tbAddress" placeholder="ex: general santos city" readonly="true">
+                                </div>
+                                <div class="form-group">
+                                    <label for="customercontact">Contact #:</label>
+                                    <input v-model="message" id="customercontact" name="tbContact" placeholder="ex: 09123456789" readonly="true">
+                                </div>
+                                <div class="box-footer">    
+                                    <input id="customerbtnedit" type="submit" class="btn btn-primary" value="Edit">
+                                    <input id="customerbtndelete" type="submit" class="btn btn-primary" value="Delete">
+                                </div>
+                          </form>
                       </div>
+                  </div>
               </section>
             </div>
 
 
     </body>
     </html>
+
+
+    

@@ -45,13 +45,13 @@ def home():
     if session.get('logged_in'):
         return render_template('home.html', customers=customers,users=users)
     else:
-        return render_template('home.html', users=users,customers=customers)
+        return render_template('login.html', users=users,customers=customers)
 
 
     if session.get('logged_in'):
         return render_template('home.html')
     else:
-        return render_template('home.html', users=users)
+        return render_template('login.html', users=users)
  
 @app.route('/login', methods=['POST'])
 def do_admin_login():
@@ -76,54 +76,30 @@ def logout():
     session['logged_in'] = False
     return redirect('/')
 
-@app.route("/reportviewer")
-def reportviewer():
+
+@app.route("/transactions")
+def transactions():
     customers = CustomerModel.query.all() 
     users = User.query.all() 
     stocks = Stock.query.all()
     session['logged_in'] = True 
-    return render_template('reports.html', stocks=stocks,customers=customers,users=users)
+    return render_template('transactions.html')
 
-@app.route("/stockview")
-def stockview():
+@app.route("/registrations")
+def registrations():
+
+    customers = CustomerModel.query.all() 
+    users = User.query.all() 
+    return render_template('adduser.html')
+
+
+@app.route("/manage")
+def manage():
     customers = CustomerModel.query.all() 
     users = User.query.all() 
     stocks = Stock.query.all()
     session['logged_in'] = True 
-    return render_template('stocks.html', stocks=stocks,customers=customers,users=users)
-
-@app.route("/viewcustomers")
-def customerview():
-    customers = CustomerModel.query.all() 
-    users = User.query.all() 
-    stocks = Stock.query.all()
-    session['logged_in'] = True 
-    return render_template('customers.html', stocks=stocks,customers=customers,users=users)
-
-@app.route("/adminpanel")
-def adminpanel():
-
-    customers = CustomerModel.query.all() 
-    users = User.query.all() 
-    return render_template('admintest.html', customers=customers,users=users)
-
-@app.route("/transaction")
-def TRANSACT():
-
-    customers = CustomerModel.query.all() 
-    return render_template('transaction.html',customers=customers)
-
-@app.route("/AddCustomer")
-def AddCustomer():
-
-    customers = CustomerModel.query.all() 
-    return render_template('addcustomer.html',customers=customers)
-
-@app.route("/Adduser")
-def Adduser():
-
-    customers = CustomerModel.query.all() 
-    return render_template('adduser.html',customers=customers)
+    return render_template('manageaccounts.html')
 
 
 @app.route("/stockin")
