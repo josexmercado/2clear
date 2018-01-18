@@ -15,7 +15,7 @@ from models.Stock import Stock
 from apps.sampleBlueprint import sample
 
 # all resources
-from resources.Customer import Customer
+from resources.Customer import CustomerRegister
 from resources.User import UserRegister
 
 
@@ -255,7 +255,7 @@ def recordnewuser():
 
 
 #api routes
-api.add_resource(Customer, '/customer/<int:_id>')
+api.add_resource(CustomerRegister, '/Customer/add')
 api.add_resource(UserRegister, '/User/add')
 
 

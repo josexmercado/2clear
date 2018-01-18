@@ -151,7 +151,7 @@
                           <div class="box-header with-border">
                               <h3 class="box-title">Add Customer</h3>
                             </div>
-                          <form action="/recordnewcustomer" method="post">
+                          <form method="POST">
                             <div class="box-body">
                                 <div class="form-group">
                                     <label for="customername">Customer Name:</label>
@@ -201,12 +201,33 @@
             //alert($('#name').val() );
           });
         }
+      });
 
-        
-      })
-    })
-  </script>
+    $('#btn_add_cust').unbind('click').on('click', function(e){
+      e.preventDefault();
+      var customername = $('#customername').val();
+      var customeraddress = $('#customeraddress').val();
+      var customercontact = $('#customercontact').val();      
 
+     
+      
+        var jqxhr = $.ajax({
+            method: "post",
+            url: "/Customer/add",
+            data: { customername: customername, customeraddress:customeraddress, customercontact:customercontact }
+        })
+        .done(function(data) {
+          alert(data.message);
+        })
+        .fail(function() {
+          alert( "error" );
+        })
+        .always(function() {
+          //alert($('#name').val() );
+        });
+    });
+  })
+</script>
 
     </body>
     </html>
