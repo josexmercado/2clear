@@ -79,28 +79,22 @@ def logout():
 
 @app.route("/transactions")
 def transactions():
-    customers = CustomerModel.query.all() 
     session['logged_in'] = True 
     return render_template('transactions.html')
 
 @app.route("/registrations")
 def registrations():
 
-    customers = CustomerModel.query.all() 
-    users = User.query.all() 
     return render_template('adduser.html')
 
 @app.route("/manage")
 def manage():
-    customers = CustomerModel.query.all() 
-    users = User.query.all() 
-    stocks = Stock.query.all()
     session['logged_in'] = True 
     return render_template('manageaccounts.html')
 
 
 @app.route("/products")
-def stockin():
+def products():
 
 
     return render_template('products.html')
@@ -219,8 +213,8 @@ def returnn():
  
     return render_template('return.html')
 
-@app.route("/adduser",  methods=['POST'])
-def adduser():
+@app.route("/recordnewcustomer",  methods=['POST'])
+def recordnewcustomer():
     users = User.query.all()
 
     POST_CNAME = request.form['customername']
@@ -238,13 +232,13 @@ def adduser():
 
     return render_template('adduser.html', customers=customers,users=users)
 
-@app.route('/adduser', methods=['POST'])
-def adduser():     
+@app.route('/recordnewuser', methods=['POST'])
+def recordnewuser():     
 
     POST_USERNAME = str(request.form['username'])
     POST_NAME = str(request.form['user_name'])
     POST_PASS = str(request.form['password'])
-    POST_CPASS = str(request.form['confirmpasswaord'])
+    POST_CPASS = str(request.form['confirmpassword'])
 
     new_user = User(
         username = POST_USERNAME,
@@ -253,7 +247,7 @@ def adduser():
     )
     try:
         new_user.insert()
-        return 'success'
+        return render_template('adduser.html', customers=customers,users=users)
     except:
         return 'error'
 
