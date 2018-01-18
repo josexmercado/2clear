@@ -13,6 +13,19 @@ class User(db.Model):
         for name, value in kwargs.items():
             setattr(self, name, value)
 
+    def json(self):
+        return {
+            'id': self.id,
+            'username': self.username,
+            'password': self.password,
+            'role': self.role,
+            'name': self.name
+        }
+
+    @staticmethod
+    def find_by_username(username):
+        return User.query.filter_by(username=username).first()
+
     def insert(self):
         db.session.add(self)
         db.session.commit()
