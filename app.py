@@ -219,13 +219,13 @@ def returnn():
  
     return render_template('return.html')
 
-@app.route("/recordnewcustomer",  methods=['POST'])
-def recordnewcustomer():
+@app.route("/adduser",  methods=['POST'])
+def adduser():
     users = User.query.all()
 
-    POST_CNAME = request.form['tbName']
-    POST_CADDRESS = request.form['tbAddress']
-    POST_CCONTACT = request.form['tbContact']
+    POST_CNAME = request.form['customername']
+    POST_CADDRESS = request.form['customeraddress']
+    POST_CCONTACT = request.form['customercontact']
 
     new_customer = CustomerModel(
         name = POST_CNAME,
@@ -236,16 +236,15 @@ def recordnewcustomer():
 
     customers = CustomerModel.query.all()
 
-    return render_template('adminpanel.html', customers=customers,users=users)
+    return render_template('adduser.html', customers=customers,users=users)
 
 @app.route('/adduser', methods=['POST'])
 def adduser():     
 
-    POST_USERNAME = str(request.form['tbUser'])
-    POST_NAME = str(request.form['tbName'])
-    POST_ADDRESS = str(request.form['address'])
-    POST_PASS = str(request.form['pass'])
-    POST_CPASS = str(request.form['cpass'])
+    POST_USERNAME = str(request.form['username'])
+    POST_NAME = str(request.form['user_name'])
+    POST_PASS = str(request.form['password'])
+    POST_CPASS = str(request.form['confirmpasswaord'])
 
     new_user = User(
         username = POST_USERNAME,
