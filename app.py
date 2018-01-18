@@ -80,8 +80,6 @@ def logout():
 @app.route("/transactions")
 def transactions():
     customers = CustomerModel.query.all() 
-    users = User.query.all() 
-    stocks = Stock.query.all()
     session['logged_in'] = True 
     return render_template('transactions.html')
 
@@ -92,7 +90,6 @@ def registrations():
     users = User.query.all() 
     return render_template('adduser.html')
 
-
 @app.route("/manage")
 def manage():
     customers = CustomerModel.query.all() 
@@ -102,11 +99,11 @@ def manage():
     return render_template('manageaccounts.html')
 
 
-@app.route("/stockin")
+@app.route("/products")
 def stockin():
 
 
-    return render_template('stockin.html')
+    return render_template('products.html')
 
 @app.route("/recordstockin" , methods=['POST'])
 def recordstockin():

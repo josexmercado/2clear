@@ -1,4 +1,9 @@
-<link rel="stylesheet" href="/static/style.css" type="text/css">
+<link rel="stylesheet" href="/static/bower_components/bootstrap/dist/css/bootstrap.min.css">
+<link rel="stylesheet" href="/static/bower_components/font-awesome/css/font-awesome.min.css">
+<link rel="stylesheet" href="/static/bower_components/Ionicons/css/ionicons.min.css">
+<link rel="stylesheet" href="/static/css/AdminLTE.min.css">
+<link rel="stylesheet" href="/static/css/skins/_all-skins.min.css">
+<link rel="stylesheet" href="/static/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">
 {% block body %}
 {% if session['logged_in'] %}
 <p>You're logged in already!</p>
@@ -9,26 +14,32 @@
 	<div class="login">
 		<div class="login-screen">
 			<div class="app-title">
-				<h1>Please Login</h1>
+				<h1><center>2Clear Login</center></h1>
 			</div>
  
-    	<div class="login-form">
+    		
 				<head>
-						<title>joepogi™</title>
+						<title>2clear</title>
 					  </head>
-				<div class="control-group">
-				<input type="text" class="login-field" value="" placeholder="username" name="username">
-				<label class="login-field-icon fui-user" for="login-name"></label>
-				</div>
+			<div class="column">
+					<div class="box box-primary">
+						<div class="box-header with-border">
+						<h3 class="box-title">Login</h3>
+				  
+						<div class="form-group">
+							<input type="text" class="form-control" value="" placeholder="username" name="username">
+							<label class="login-field-icon fui-user" for="login-name"></label>
+						</div>
  
-				<div class="control-group">
-				<input type="password" class="login-field" value="" placeholder="password" name="password">
-				<label class="login-field-icon fui-lock" for="login-pass"></label>
-				</div>
+						<div class="form-group">
+							<input type="password" class="form-control" value="" placeholder="password" name="password">
+							<label class="login-field-icon fui-lock" for="login-pass"></label>
+						</div>
  
-                <input type="submit" value="LOGIN" class="btn btn-primary btn-large btn-block" >
-			    <br>
-			</div>
+               		 <input type="submit" value="LOGIN" class="btn btn-primary" >
+					<br>
+				</div>
+			</div>	
 		</div>
 	</div>
 </form>
