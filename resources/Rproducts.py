@@ -1,31 +1,31 @@
 from flask_restful import Resource, reqparse
-from models.Products import Products
+from models.Rproducts import Rproducts
 
-class Registerproducts(Resource):
+class Registerrentalproducts(Resource):
 
 	def post(self):
 		parser = reqparse.RequestParser()
-		parser.add_argument('pname',
+		parser.add_argument('rproductname',
 			type=str,
 			required=True,
 			help="This field cannot be left blank!"
 			)
-		parser.add_argument('pprice',
+		parser.add_argument('rprice',
 			type=str,
 			required=True,
 			help="This field cannot be left blank!"
 			)
-		parser.add_argument('quantity',
+		parser.add_argument('rquantity',
 			type=str,
 			required=True,
 			help="This field cannot be left blank!"
 			)
 		data = parser.parse_args()
 
-		new_product = Products(
-			pname=data.pname,
-			pprice=data.pprice,
-			quantity=data.quantity
+		new_rproducts = Rproducts(
+			rproductname=data.rproductname,
+			rprice=data.rprice,
+			rquantity=data.rquantity
 			)
-		new_product.insert()
+		new_rproducts.insert()
 		return {'message':'Product Registered!'}

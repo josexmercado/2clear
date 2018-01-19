@@ -12,6 +12,7 @@
       <link rel="stylesheet" href="/static/css/AdminLTE.min.css">
       <link rel="stylesheet" href="/static/css/skins/_all-skins.min.css">
       <link rel="stylesheet" href="/static/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">
+      <script type="text/javascript" src="/static/plugins/jQuery/jQuery.min.js"></script>
 
     </head>
     <body class="hold-transition skin-blue sidebar-mini">
@@ -120,7 +121,7 @@
                       <div class="nav-tabs-custom">
                           <div class="box box-primary">
                               <div class="box-header with-border">
-                                          <form role="form" action="/addproducts" method="POST">
+                                          <form role="form" method="POST">
                                   <h3 class="box-title">Products</h3>
                                 </div>
                                               <div class="box-body">
@@ -130,20 +131,31 @@
                                                   </div>
                                                   <div class="form-group">        
                                                           <label for="sp">Product Sale Price</td>
-                                                          <input type="message" name="tbsaleprice" id="sp" class="form-control" placeholder="ex:$$$$$" readonly="true">
+                                                          <input type="message" name="tbsaleprice" id="sp" class="form-control" placeholder="ex:$$$$$" >
                                                   </div>
                                                   <div class="form-group">        
                                                     <label for="sp">Product Quantity</td>
-                                                    <input type="message" name="tbsaleprice" id="quantity" class="form-control" placeholder="ex:#####" readonly="true">
+                                                    <input type="message" name="tbsaleprice" id="quantity" class="form-control" placeholder="ex:#####" >
                                             </div>
                                                   <div class="box-footer" id="app">
-                                                          <button id="btn_products" type="submit" class="btn btn-primary" >Add product`</button>
+                                                          <button id="btn_products" type="submit" class="btn btn-primary" >Add product</button>
                                                   </div>
                                               </div>
                                           </form>
-                                          <form role="form" action="/addproductsrental" method="POST">
-                                            <h3 class="box-title">Rental Products</h3>
-                                          </div>
+                                        </div>
+                                      </section>
+                                    </div>
+
+
+
+                                    <div class="row">
+                                      <section class="col-lg-7 connectedSortable">
+                                              <div class="nav-tabs-custom">
+                                          <form role="form" method="POST">  <div class="box box-primary">
+                                            <div class="box-header with-border">
+                                                        <form role="form" method="POST">
+                                                <h3 class="box-title">Rental Products</h3>
+                                              </div>
                                                         <div class="box-body">
                                                             <div class="form-group">        
                                                                     <label for="left">Product name:</label>
@@ -151,8 +163,12 @@
                                                             </div>                                                           
                                                             <div class="form-group">       
                                                                     <label for="rp">Product Rent Price</label>
-                                                                    <input type="message" name="tbrentprice" id="rp" class="form-control" placeholder="ex:$$$/week" readonly="true">       
+                                                                    <input type="message"  id="rp" class="form-control" placeholder="ex:$$$/week">       
                                                             </div>
+                                                            <div class="form-group">        
+                                                              <label for="sp">Product Quantity</td>
+                                                              <input type="message" id="rquantity" class="form-control" placeholder="ex:#####" >
+                                                      </div>
                                                             <div class="box-footer" id="app">
                                                                
                                                                     <button id="rbtn_products" type="submit" class="btn btn-primary" >Add Rental product</button>
@@ -171,15 +187,15 @@
       $(function(){
         $('#btn_products').unbind('click').on('click', function(e){
           e.preventDefault();
-          var productname = $('#productname').val();
-          var productprice = $('#productprice').val();
-          var productquantity = $('#productquantity').val();
-          
+          var pname = $('#productname').val();
+          var pprice = $('#sp').val();
+          var quantity = $('#quantity').val();
+
   
           var jqxhr = $.ajax({
             method: "post",
-            url: "/Customer/add",
-            data: { productname: productname, productprice: productprice, productquantity:productquantity}
+            url: "/Products/add",
+            data: { pname: pname, pprice: pprice, quantity:quantity}
         })
         .done(function(data) {
           alert(data.message);
@@ -191,6 +207,32 @@
           //alert($('#name').val() );
         });
     });
+
+
+
+    $('#rbtn_products').unbind('click').on('click', function(e){
+          e.preventDefault();
+          var rproductname = $('#rproductname').val();
+          var rprice = $('#rp').val();
+          var rquantity = $('#rquantity').val();
+  
+          var jqxhr = $.ajax({
+            method: "post",
+            url: "/rentalproducts/add",
+            data: { rproductname: rproductname, rprice: rprice, rquantity:rquantity}
+        })
+        .done(function(data) {
+          alert(data.message);
+        })
+        .fail(function() {
+          alert( "error" );
+        })
+        .always(function() {
+          //alert($('#name').val() );
+        });
+    });
+
+
   })
   </script>
     </html>

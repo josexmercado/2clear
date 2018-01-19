@@ -17,6 +17,7 @@ from apps.sampleBlueprint import sample
 from resources.Customer import CustomerRegister
 from resources.User import UserRegister
 from resources.Products import Registerproducts
+from resources.Rproducts import Registerrentalproducts
 
 app = Flask(__name__)
 dbname   = 'mysql+pymysql://root:@127.0.0.1/2_clear'
@@ -123,90 +124,7 @@ def recordstockin():
     new_stockin.insert()
 
     return render_template('adminpanel.html') 
-
-@app.route("/recordtransact" , methods=['POST'])
-def recordtransact():
-
-    POST_TYPE = "Delivery"
-    POST_AMOUNT = request.form['tbAmount']
-    POST_DATE = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-
-    container = Stock.query.order_by(Stock.stockid.desc()).first()
-
-    new_stockin = Stock(
-
-        Type = POST_TYPE,
-        Amount = POST_AMOUNT,
-        Date = POST_DATE,
-
-        Totalcontainers = container.Totalcontainers,
-        containersonhand = container.containersonhand - int(POST_AMOUNT)
-    )
-  
-    container.insert()
-    new_stockin.insert()
-
-
-   # customer = Stock.query.order_by(Customer.ContainersOnHand.first()
-
-    new_transaction = CustomerModel(
-        
-        ContainersOnHand = customer.containersonhand + int(POST_AMOUNT)
-    )
-  
-    container.insert()
-    new_transaction.insert()
-  
-    return render_template('adminpanel.html')     
-
-@app.route("/recordstockout" , methods=['POST'])
-def recordstockout():
-
-    POST_TYPE = "Stock Out"
-    POST_AMOUNT = request.form['tbstockout']
-    POST_DATE = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-
-    container = Stock.query.order_by(Stock.stockid.desc()).first()
-
-    new_stockin = Stock(
-
-        Type = POST_TYPE,
-        Amount = POST_AMOUNT,
-        Date = POST_DATE,
-
-
-        Totalcontainers = container.Totalcontainers - int(POST_AMOUNT),
-        containersonhand = container.containersonhand - int(POST_AMOUNT)
-    )
-  
-    container.insert()
-    new_stockin.insert()
-  
-    return render_template('adminpanel.html')  
-
-@app.route("/updatestockin/<int:_id>", methods=['POST','GET'])
-def updatestockin(_id):
-    return _id
-    POST_AMOUNT = request.form['tbstockin']
-    return container.json()
-    container.Totalcontainers = str(container.Totalcontainers) + POST_AMOUNT
-    container.insert()
-
-    return render_template('adminpanel.html')
-
-
-@app.route("/stockout")
-def stockout():
  
-    return render_template('stockout.html')
-
-
-@app.route("/Deliver")
-def deliver():
-    
-    customers = CustomerModel.query.all() 
-    # base_url = request.url
-    return render_template('Deliver.html', customers=customers)
 
 
 @app.route("/return")
@@ -251,7 +169,7 @@ def recordnewuser():
         return render_template('adduser.html', customers=customers,users=users)
     except:
         return 'error'
-@app.route('/Registerroduct', methods=['POST'])
+@app.route('/Registerproduct', methods=['POST'])
 def Registerproduct():     
 
     POST_PRODNAME = str(request.form['productname'])
@@ -269,10 +187,29 @@ def Registerproduct():
     except:
         return 'error'
 
+@app.route('/Registerrentalproduct', methods=['POST'])
+def Registerrentalproduct():     
+
+    POST_RNAME = str(request.form['rproductname'])
+    POST_RPRICE = str(request.form['rp'])
+    POST_RQUANTITY = str(request.form['rquantity'])
+
+    new_product = Product(
+        rproductname = POST_RNAME,
+        rprice = POST_RPRICE,
+        rquantity = POST_RQUANTITY
+    )
+    try:
+        new_user.insert()
+        return render_template('products.html')
+    except:
+        return 'error'
+
 #api routes
 api.add_resource(CustomerRegister, '/Customer/add')
 api.add_resource(UserRegister, '/User/add')
-api.add_resource(ProductRegister,'/Product/add')
+api.add_resource(Registerproducts,'/Products/add')
+api.add_resource(Registerrentalproducts,'/rentalproducts/add')
 
 
 #register blueprints here

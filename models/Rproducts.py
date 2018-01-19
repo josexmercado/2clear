@@ -1,14 +1,14 @@
 from db import db
 
-class Products(db.Model):
-    __tablename__ = 'products'
+class Rproducts(db.Model):
+    __tablename__ = 'rentalproducts'
 
     
 
     id = db.Column(db.Integer, primary_key=True)
-    pname  = db.Column(db.String(45))
-    pprice = db.Column(db.String(45))
-    quantity = db.Column(db.String(45))
+    rproductname  = db.Column(db.String(45))
+    rprice = db.Column(db.String(30))
+    rquantity = db.Column(db.String(20))
 
 
     def __init__(self, *args, **kwargs):
@@ -18,9 +18,9 @@ class Products(db.Model):
     def json(self):
         return {
             'id': self.id,
-            'pname': self.pname,
-            'pprice': self.pprice,
-            'quantity': self.quantity,
+            'rproductname': self.rproductname,
+            'rprice': self.rprice,
+            'rquantity': self.rquantity,
         }
 
 
