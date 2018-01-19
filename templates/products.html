@@ -128,39 +128,38 @@
                                                           <label for="left">Product name:</label>
                                                           <input v-model="message" id="productname" name ="tbproductname" class="form-control" placeholder="ex: Mineral water">
                                                   </div>
-                                                  <div class="form-group">
-                                                          <label>Product type:</label>
-                                                  </div>
-                                                  <div class="form-group">
-                                                          <label for="checkbox1">Rent: </label>
-                                                          <input type="checkbox" id="checkbox1" v-model="toggle" true-value="yes" false-value="no">
-                                                  </div>
-                                                  <div class="form-group">    
-                                                          <label for="checkbox2">Sell: </label>
-                                                          <input type="checkbox" id="checkbox2"  onclick="setfalse2()">
-                                                  </div>
-                                                  <div class="form-group">       
-                                                          <label for="rp">Product Rent Price</label>
-                                                          <input type="message" name="tbrentprice" id="rp" class="form-control" placeholder="ex:$$$/week" readonly="true">       
-                                                  </div>
                                                   <div class="form-group">        
                                                           <label for="sp">Product Sale Price</td>
                                                           <input type="message" name="tbsaleprice" id="sp" class="form-control" placeholder="ex:$$$$$" readonly="true">
                                                   </div>
+                                                  <div class="form-group">        
+                                                    <label for="sp">Product Quantity</td>
+                                                    <input type="message" name="tbsaleprice" id="quantity" class="form-control" placeholder="ex:#####" readonly="true">
+                                            </div>
                                                   <div class="box-footer" id="app">
-                                                     
-                                                          <button id="show-modal" type="submit" class="btn btn-primary" @click="showModal = true">Add products</button>
-                                                          <!-- use the modal component, pass in the prop -->
-                                                          <modal v-if="showModal" @close="showModal = false">
-                                                            <!--
-                                                              you can use custom content here to overwrite
-                                                              default content
-                                                            -->
-                                                            <h3 slot="header">Successfully added products</h3>
-                                                          </modal>
+                                                          <button id="btn_products" type="submit" class="btn btn-primary" >Add product`</button>
                                                   </div>
                                               </div>
                                           </form>
+                                          <form role="form" action="/addproductsrental" method="POST">
+                                            <h3 class="box-title">Rental Products</h3>
+                                          </div>
+                                                        <div class="box-body">
+                                                            <div class="form-group">        
+                                                                    <label for="left">Product name:</label>
+                                                                    <input v-model="message" id="rproductname" name ="tbproductname" class="form-control" placeholder="ex: Mineral water">
+                                                            </div>                                                           
+                                                            <div class="form-group">       
+                                                                    <label for="rp">Product Rent Price</label>
+                                                                    <input type="message" name="tbrentprice" id="rp" class="form-control" placeholder="ex:$$$/week" readonly="true">       
+                                                            </div>
+                                                            <div class="box-footer" id="app">
+                                                               
+                                                                    <button id="rbtn_products" type="submit" class="btn btn-primary" >Add Rental product</button>
+                                                                    
+                                                            </div>
+                                                        </div>
+                                                    </form>
                       
                       </div>
               </section>
@@ -168,48 +167,30 @@
 
 
     </body>
-    <script type="text/x-template" id="modal-template">
-      <transition name="modal">
-        <div class="modal-mask">
-          <div class="modal-wrapper">
-            <div class="modal-container">
-    
-              <div class="modal-header">
-                <slot name="header">
-                  default header
-                </slot>
-              </div>
-    
-              <div class="modal-body">
-                <slot name="body">
-                  default body
-                </slot>
-              </div>
-    
-              <div class="modal-footer">
-                <slot name="footer">
-                  default footer
-                  <button class="modal-default-button" @click="$emit('close')">
-                    OK
-                  </button>
-                </slot>
-              </div>
-            </div>
-          </div>
-        </div>
-      </transition>
-    </script>
-    <script>
-    Vue.component('modal', {
-  template: '#modal-template'
-})
-
-// start app
-new Vue({
-  el: '#app',
-  data: {
-    showModal: false
-  }
-})
-</script>
+    <script type="text/javascript">
+      $(function(){
+        $('#btn_products').unbind('click').on('click', function(e){
+          e.preventDefault();
+          var productname = $('#productname').val();
+          var productprice = $('#productprice').val();
+          var productquantity = $('#productquantity').val();
+          
+  
+          var jqxhr = $.ajax({
+            method: "post",
+            url: "/Customer/add",
+            data: { productname: productname, productprice: productprice, productquantity:productquantity}
+        })
+        .done(function(data) {
+          alert(data.message);
+        })
+        .fail(function() {
+          alert( "error" );
+        })
+        .always(function() {
+          //alert($('#name').val() );
+        });
+    });
+  })
+  </script>
     </html>

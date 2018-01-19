@@ -9,7 +9,6 @@ from flask_restful import Api
 from models.CustomerModel import CustomerModel
 from models.User import User
 from datetime import datetime
-from models.Stock import Stock
 
 #blueprints
 from apps.sampleBlueprint import sample
@@ -17,7 +16,7 @@ from apps.sampleBlueprint import sample
 # all resources
 from resources.Customer import CustomerRegister
 from resources.User import UserRegister
-
+from resources.Products import Registerproducts
 
 app = Flask(__name__)
 dbname   = 'mysql+pymysql://root:@127.0.0.1/2_clear'
@@ -252,11 +251,28 @@ def recordnewuser():
         return render_template('adduser.html', customers=customers,users=users)
     except:
         return 'error'
+@app.route('/Registerroduct', methods=['POST'])
+def Registerproduct():     
 
+    POST_PRODNAME = str(request.form['productname'])
+    POST_PRODPRICE = str(request.form['sp'])
+    POST_PRODQUANTITY = str(request.form['quantity'])
+
+    new_product = Product(
+        pname = POST_PRODNAME,
+        pprice = POST_PRODPRICE,
+        quantity = POST_PRODQUANTITY
+    )
+    try:
+        new_user.insert()
+        return render_template('products.html')
+    except:
+        return 'error'
 
 #api routes
 api.add_resource(CustomerRegister, '/Customer/add')
 api.add_resource(UserRegister, '/User/add')
+api.add_resource(ProductRegister,'/Product/add')
 
 
 #register blueprints here
