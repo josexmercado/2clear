@@ -12,6 +12,7 @@
       <link rel="stylesheet" href="/static/css/AdminLTE.min.css">
       <link rel="stylesheet" href="/static/css/skins/_all-skins.min.css">
       <link rel="stylesheet" href="/static/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">
+      <script type="text/javascript" src="/static/plugins/jQuery/jQuery.min.js"></script>
 
     </head>
     <body class="hold-transition skin-blue sidebar-mini">
@@ -122,6 +123,7 @@
                         <div class="box-header with-border">
                             <h3 class="box-title">Users</h3>
                           </div>
+                          
                           <form role="form" action="/recordnewuser" method="post"> <div class="input-group">
                             <input type="text" id="search_user" class="form-control" placeholder="Search...">
                             <span class="input-group-btn">
@@ -129,27 +131,34 @@
                                   </button>
                                 </span>
                           </div>
+                          
                               <div class="box-body">
+                                  <div class="form-group">
+                                      <label for="ID">ID:</label>
+                                          <input v-model="message" id="vidnum" class="form-control" placeholder="ex:001" readonly="true">
+                                    </div>
                               <div class="form-group">
                               <label for="user_name">Name:</label>
-                                                <input v-model="message" id="user_name" class="form-control" name ="tbName"placeholder="ex: juan dela cruz" readonly="true">
+                                                <input v-model="message" id="vuser_name" class="form-control" name ="tbName"placeholder="ex: juan dela cruz" readonly="true">
                               </div>
+                              
                                 <div class="form-group">
                                                     <label for="username">Username:</label>
-                                                        <input v-model="message" id="username" class="form-control" name="tbusername" placeholder="ex: username" readonly="true">
+                                                        <input v-model="message" id="vusername" class="form-control" name="tbusername" placeholder="ex: username" readonly="true">
                                 </div>
             
                                 <div class="form-group">
                                                         <label for="password">Password:</label>	
-                                                        <input v-model="message" id="password" class="form-control" name="tbpassword" placeholder="ex: password" readonly="true">
+                                                        <input v-model="message" id="vpassword" class="form-control" name="tbpassword" placeholder="ex: password" readonly="true">
                                 </div>
                                 <div class="form-group">
                                                         <label for="confirmpassword">Confirm password:</label>	
-                                                        <input v-model="message" id="confirmpassword" class="form-control" name="tbconpassword" placeholder="ex: password" readonly="true">
+                                                        <input v-model="message" id="vconfirmpassword" class="form-control" name="tbconpassword" placeholder="ex: password" readonly="true">
                                                     </div>
                                                     <div class="box-footer">
-                                                        <input id="userbtnedit" type="submit" class="btn btn-primary" value="Edit">
-                                                        <input id="userbtndelete" type="submit" class="btn btn-primary" value="Delete">
+                                                        <input id="userbtnedit" type="button" class="btn btn-primary" value="Edit">
+                                                        <input id="userbtndelete" type="button" class="btn btn-primary" value="Delete">
+                                                        <input id="usersave" type="button" class="btn btn-primary" value="Save" disabled="true">
                                 </div>
                               </form>
                             </div>
@@ -190,6 +199,30 @@
 
 
     </body>
+    <script>
+      $(function(){
+    $('#userbtnedit').unbind('click').on('click', function(e){
+      e.preventDefault();
+      $('#idnum').removeAttr('readonly');
+      $('#user_name').removeAttr('readonly');
+      $('#username').removeAttr('readonly');
+      $('#password').removeAttr('readonly');
+      $('#confirmpassword').removeAttr('readonly');
+      $('#usersave').removeAttr('disabled');
+       
+  })
+  $('#usersave').unbind('click').on('click', function(e){
+      e.preventDefault();
+      $('#idnum').add.Attr('readonly',true);
+      $('#user_name').add.Attr('readonly',true);
+      $('#username').add.Attr('readonly',true);
+      $('#password').add.Attr('readonly',true);
+      $('#confirmpassword').Attr('readonly');
+       
+  })
+      })
+
+</script>
     </html>
 
 

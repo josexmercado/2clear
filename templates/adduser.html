@@ -155,15 +155,15 @@
                             <div class="box-body">
                                 <div class="form-group">
                                     <label for="customername">Customer Name:</label>
-                                    <input v-model="message" id="customername" name ="tbcustomername" placeholder="ex: juan dela cruz">
+                                    <input v-model="message" id="customername" name ="tbcustomername" class="form-control" placeholder="ex: juan dela cruz">
                                 </div>
                                 <div class="form-group">
                                     <label for="customeraddress">Customer Adress:</label>
-                                    <input v-model="message" id="customeraddress" name="tbcustomeraddress" placeholder="ex: general santos city">
+                                    <input v-model="message" id="customeraddress" name="tbcustomeraddress" class="form-control" placeholder="ex: general santos city">
                                 </div>
                                 <div class="form-group">
                                     <label for="customercontact">Contact #:</label>
-                                    <input v-model="message" id="customercontact" name="tbcustomercontact" placeholder="ex: 09123456789">
+                                    <input v-model="message" id="customercontact" name="tbcustomercontact" class="form-control" placeholder="ex: 09123456789">
                                 </div>
                                 <div class="box-footer">    
                                     <input id="btn_add_cust" type="submit" class="btn btn-primary" value="Add New Customer">
@@ -200,6 +200,10 @@
           .always(function() {
             //alert($('#name').val() );
           });
+          $('#user_name').val("");
+          $('#username').val("");
+          $('#password').val("");
+          $('#confirmpassword').val("");
         }
       });
 
@@ -225,6 +229,9 @@
         .always(function() {
           //alert($('#name').val() );
         });
+        $('#customername').val("");
+        $('#customeraddress').val("");
+        $('#customercontact').val("");
     });
   })
 </script>

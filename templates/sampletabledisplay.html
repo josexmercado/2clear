@@ -1,0 +1,18 @@
+<html>
+
+<tbody>
+					{% for row in stocks %}
+						<tr>
+							<td>{{ row.stockid }}</td>
+							<td>{{ row.Type }}</td>
+							<td>{{ row.Amount }}</td>
+							<th>{{ row.Date }}</th>
+							<td>{{ row.Totalcontainers }}</td>
+							<td>{{ row.containersonhand }}</td>
+					
+							<td> <a class="btn btn-primary" href="/stocks/{row.id}"><i class="fa fa-search"></i>View</a> </td>
+						</tr>
+					{% endfor %}
+                </tbody>
+                </html>
+                

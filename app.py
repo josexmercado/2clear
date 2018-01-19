@@ -205,6 +205,15 @@ def Registerrentalproduct():
     except:
         return 'error'
 
+@app.route("/stockview")
+def stockview():
+    customers = CustomerModel.query.all() 
+    users = User.query.all() 
+    stocks = Stock.query.all()
+    session['logged_in'] = True 
+    return render_template('sampletabledisplay.html', stocks=stocks,customers=customers,users=users)
+
+
 #api routes
 api.add_resource(CustomerRegister, '/Customer/add')
 api.add_resource(UserRegister, '/User/add')
