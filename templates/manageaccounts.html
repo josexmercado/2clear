@@ -17,11 +17,6 @@
     </head>
     <body class="hold-transition skin-blue sidebar-mini">
 
-
-
-
-
-
     <div class="wrapper">
             
               <header class="main-header">
@@ -114,88 +109,14 @@
                         <a href="/manage" class="small-box-footer">Go <i class="fa fa-arrow-circle-right"></i></a>
                       </div>
                     </div>
-                  </div>
-
-            <div class="row">
-              <section class="col-lg-7 connectedSortable">
-                      <div class="nav-tabs-custom">
-                    <div class="box box-primary">
-                        <div class="box-header with-border">
-                            <h3 class="box-title">Users</h3>
-                          </div>
-                          
-                          <form role="form" action="/recordnewuser" method="post"> <div class="input-group">
-                            <input type="text" id="search_user" class="form-control" placeholder="Search...">
-                            <span class="input-group-btn">
-                                  <button type="submit" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i>
-                                  </button>
-                                </span>
-                          </div>
-                          
-                              <div class="box-body">
-                                  <div class="form-group">
-                                      <label for="ID">ID:</label>
-                                          <input v-model="message" id="vidnum" class="form-control" placeholder="ex:001" readonly="true">
-                                    </div>
-                              <div class="form-group">
-                              <label for="user_name">Name:</label>
-                                                <input v-model="message" id="vuser_name" class="form-control" name ="tbName"placeholder="ex: juan dela cruz" readonly="true">
-                              </div>
-                              
-                                <div class="form-group">
-                                                    <label for="username">Username:</label>
-                                                        <input v-model="message" id="vusername" class="form-control" name="tbusername" placeholder="ex: username" readonly="true">
-                                </div>
-            
-                                <div class="form-group">
-                                                        <label for="password">Password:</label>	
-                                                        <input v-model="message" id="vpassword" class="form-control" name="tbpassword" placeholder="ex: password" readonly="true">
-                                </div>
-                                <div class="form-group">
-                                                        <label for="confirmpassword">Confirm password:</label>	
-                                                        <input v-model="message" id="vconfirmpassword" class="form-control" name="tbconpassword" placeholder="ex: password" readonly="true">
-                                                    </div>
-                                                    <div class="box-footer">
-                                                        <input id="userbtnedit" type="button" class="btn btn-primary" value="Edit">
-                                                        <input id="userbtndelete" type="button" class="btn btn-primary" value="Delete">
-                                                        <input id="usersave" type="button" class="btn btn-primary" value="Save" disabled="true">
-                                </div>
-                              </form>
-                            </div>
-                      <div class="box box-primary">
-                          <div class="box-header with-border">
-                              <h3 class="box-title">Customers</h3>
-                            </div>
-                          <form action="/recordnewcustomer" method="post">
-                            <div class="input-group">
-                                <input type="text" name="q2" class="form-control" placeholder="Search...">
-                                <span class="input-group-btn">
-                                      <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i>
-                                      </button>
-                                    </span>
-                              </div>
-                            <div class="box-body">
-                                <div class="form-group">
-                                    <label for="customername">Customer Name:</label>
-                                    <input v-model="message" id="customername" name ="tbName" placeholder="ex: juan dela cruz" readonly="true">
-                                </div>
-                                <div class="form-group">
-                                    <label for="customeraddress">Customer Adress:</label>
-                                    <input v-model="message" id="customeraddress" name="tbAddress" placeholder="ex: general santos city" readonly="true">
-                                </div>
-                                <div class="form-group">
-                                    <label for="customercontact">Contact #:</label>
-                                    <input v-model="message" id="customercontact" name="tbContact" placeholder="ex: 09123456789" readonly="true">
-                                </div>
-                                <div class="box-footer">    
-                                    <input id="customerbtnedit" type="submit" class="btn btn-primary" value="Edit">
-                                    <input id="customerbtndelete" type="submit" class="btn btn-primary" value="Delete">
-                                </div>
-                          </form>
-                      </div>
-                  </div>
-              </section>
+                  </div>  
+                </div>
+              </div>
             </div>
+          </div>
+        </div>
+      </div>
+    </div>
 
 
     </body>
