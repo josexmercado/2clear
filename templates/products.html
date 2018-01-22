@@ -135,7 +135,7 @@
                           </tr>
                         </thead>
                         <tbody>
-                          {% for row in products%}
+                          {% for row in products if row.ptype == "Sale" %}
                             <tr>
                               
                               <td>{{ row.id }}</td>
@@ -143,9 +143,10 @@
                               <td>{{ row.pname }}</td>
                               <th>{{ row.pprice }} Pesos</th>
                               <td>{{ row.quantity }}</td>
-                              
+                       
                           
                               <td> <a class="btn btn-primary" href="/stocks/{row.id}"><i class="fa fa-search"></i>View</a> </td>
+                              {% else %}
                             </tr>
                           {% endfor %}
                         </tbody>
@@ -173,7 +174,7 @@
                         </tr>
                       </thead>
                       <tbody>
-                          {% for row in products  %}
+                          {% for row in products if row.ptype == "Rent"  %}
                           <tr>
                             <td>{{ row.id }}</td>
                             <td>{{ row.ptype }}</td>
@@ -181,8 +182,11 @@
                             <th>{{ row.pprice }} Pesos</th>
                             <td>{{ row.quantity }}</td>
                             <td>{{ row.onhand }}</td>    
-                        
+                     
+
                             <td> <a class="btn btn-primary" href="/stocks/{row.id}"><i class="fa fa-search"></i>View</a> </td>
+
+                            {%else%}
                           </tr>
                         {% endfor %}
                       </tbody>
@@ -197,6 +201,8 @@
             </section>
           </div>
         </div>
+
+        
                                                
 
 
