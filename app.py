@@ -22,7 +22,7 @@ from resources.Products import Registerproducts
 from resources.Rproducts import Registerrentalproducts
 
 app = Flask(__name__)
-dbname   = 'mysql+pymysql://root:admin@127.0.0.1/2_clear'
+dbname   = 'mysql+pymysql://root:@127.0.0.1/2_clear'
 
 CORS(app, supports_credentials=True, resources={r"*": {"origins": "*"}})
 
@@ -91,20 +91,19 @@ def registrations():
 
     return render_template('adduser.html')
 
-@app.route("/sampletable")
-def samble():
+@app.route("/admin")
+def admin():
+    return render_template('adminpanel.html')
 
-    return render_template('sampletabledisplay.html')
-
-@app.route("/manage")
-def manage():
-
-    users = User.query.all()    
-    customers = CustomerModel.query.all() 
-    
+@app.route("/aprod")
+def aprod():
     session['logged_in'] = True 
-    return render_template('manageaccounts.html' ,users=users, customers=customers)
+    return render_template('adminproducts.html')
 
+@app.route("/aadd")
+def aadd():
+    session['logged_in'] = True 
+    return render_template('adminadduser.html')
 
 @app.route("/products")
 def products():

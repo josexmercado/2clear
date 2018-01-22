@@ -17,15 +17,10 @@
     </head>
     <body class="hold-transition skin-blue sidebar-mini">
 
-
-
-
-
-
     <div class="wrapper">
             
               <header class="main-header">
-                <a href="index2.html" class="logo">
+                <a class="logo">
                   <span class="logo-mini"><b>A</b>LT</span>
                   <span class="logo-lg"><b>2</b>Clear</span>
                 </a>
@@ -60,7 +55,7 @@
               <div class="content-wrapper">
                 
                 <section class="content">
-                    <h1>    Customer Registration        <small>2clear</small>       </h1>
+                    <h1>        Manage accounts        <small>2clear</small>       </h1>
                   <div class="row">
                     <div class="col-lg-3 col-xs-6">
                       <div class="small-box bg-aqua">
@@ -115,39 +110,29 @@
                       </div>
                     </div>
                   </div>
-
-            <div class="row">
-              <section class="col-lg-7 connectedSortable">
-                      <div class="nav-tabs-custom">
-                    
-                      <div class="box box-primary">
-                          <div class="box-header with-border">
-                              <h3 class="box-title">Add Customer</h3>
-                            </div>
-                          <form method="POST">
-                            <div class="box-body">
-                                <div class="form-group">
-                                    <label for="customername">Customer Name:</label>
-                                    <input v-model="message" id="customername" name ="tbcustomername" class="form-control" placeholder="ex: juan dela cruz">
-                                </div>
-                                <div class="form-group">
-                                    <label for="customeraddress">Customer Adress:</label>
-                                    <input v-model="message" id="customeraddress" name="tbcustomeraddress" class="form-control" placeholder="ex: general santos city">
-                                </div>
-                                <div class="form-group">
-                                    <label for="customercontact">Contact #:</label>
-                                    <input v-model="message" id="customercontact" name="tbcustomercontact" class="form-control" placeholder="ex: 09123456789">
-                                </div>
-                                <div class="box-footer">    
-                                    <input id="btn_add_cust" type="submit" class="btn btn-primary" value="Add New Customer">
-                                </div>
-                          </form>
+                  <div class="row">
+                      <div class="col-lg-3 col-xs-6">
+                          <button type="button" class="btn btn-block btn-danger btn-lg">ADD USER</button>
                       </div>
-                  </div>
-              </section>
-            </div>
+                      <div class="col-lg-3 col-xs-6">
+                          <button type="button" class="btn btn-block btn-danger btn-lg">STOCK IN & STOCK OUT</button>
+                        </div>
+                      <div class="col-lg-3 col-xs-6">
+                          <button type="button" class="btn btn-block btn-danger btn-lg">MANAGE PRODUCTS</button>
+                        </div>
+                      <div class="col-lg-3 col-xs-6">
+                          <button type="button" class="btn btn-block btn-danger btn-lg">MANAGE ACCOUNTS</button>
+                      </div>
+                      
+                    </div>
+                    
+              
+                            
+            
 
-  <script type="text/javascript">
+
+    </body>
+    <script type="text/javascript">
     $(function(){
       $('#btn_reg').unbind('click').on('click', function(e){
         e.preventDefault();
@@ -179,35 +164,10 @@
           $('#confirmpassword').val("");
         }
       });
+      })
 
-    $('#btn_add_cust').unbind('click').on('click', function(e){
-      e.preventDefault();
-      var customername = $('#customername').val();
-      var customeraddress = $('#customeraddress').val();
-      var customercontact = $('#customercontact').val();      
-
-     
-      
-        var jqxhr = $.ajax({
-            method: "post",
-            url: "/Customer/add",
-            data: { customername: customername, customeraddress:customeraddress, customercontact:customercontact }
-        })
-        .done(function(data) {
-          alert(data.message);
-        })
-        .fail(function() {
-          alert( "error" );
-        })
-        .always(function() {
-          //alert($('#name').val() );
-        });
-        $('#customername').val("");
-        $('#customeraddress').val("");
-        $('#customercontact').val("");
-    });
-  })
 </script>
-
-    </body>
     </html>
+
+
+    
