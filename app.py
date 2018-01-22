@@ -8,6 +8,8 @@ from flask_restful import Api
 #models and libs
 from models.CustomerModel import CustomerModel
 from models.User import User
+from models.Stock import Stock
+from models.Products import Products
 from datetime import datetime
 
 #blueprints
@@ -20,7 +22,7 @@ from resources.Products import Registerproducts
 from resources.Rproducts import Registerrentalproducts
 
 app = Flask(__name__)
-dbname   = 'mysql+pymysql://root:@127.0.0.1/2_clear'
+dbname   = 'mysql+pymysql://root:admin@127.0.0.1/2_clear'
 
 CORS(app, supports_credentials=True, resources={r"*": {"origins": "*"}})
 
@@ -89,17 +91,26 @@ def registrations():
 
     return render_template('adduser.html')
 
+@app.route("/sampletable")
+def samble():
+
+    return render_template('sampletabledisplay.html')
+
 @app.route("/manage")
 def manage():
+
+    users = User.query.all()    
+    customers = CustomerModel.query.all() 
+    
     session['logged_in'] = True 
-    return render_template('manageaccounts.html')
+    return render_template('manageaccounts.html' ,users=users, customers=customers)
 
 
 @app.route("/products")
 def products():
-
-
-    return render_template('products.html')
+    stocks = Stock.query.all()
+    products = Products.query.all()
+    return render_template('products.html',stocks=stocks, products=products )
 
 @app.route("/recordstockin" , methods=['POST'])
 def recordstockin():
