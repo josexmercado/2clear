@@ -19,7 +19,6 @@ from apps.sampleBlueprint import sample
 from resources.Customer import CustomerRegister
 from resources.User import UserRegister
 from resources.Products import Registerproducts
-from resources.Rproducts import Registerrentalproducts
 
 app = Flask(__name__)
 dbname   = 'mysql+pymysql://root:@127.0.0.1/2_clear'
@@ -212,31 +211,12 @@ def Registerproduct():
     except:
         return 'error'
 
-@app.route('/Registerrentalproduct', methods=['POST'])
-def Registerrentalproduct():     
-
-    POST_RNAME = str(request.form['rproductname'])
-    POST_RPRICE = str(request.form['rp'])
-    POST_RQUANTITY = str(request.form['rquantity'])
-
-    new_product = Product(
-        rproductname = POST_RNAME,
-        rprice = POST_RPRICE,
-        rquantity = POST_RQUANTITY
-    )
-    try:
-        new_user.insert()
-        return render_template('adminproducts.html')
-    except:
-        return 'error'
-
 
 
 #api routes
 api.add_resource(CustomerRegister, '/Customer/add')
 api.add_resource(UserRegister, '/User/add')
 api.add_resource(Registerproducts,'/Products/add')
-api.add_resource(Registerrentalproducts,'/rentalproducts/add')
 
 
 #register blueprints here
