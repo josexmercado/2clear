@@ -126,7 +126,69 @@
                     </div>
                     
                   </div>
-              
+                  <div class="box-header with-border">
+                      <h3 class="box-title">Stock in</h3>
+                    </div>
+                    <form method="POST">
+                        <div class="box-body">
+                              <div class="form-group">
+                                      <label for="product_name">Choose Product:</label>
+                                          <input v-model="message" id="product_name" class="form-control" >
+                                      </div>
+                        <div class="form-group">
+                        <label for="user_name">Option:</label>
+                            
+                        </div>
+                          <div class="form-group">
+                              <label for="checkyes">Stock in:</label>
+                                  <input v-model="radio" id="checkyes" value="in" class="form-control">
+                          </div>
+      
+                          <div class="form-group">
+                              <label for="password">Stock out:</label>	
+                              <input v-model="radio" id="checkno" value="out" class="form-control">
+                          </div>
+                          <div class="form-group">
+                              <label for="amount">Amount:</label>	
+                              <input v-model="message" id="amount" class="form-control">
+                          </div>
+                          <div class="box-footer">
+                              
+                              <input id="btn_record" type="button" class="btn btn-primary" value="Save">
+                          </div>
+                        </form>
+                      </div>
+            </div>
+            <div class="box-header with-border">
+                <h3 class="box-title">Stock out</h3>
+              </div>
+              <form method="POST">
+                  <div class="box-body">
+                        <div class="form-group">
+                                <label for="viewuser_id">ID:</label>
+                                    <input v-model="message" id="viewuser_id" class="form-control" placeholder="ex: ####">
+                                </div>
+                  <div class="form-group">
+                  <label for="user_name">Name:</label>
+                      <input v-model="message" id="viewuser_name" class="form-control" name ="tbusersname"placeholder="ex: juan dela cruz">
+                  </div>
+                    <div class="form-group">
+                        <label for="username">Username:</label>
+                            <input v-model="message" id="viewusername" class="form-control" name="tbusername" placeholder="ex: username">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="password">Password:</label>	
+                        <input v-model="message" id="viewpassword" class="form-control" type="message" name="tbpassword" placeholder="ex: password">
+                    </div>
+                    <div class="box-footer">
+                        <input id="btn_edit" type="button" class="btn btn-primary" value="Edit">
+                        <input id="btn_delete" type="button" class="btn btn-primary" value="Delete">
+                        <input id="btn_save" type="button" class="btn btn-primary" value="Save">
+                    </div>
+                  </form>
+                </div>
+      </div>
                             
             
 
