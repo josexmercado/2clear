@@ -22,7 +22,7 @@ from resources.Products import Registerproducts
 from resources.Rproducts import Registerrentalproducts
 
 app = Flask(__name__)
-dbname   = 'mysql+pymysql://root:@127.0.0.1/2_clear'
+dbname   = 'mysql+pymysql://root:admin@127.0.0.1/2_clear'
 
 CORS(app, supports_credentials=True, resources={r"*": {"origins": "*"}})
 
@@ -113,7 +113,9 @@ def amanage():
 @app.route("/aastock")
 def astock():
 
-    return render_template('adminstockin.html')
+    products = Products.query.all()
+
+    return render_template('adminstockin.html', products=products)
 
 @app.route("/products")
 def products():
@@ -178,11 +180,13 @@ def recordnewuser():
     POST_NAME = str(request.form['user_name'])
     POST_PASS = str(request.form['password'])
     POST_CPASS = str(request.form['confirmpassword'])
+    POST_ROLE = str(request.form['role'])
 
     new_user = User(
         username = POST_USERNAME,
         password = POST_PASS,
-        name = POST_NAME
+        name = POST_NAME,
+        role = POST_ROLE
     )
     try:
         new_user.insert()

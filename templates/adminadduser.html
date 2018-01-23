@@ -152,7 +152,7 @@
                                       </div>
                                       <div class="form-group">
                                           <label for="username">Role:</label>
-                                              <input v-model="message" id="role" class="form-control" name="tbusername" placeholder="ex: admin/user">
+                                              <input v-model="message" id="role" class="form-control" name="role" placeholder="ex: admin/user">
                                       </div>
                                       <div class="box-footer">
                                           <input id="btn_reg" type="submit" class="btn btn-primary" value="Add User">
@@ -172,6 +172,7 @@
         var username = $('#username').val();
         var password = $('#password').val();
         var confirmpassword = $('#confirmpassword').val();
+        var role = $('#role').val();
 
         if(password !== confirmpassword){
           alert('Password do not match')
@@ -179,7 +180,7 @@
           var jqxhr = $.ajax({
               method: "post",
               url: "/User/add",
-              data: { username: username, name:name, password:password }
+              data: { username: username, name:name, password:password, role:role }
           })
           .done(function(data) {
             alert(data.message);
@@ -194,6 +195,7 @@
           $('#username').val("");
           $('#password').val("");
           $('#confirmpassword').val("");
+          $('#role').val("");
         }
       });
       })

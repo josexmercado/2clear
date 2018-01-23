@@ -15,6 +15,11 @@ class UserRegister(Resource):
 			required=True,
 			help="This field cannot be left blank!"
 			)
+		parser.add_argument('role',
+			type=str,
+			required=True,
+			help="This field cannot be left blank!"
+			)
 		parser.add_argument('name',
 			type=str,
 			required=True,
@@ -27,7 +32,8 @@ class UserRegister(Resource):
 			new_user = User(
 				username=data.username,
 				password=data.password,
-				name=data.name
+				name=data.name,
+				role=data.role
 				)
 			new_user.insert()
 			return {'message':'User added!'}
