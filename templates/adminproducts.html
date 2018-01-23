@@ -136,17 +136,27 @@
                                 <h3 class="box-title">Products</h3>
                                 </div>
                                 <div class="form-group">        
-                                        <label for="sp">Product Name: </td>
+                                        <label for="sp">Product Name: </label>
 
                                                           <input v-model="message" name="tbsaleprice" id="productname" class="form-control" placeholder="ex:water" >
                                 </div>
                                 <div class="form-group">        
-                                        <label for="sp">Product Sale Price</td>
+                                    <label for="sp">Product Type: </td>
+                                      <br>
+                                      <label for="productsale">Sale: </label>
+                                                      <input type="radio" v-model="picked" name="ptype" id="productsale">
+
+                                                      <br>
+                                                      <label for="prodcutrent">Rent: </label>
+                                                                      <input type="radio" v-model="picked" name="ptype" id="productrent">
+                            </div>
+                                <div class="form-group">        
+                                        <label for="sp">Product Price</label>
 
                                                           <input v-model="message" name="tbsaleprice" id="sp" class="form-control" placeholder="ex:$$$$$" >
                                 </div>
                                 <div class="form-group">        
-                                  <label for="sp">Product Quantity</td>
+                                  <label for="sp">Product Quantity</label>
 
                                                     <input v-model="message" name="tbsaleprice" id="quantity" class="form-control" placeholder="ex:#####" >
                               </div>
@@ -165,19 +175,31 @@
                                               </div>
                                       <div class="box-body">
                                           <div class="form-group">        
-                                                  <label for="left">Product name:</label>
-                                                  <input v-model="message" id="rproductname" name ="tbproductname" class="form-control" placeholder="ex: Mineral water">
-                                          </div>                                                           
+                                                  <label for="left">Search Product Name:</label>
+                                                  <input v-model="message" id="vproductname" name ="tbproductname" class="form-control" placeholder="ex: Mineral water">
+                                          </div>    
+                                          <div class="form-group">        
+                                              <label for="sp">Product Type: </td>
+                                                <br>
+                                                <label for="vproductsale">Sale: </label>
+                                                                <input type="radio" v-model="picked" name="ptype" id="vproductsale">
+          
+                                                                <br>
+                                                                <label for="vprodcutrent">Rent: </label>
+                                                                                <input type="radio" v-model="picked" name="ptype" id="vproductrent">
+                                      </div>                                                       
                                           <div class="form-group">       
                                                   <label for="rp">Product Rent Price</label>
-                                                                    <input type="message"  id="rp" class="form-control" placeholder="ex:$$$/week">       
+                                                                    <input type="message"  id="vprice" class="form-control" placeholder="ex:$$$/week">       
                                           </div>
                                                             <div class="form-group">        
                                                               <label for="sp">Product Quantity</td>
-                                                              <input type="message" id="rquantity" class="form-control" placeholder="ex:#####" >
+                                                              <input type="message" id="vquantity" class="form-control" placeholder="ex:#####" >
                                                       </div>
                                           <div class="box-footer" id="app">                                            
-                                                  <button id="rbtn_products" type="submit" class="btn btn-primary" >Add Rental product</button>
+                                                  <button id="btn_editproduct" type="submit" class="btn btn-primary" >Edit</button>
+                                                  <button id="btn_deleteproduct" type="submit" class="btn btn-primary" >Delete</button>
+                                                  <button id="btn_saveproduct" type="submit" class="btn btn-primary" >Save</button>
                                                   <h3 class="box-title">Rental Products</h3>
 
 
@@ -199,7 +221,6 @@
                data: { pname: pname, pprice: pprice, quantity:quantity}
                
            })
-           alert("china")
            .done(function(data) {
              alert(data.message);
            })
@@ -213,28 +234,6 @@
    
    
    
-       $('#rbtn_products').unbind('click').on('click', function(e){
-             e.preventDefault();
-             var rproductname = $('#rproductname').val();
-             var rprice = $('#rp').val();
-             var rquantity = $('#rquantity').val();
-      
-              var jqxhr = $.ajax({
-                method: "post",
-               url: "/Customer/add",
-               data: { productname: productname, productprice: productprice, productquantity:productquantity},
-               url: "/rentalproducts/add",
-               data: { rproductname: rproductname, rprice: rprice, rquantity:rquantity}
-            })
-            .done(function(data) {
-              alert(data.message);
-   
-              <h3 class="box-title">Rental Products</h3>
-              //alert($('#name').val() );
-            });
-        });
-   
-   
-      })
+        })
       </script>
 </html>
