@@ -95,19 +95,24 @@ def registrations():
 def admin():
     return render_template('adminpanel.html')
 
-@app.route("/adminproduct")
+@app.route("/aproduct")
 def adminproduct():
-    session['logged_in'] = True 
+    
     return render_template('adminproducts.html')
 
 @app.route("/aadd")
-def aadd():
-    session['logged_in'] = True 
+def aadd(): 
+
     return render_template('adminadduser.html')
+
+@app.route("/amanage")
+def amanage(): 
+    
+    return render_template('adminaccounts.html')
 
 @app.route("/astock")
 def astock():
-    session['logged_in'] = True 
+
     return render_template('adminstockin.html')
 
 @app.route("/products")
