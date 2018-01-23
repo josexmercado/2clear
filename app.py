@@ -95,8 +95,8 @@ def registrations():
 def admin():
     return render_template('adminpanel.html')
 
-@app.route("/aprod")
-def aprod():
+@app.route("/adminproduct")
+def adminproduct():
     session['logged_in'] = True 
     return render_template('adminproducts.html')
 
@@ -104,6 +104,11 @@ def aprod():
 def aadd():
     session['logged_in'] = True 
     return render_template('adminadduser.html')
+
+@app.route("/astock")
+def astock():
+    session['logged_in'] = True 
+    return render_template('adminstockin.html')
 
 @app.route("/products")
 def products():
@@ -179,6 +184,7 @@ def recordnewuser():
         return render_template('adduser.html', customers=customers,users=users)
     except:
         return 'error'
+
 @app.route('/Registerproduct', methods=['POST'])
 def Registerproduct():     
 
@@ -193,7 +199,7 @@ def Registerproduct():
     )
     try:
         new_user.insert()
-        return render_template('products.html')
+        return render_template('adminproducts.html')
     except:
         return 'error'
 
@@ -211,17 +217,10 @@ def Registerrentalproduct():
     )
     try:
         new_user.insert()
-        return render_template('products.html')
+        return render_template('adminproducts.html')
     except:
         return 'error'
 
-@app.route("/stockview")
-def stockview():
-    customers = CustomerModel.query.all() 
-    users = User.query.all() 
-    stocks = Stock.query.all()
-    session['logged_in'] = True 
-    return render_template('sampletabledisplay.html', stocks=stocks,customers=customers,users=users)
 
 
 #api routes

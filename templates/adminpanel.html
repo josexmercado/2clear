@@ -117,10 +117,10 @@
                           <button type="button" id="btnau" class="btn btn-block btn-danger btn-lg"><a href="/aadd">ADD USER</a></button>
                       </div>
                       <div class="col-lg-3 col-xs-6">
-                          <button type="button" id="btnstock" class="btn btn-block btn-danger btn-lg"><a href="">STOCK IN & STOCK OUT</a></button>
+                          <button type="button" id="btnstock" class="btn btn-block btn-danger btn-lg"><a href="/aastock">STOCK IN & STOCK OUT</a></button>
                         </div>
                       <div class="col-lg-3 col-xs-6">
-                          <button type="submit" id="btnproducts" class="btn btn-block btn-danger btn-lg"><a href="/aprod">MANAGE PRODUCTS</a></button>
+                          <button type="submit" id="btnproducts" class="btn btn-block btn-danger btn-lg"><a href="/adminproduct">MANAGE PRODUCTS</a></button>
                         </div>
                       <div class="col-lg-3 col-xs-6">
                           <button type="button" id="btnaccts" class="btn btn-block btn-danger btn-lg"><a href="">MANAGE ACCOUNTS</a></button>
@@ -131,16 +131,4 @@
 
 
     </body>
-    <script type="text/javascript">
-    $(function(){
-      $('#btnproducts').unbind('click').on('click', function(e){
-        e.preventDefault();
-          var jqxhr = $.ajax({
-              method: "post",
-              url: "/aprod",
-
-    })
-	  })
-	})
-</script>
     </html>

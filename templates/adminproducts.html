@@ -55,7 +55,7 @@
               <div class="content-wrapper">
                 
                 <section class="content">
-                    <h1>        Manage accounts        <small>2clear</small>       </h1>
+                    <h1>        Admin Panel        <small>2clear</small>       </h1>
                   <div class="row">
                     <div class="col-lg-3 col-xs-6">
                       <div class="small-box bg-aqua">
@@ -110,58 +110,51 @@
                       </div>
                     </div>
                   </div>
+                  
+                  
                   <div class="row">
                       <div class="col-lg-3 col-xs-6">
-                          <button type="button" class="btn btn-block btn-danger btn-lg">ADD USER</button>
+                          <button type="button" id="btnau" class="btn btn-block btn-danger btn-lg"><a href="/aadd">ADD USER</a></button>
                       </div>
                       <div class="col-lg-3 col-xs-6">
-                          <button type="button" class="btn btn-block btn-danger btn-lg">STOCK IN & STOCK OUT</button>
+                          <button type="button" id="btnstock" class="btn btn-block btn-danger btn-lg"><a href="/aastock">STOCK IN & STOCK OUT</a></button>
                         </div>
                       <div class="col-lg-3 col-xs-6">
-                          <button type="button" class="btn btn-block btn-danger btn-lg">MANAGE PRODUCTS</button>
+                          <button type="submit" id="btnproducts" class="btn btn-block btn-danger btn-lg"><a href="/adminproduct">MANAGE PRODUCTS</a></button>
                         </div>
                       <div class="col-lg-3 col-xs-6">
-                          <button type="button" class="btn btn-block btn-danger btn-lg">MANAGE ACCOUNTS</button>
+                          <button type="button" id="btnaccts" class="btn btn-block btn-danger btn-lg"><a href="">MANAGE ACCOUNTS</a></button>
                       </div>
                       
                     </div>
 
-
 <div class="nav-tabs-custom">
         <div class="box box-primary">
             <div class="box-header with-border">
-                                          <form role="form" action="/addproducts" method="POST">
                                           <form role="form" method="POST">
-                <h3 class="box-title">Products</h3>
-              </div>
                             <div class="box-body">
                                 <h3 class="box-title">Products</h3>
                                 </div>
                                 <div class="form-group">        
+                                        <label for="sp">Product Name: </td>
+
+                                                          <input v-model="message" name="tbsaleprice" id="productname" class="form-control" placeholder="ex:water" >
+                                </div>
+                                <div class="form-group">        
                                         <label for="sp">Product Sale Price</td>
-                                                          <input type="message" name="tbsaleprice" id="sp" class="form-control" placeholder="ex:$$$$$" readonly="true">
-                                                          <input type="message" name="tbsaleprice" id="sp" class="form-control" placeholder="ex:$$$$$" >
+
+                                                          <input v-model="message" name="tbsaleprice" id="sp" class="form-control" placeholder="ex:$$$$$" >
                                 </div>
                                 <div class="form-group">        
                                   <label for="sp">Product Quantity</td>
-                                                    <input type="message" name="tbsaleprice" id="quantity" class="form-control" placeholder="ex:#####" readonly="true">
-                                                    <input type="message" name="tbsaleprice" id="quantity" class="form-control" placeholder="ex:#####" >
-                          </div>
+
+                                                    <input v-model="message" name="tbsaleprice" id="quantity" class="form-control" placeholder="ex:#####" >
+                              </div>
                                 <div class="box-footer" id="app">
-                                                          <button id="btn_products" type="submit" class="btn btn-primary" >Add product`</button>
-                                                          <button id="btn_products" type="submit" class="btn btn-primary" >Add product</button>
+                                                        <button id="btn_products" type="submit" class="btn btn-primary" >Add product</button>
                                 </div>
                             </div>
                         </form>
-                                          <form role="form" action="/addproductsrental" method="POST">
-                                            <h3 class="box-title">Rental Products</h3>
-                                          </div>
-                                        </div>
-                                      </section>
-                                    </div>
-
-
-
                                     <div class="row">
                                       <section class="col-lg-7 connectedSortable">
                                               <div class="nav-tabs-custom">
@@ -177,15 +170,13 @@
                                           </div>                                                           
                                           <div class="form-group">       
                                                   <label for="rp">Product Rent Price</label>
-                                                                    <input type="message" name="tbrentprice" id="rp" class="form-control" placeholder="ex:$$$/week" readonly="true">       
                                                                     <input type="message"  id="rp" class="form-control" placeholder="ex:$$$/week">       
                                           </div>
                                                             <div class="form-group">        
                                                               <label for="sp">Product Quantity</td>
                                                               <input type="message" id="rquantity" class="form-control" placeholder="ex:#####" >
                                                       </div>
-                                          <div class="box-footer" id="app">
-                                             
+                                          <div class="box-footer" id="app">                                            
                                                   <button id="rbtn_products" type="submit" class="btn btn-primary" >Add Rental product</button>
                                                   <h3 class="box-title">Rental Products</h3>
 
@@ -196,9 +187,6 @@
         $(function(){
             $('#btn_products').unbind('click').on('click', function(e){
               e.preventDefault();
-             var productname = $('#productname').val();
-             var productprice = $('#productprice').val();
-             var productquantity = $('#productquantity').val();
              
              var pname = $('#productname').val();
              var pprice = $('#sp').val();
@@ -209,7 +197,9 @@
                method: "post",
                url: "/Products/add",
                data: { pname: pname, pprice: pprice, quantity:quantity}
+               
            })
+           alert("china")
            .done(function(data) {
              alert(data.message);
            })
