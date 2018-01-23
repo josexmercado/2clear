@@ -110,10 +110,12 @@ def amanage():
     
     return render_template('adminaccounts.html')
 
-@app.route("/astock")
+@app.route("/aastock")
 def astock():
 
-    return render_template('adminstockin.html')
+    products = Products.query.all()
+
+    return render_template('adminstockin.html', products=products)
 
 @app.route("/products")
 def products():
