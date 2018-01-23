@@ -162,7 +162,7 @@
           var jqxhr = $.ajax({
               method: "post",
               url: "/User/add",
-              data: { username: username, name:name, password:password }
+              data: { username:username, name:name, password:password }
           })
           .done(function(data) {
             alert(data.message);
