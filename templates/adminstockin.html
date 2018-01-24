@@ -129,11 +129,10 @@
                   <div class="box-header with-border">
                       <h3 class="box-title">Stock in</h3>
                     </div>
-                    <form action="/recordstockin"  method="POST">
                         <div class="box-body">
                               <div class="form-group">
                                       <label for="product_name">Choose Product:</label>
-                                          <select v-model="message" class="dropdown" name="customers" id="product_name">
+                                          <select v-model="message" class="dropdown" name="product" id="product_name">
                                             {% for products in products %}
                                               <option value="{{ products.id }}">{{ products.pname }}</option>
                                             {% endfor %}
@@ -160,28 +159,21 @@
                         </form>
                       </div>
                     </div>
-                            
-            
-
-
     </body>
     <script type="text/javascript">
     $(function(){
-      $('#btn_reg').unbind('click').on('click', function(e){
+      $('#btn_record').unbind('click').on('click', function(e){
         e.preventDefault();
-        var name = $('#user_name').val();
-        var username = $('#username').val();
-        var password = $('#password').val();
-        var confirmpassword = $('#confirmpassword').val();
-
-        if(password !== confirmpassword){
-          alert('Password do not match')
-        }else{
+        
+        var product = $('{{ products.pname }}').val();
+        var amount = $('#amount').val();
+        
           var jqxhr = $.ajax({
               method: "post",
-              url: "/User/add",
-              data: { username: username, name:name, password:password }
+              url: "/Stocks/add",
+              data: { product:product, amount:amount}
           })
+         
           .done(function(data) {
             alert(data.message);
           })
@@ -191,12 +183,10 @@
           .always(function() {
             //alert($('#name').val() );
           });
-          $('#user_name').val("");
-          $('#username').val("");
-          $('#password').val("");
-          $('#confirmpassword').val("");
-        }
-      });
+    
+          $('#product_name').val("");
+          $('#amount').val("");
+       });
       })
 
 </script>
