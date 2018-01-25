@@ -4,19 +4,23 @@
       <meta charset="utf-8">
       <meta http-equiv="X-UA-Compatible" content="IE=edge">
       <title>2clear</title>
-      <!-- Tell the browser to be responsive to screen width -->
       <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+      <link rel="stylesheet" href="/static/css/modal.css">
       <link rel="stylesheet" href="/static/bower_components/bootstrap/dist/css/bootstrap.min.css">
       <link rel="stylesheet" href="/static/bower_components/font-awesome/css/font-awesome.min.css">
       <link rel="stylesheet" href="/static/bower_components/Ionicons/css/ionicons.min.css">
       <link rel="stylesheet" href="/static/css/AdminLTE.min.css">
       <link rel="stylesheet" href="/static/css/skins/_all-skins.min.css">
       <link rel="stylesheet" href="/static/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">
-      <link rel="stylesheet" href="/static/css/bootstrap-datepicker.min.css">
       <script type="text/javascript" src="/static/plugins/jQuery/jQuery.min.js"></script>
 
     </head>
     <body class="hold-transition skin-blue sidebar-mini">
+
+
+
+
+
 
     <div class="wrapper">
             
@@ -56,7 +60,7 @@
               <div class="content-wrapper">
                 
                 <section class="content">
-                    <h1>        Admin Panel        <small>2clear</small>       </h1>
+                    <h1>         Products        <small>2clear</small>       </h1>
                   <div class="row">
                     <div class="col-lg-3 col-xs-6">
                       <div class="small-box bg-aqua">
@@ -68,7 +72,7 @@
                         <div class="icon">
                           <i class="ion ion-bag"></i>
                         </div>
-                        <a href="/transactions" class="small-box-footer">Go <i class="fa fa-arrow-circle-right"></i></a>
+                        <a href="transactions " class="small-box-footer">Go <i class="fa fa-arrow-circle-right"></i></a>
                       </div>
                     </div>
                     <div class="col-lg-3 col-xs-6">
@@ -112,103 +116,113 @@
                     </div>
                   </div>
 
-                  <div class="row">
-                    <div class="col-lg-3 col-xs-6">
-                        <button type="button" id="btnau" class="btn btn-block btn-danger btn-lg"><a href="/aadd">ADD USER</a></button>
+            <div class="row">
+              <div class="col-md-6">
+                <div class="box box-primary">
+                    <div class="box-header with-border">
+                      <h2>Stockin</h2>
                     </div>
-                    <div class="col-lg-3 col-xs-6">
-                        <button type="button" id="btnstock" class="btn btn-block btn-danger btn-lg"><a href="/aastock">STOCK IN & STOCK OUT</a></button>
-                      </div>
-                    <div class="col-lg-3 col-xs-6">
-                        <button type="submit" id="btnproducts" class="btn btn-block btn-danger btn-lg"><a href="/aproduct">MANAGE PRODUCTS</a></button>
-                      </div>
-                    <div class="col-lg-3 col-xs-6">
-                        <button type="button" id="btnaccts" class="btn btn-block btn-danger btn-lg"><a href="/amanage">MANAGE ACCOUNTS</a></button>
-                    </div>
-                    
-                  </div>
-                  <div class="box-header with-border">
-                      <h3 class="box-title">Stock in</h3>
-                    </div>
-                        <div class="box-body">
-                              <div class="form-group">
-                                	<form action="/updatestocks" method="post">
-                                      <label for="product_name">Choose Product:</label>
-                                          <select v-model="message" class="dropdown" name="product" id="product_name">
-                                            {% for products in products %}
-                                              <option value="{{ products.id }}">{{ products.pname }}</option>
-                                            {% endfor %}
-                                          </select>
-                                      </div>
-                        <div class="form-group">
-                        </div>
-                        <label for="user_name">Option:</label>
-                        <select v-model="message" class="dropdown" name="type" id="type">
-                          
-                              <option>Stock In</option>
-                              <option>Stock Out</option>
-                        </select>
-                        <div class="form-group"> 
-
-                        <input type = 'date' id = 'date' class="form-control" >
-
-                        </div>
-                        </div>
-                              <label for="amount">Amount:</label>	
-                              <input v-model="message" id="amount" class="form-control">
-                          <div class="box-footer">
+                    <div class="box-body">
+                      <table class="table table-bordered">
+                        <thead>
+                          <tr>
+                            <th>ID</th>
+                            <th>Type</th>
+                            <th>Product Number</th>
+                            <th>Quantities</th>
+                            <th>Date</th>
+                            <tH>Recorded By</tH>
+                            <th>Action</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {% for row in stocks %}
+                            <tr>
                               
-                              <input id="btn_record" type="button" class="btn btn-primary" value="Save">
-                          </div>
-                        </form>
-                      </div>
+                              <td>{{ row.id }}</td>
+                              <td>{{ row.type }}</td>
+                              <td>{{ row.product }}</td>
+                              <th>{{ row.amount }}</th>
+                              <td>{{ row.date }}</td>
+                              <td>diego</td>
+                          
+                              <td> <a class="btn btn-primary" href="/stocks/{row.id}"><i class="fa fa-search"></i>View</a> </td>
+                              {% else %}
+                            </tr>
+                          {% endfor %}
+                        </tbody>
+                      </table>
                     </div>
-                  </form>
+                  </div>
+              </div>
+              
+                  
+                </div>
+            </section>
+          </div>
+        </div>
+
+        
+                                               
+
+
     </body>
     <script type="text/javascript">
-    $(function(){
-      $('#btn_record').unbind('click').on('click', function(e){
-        e.preventDefault();
-        
-        var product = $('#product_name').val();
-        var type = $('#type').val();
-        var amount = $('#amount').val();
-        var date =$('#date').val();
+      $(function(){
+        $('#btn_products').unbind('click').on('click', function(e){
+          e.preventDefault();
+          var pname = $('#productname').val();
+          var pprice = $('#sp').val();
+          var quantity = $('#quantity').val();
+
+  
           var jqxhr = $.ajax({
-              method: "POST",
-              url: "/update/stocks",
-              data: { 
-                product:product, 
-                amount:amount, 
-                type:type,
-                date:date
-              }
-          })
-         
-          .done(function(data) {
-            alert(data.message);
-          })
-          .fail(function() {
-            alert( "error" );
-          })
-          .always(function() {
-            //alert($('#name').val() );
-          });
-    
-          $('#product_name').val("");
-          $('#type').val("");
-          $('#amount').val("");
-          $('#date').val("");
-       });
+            method: "post",
+            url: "/Products/add",
+            data: { pname: pname, pprice: pprice, quantity:quantity}
+        })
+        .done(function(data) {
+          alert(data.message);
+        })
+        .fail(function() {
+          alert( "error" );
+        })
+        .always(function() {
+          //alert($('#name').val() );
+        });
+        $('#productname').val("");
+        $('#sp').val("");
+        $('#quantity').val("");
+    });
 
 
-       $('#datepicker').datepicker({
-      autoclose: true
-    })
-      })
 
-</script>
+    $('#rbtn_products').unbind('click').on('click', function(e){
+          e.preventDefault();
+          var rproductname = $('#rproductname').val();
+          var rprice = $('#rp').val();
+          var rquantity = $('#rquantity').val();
+  
+          var jqxhr = $.ajax({
+            method: "post",
+            url: "/rentalproducts/add",
+            data: { rproductname: rproductname, rprice: rprice, rquantity:rquantity}
+        })
+        .done(function(data) {
+          alert(data.message);
+        })
+        .fail(function() {
+          alert( "error" );
+        })
+        .always(function() {
+          //alert($('#name').val() );
+        });
+        $('#rproductname').val("");
+          $('#rp').val("");
+          $('#rquantity').val("");
+    });
+
+
+  })
+  </script>
     </html>
-
-
-    
