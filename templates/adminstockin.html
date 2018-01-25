@@ -134,25 +134,28 @@
                               <div class="form-group">
                                 	<form action="/updatestocks" method="post">
                                       <label for="product_name">Choose Product:</label>
-                                          <select v-model="message" class="dropdown" name="product" id="product_name">
+
+                                      <input list="browsers" name="product" id="product_name"class="form-control">
+                                      <datalist id="browsers">
                                             {% for products in products %}
-                                              <option value="{{ products.id }}">{{ products.pname }}</option>
+                                              <option value="{{ products.pname }}">{{ products.id }}</option>
                                             {% endfor %}
-                                          </select>
+                                      </datalist>
                                       </div>
                         <div class="form-group">
                         </div>
                         <label for="user_name">Option:</label>
-                        <select v-model="message" class="dropdown" name="type" id="type">
+                        <div> 
+                        <select v-model="message" class="form-control" name="type" id="type">
                           
                               <option>Stock In</option>
                               <option>Stock Out</option>
                         </select>
+                       </div>
+                       <label for="user_name">Date:</label>
                         <div class="form-group"> 
-
                         <input type = 'date' id = 'date' class="form-control" >
 
-                        </div>
                         </div>
                               <label for="amount">Amount:</label>	
                               <input v-model="message" id="amount" class="form-control">
