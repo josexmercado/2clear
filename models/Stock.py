@@ -4,10 +4,10 @@ class Stock(db.Model):
     __tablename__ = 'stocks'
 
     id = db.Column(db.Integer, primary_key=True)
-    Type = db.Column(db.String(45))
+    type = db.Column(db.String(45))
     product = db.Column(db.String(45))
-    Amount = db.Column(db.Integer)
-    Date = db.Column(db.String(45))
+    amount = db.Column(db.Integer)
+    date = db.Column(db.String(45))
     
 
     def __init__(self, *args, **kwargs):
@@ -17,10 +17,10 @@ class Stock(db.Model):
     def json(self):
         return {
             'id': self.id,
-            'Type': self.Type,
+            'type': self.type,
             'product': self.product,
-            'Amount': self.Amount,
-            'Date': self.Date
+            'amount': self.amount,
+            'date': self.date
         }
 
 

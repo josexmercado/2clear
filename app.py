@@ -22,7 +22,7 @@ from resources.Products import Registerproducts
 from resources.stocks import UpdateStocks
 
 app = Flask(__name__)
-dbname   = 'mysql+pymysql://root:@127.0.0.1/2_clear'
+dbname   = 'mysql+pymysql://root:admin@127.0.0.1/2_clear'
 
 CORS(app, supports_credentials=True, resources={r"*": {"origins": "*"}})
 
@@ -122,29 +122,6 @@ def products():
     stocks = Stock.query.all()
     products = Products.query.all()
     return render_template('products.html',stocks=stocks, products=products )
-
-#Record Stockin
-@app.route("/updatestocks" , methods=['POST'])
-def recordstockin():
-
-    POST_TYPE = request.form['type']
-    POST_PRODUCT = request.form['product']
-    POST_AMOUNT = request.form['amount']
-    POST_DATE = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-
-    new_stockin = Stock(
-
-        Type = POST_TYPE,
-        amount = POST_AMOUNT,
-        Date = POST_DATE,
-        product = POST_PRODUCT
-
-    )
-
-    new_stockin.insert()
-
-    return render_template('adminpanel.html') 
- 
 
 
 @app.route("/return")

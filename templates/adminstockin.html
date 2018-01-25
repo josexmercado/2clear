@@ -164,18 +164,17 @@
       $('#btn_record').unbind('click').on('click', function(e){
         e.preventDefault();
         
-        var product = $('{{ products.pname }}').val();
+        var product = $('#product_name').val();
         var type = $('#type').val();
         var amount = $('#amount').val();
-        
           var jqxhr = $.ajax({
               method: "POST",
               url: "/update/stocks",
               data: { 
-                product:'hello', 
+                product:product, 
                 amount:amount, 
                 type:type,
-                date: "0000-00-00"
+                date: 'secret'
               }
           })
          
@@ -189,7 +188,7 @@
             //alert($('#name').val() );
           });
     
-          $('{{ products.pname }}').val("");
+          $('#product_name').val("");
           $('#type').val("");
           $('#amount').val("");
        });

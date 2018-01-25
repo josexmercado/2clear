@@ -34,5 +34,6 @@ class UpdateStocks(Resource):
 			type=data.type,
 			date=data.date
 			)
+
 		new_stocks.insert()
 		return {'message':'Stocks Updated!'}
