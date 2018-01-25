@@ -131,6 +131,7 @@
                     </div>
                         <div class="box-body">
                               <div class="form-group">
+                                	<form action="/updatestocks" method="post">
                                       <label for="product_name">Choose Product:</label>
                                           <select v-model="message" class="dropdown" name="product" id="product_name">
                                             {% for products in products %}
@@ -141,17 +142,14 @@
                         <div class="form-group">
                         </div>
                         <label for="user_name">Option:</label>
-                          <div class="form-group">
-                              <label for="checkyes">Stock in:</label>
-                              <input type="radio" v-model="picked" name="group" id="stockin" value="stock_in" class="fa fa-circle-o">
-                          <br>
-                              <label for="checkno">Stock out:</label>	
-                              <input type="radio" v-model="picked" name="group" id="stockout" value="stock_out" class="fa fa-circle-o">
-                          </div>
-                          <div class="form-group">
+                        <select v-model="message" class="dropdown" name="type" id="type">
+                          
+                              <option>Stock In</option>
+                              <option>Stock Out</option>
+                        </select>
+                        </div>
                               <label for="amount">Amount:</label>	
                               <input v-model="message" id="amount" class="form-control">
-                          </div>
                           <div class="box-footer">
                               
                               <input id="btn_record" type="button" class="btn btn-primary" value="Save">
@@ -159,6 +157,7 @@
                         </form>
                       </div>
                     </div>
+                  </form>
     </body>
     <script type="text/javascript">
     $(function(){
@@ -166,12 +165,18 @@
         e.preventDefault();
         
         var product = $('{{ products.pname }}').val();
+        var type = $('#type').val();
         var amount = $('#amount').val();
         
           var jqxhr = $.ajax({
-              method: "post",
-              url: "/Stocks/add",
-              data: { product:product, amount:amount}
+              method: "POST",
+              url: "/update/stocks",
+              data: { 
+                product:'hello', 
+                amount:amount, 
+                type:type,
+                date: "0000-00-00"
+              }
           })
          
           .done(function(data) {
@@ -184,7 +189,8 @@
             //alert($('#name').val() );
           });
     
-          $('#product_name').val("");
+          $('{{ products.pname }}').val("");
+          $('#type').val("");
           $('#amount').val("");
        });
       })

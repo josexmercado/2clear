@@ -19,7 +19,7 @@ from apps.sampleBlueprint import sample
 from resources.Customer import CustomerRegister
 from resources.User import UserRegister
 from resources.Products import Registerproducts
-from resources.stocks import updatestocks
+from resources.stocks import UpdateStocks
 
 app = Flask(__name__)
 dbname   = 'mysql+pymysql://root:admin@127.0.0.1/2_clear'
@@ -127,12 +127,10 @@ def products():
 @app.route("/updatestocks" , methods=['POST'])
 def recordstockin():
 
-    POST_TYPE = "Stock In"
+    POST_TYPE = request.form['type']
     POST_PRODUCT = request.form['product']
     POST_AMOUNT = request.form['amount']
     POST_DATE = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-
-    #container = Stock.query.order_by(Stock.stockid.desc()).first()
 
     new_stockin = Stock(
 
@@ -218,7 +216,7 @@ def Registerproduct():
 api.add_resource(CustomerRegister, '/Customer/add')
 api.add_resource(UserRegister, '/User/add')
 api.add_resource(Registerproducts, '/Products/add')
-api.add_resource(updatestocks, '/Stock/add')
+api.add_resource(UpdateStocks, '/update/stocks')
 
 
 #register blueprints here
