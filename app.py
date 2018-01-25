@@ -22,7 +22,7 @@ from resources.Products import Registerproducts
 from resources.stocks import updatestocks
 
 app = Flask(__name__)
-dbname   = 'mysql+pymysql://root:admin@127.0.0.1/2_clear'
+dbname   = 'mysql+pymysql://root:@127.0.0.1/2_clear'
 
 CORS(app, supports_credentials=True, resources={r"*": {"origins": "*"}})
 
@@ -200,11 +200,12 @@ def Registerproduct():
     POST_PRODNAME = str(request.form['productname'])
     POST_PRODPRICE = str(request.form['sp'])
     POST_PRODQUANTITY = str(request.form['quantity'])
-
+    POST_PRODTYPE = str(request.form['type'])
     new_product = Product(
         pname = POST_PRODNAME,
         pprice = POST_PRODPRICE,
-        quantity = POST_PRODQUANTITY
+        quantity = POST_PRODQUANTITY,
+        ptype = POST_PRODTYPE
     )
     try:
         new_user.insert()

@@ -210,12 +210,12 @@
              var pname = $('#productname').val();
              var pprice = $('#sp').val();
              var quantity = $('#quantity').val();
-             var type =$('#type').val();
+             var ptype =$('#type').val();
      
              var jqxhr = $.ajax({
                method: "post",
                url: "/Products/add",
-               data: { pname: pname, pprice: pprice, quantity:quantity}
+               data: { pname: pname, pprice: pprice, quantity:quantity, ptype:ptype}
                
            })
            .done(function(data) {
