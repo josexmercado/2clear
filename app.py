@@ -19,9 +19,10 @@ from apps.sampleBlueprint import sample
 from resources.Customer import CustomerRegister
 from resources.User import UserRegister
 from resources.Products import Registerproducts
+from resources.stocks import updatestocks
 
 app = Flask(__name__)
-dbname   = 'mysql+pymysql://root:@127.0.0.1/2_clear'
+dbname   = 'mysql+pymysql://root:admin@127.0.0.1/2_clear'
 
 CORS(app, supports_credentials=True, resources={r"*": {"origins": "*"}})
 
@@ -122,26 +123,26 @@ def products():
     products = Products.query.all()
     return render_template('products.html',stocks=stocks, products=products )
 
-@app.route("/recordstockin" , methods=['POST'])
+#Record Stockin
+@app.route("/updatestocks" , methods=['POST'])
 def recordstockin():
 
     POST_TYPE = "Stock In"
-    POST_AMOUNT = request.form['tbstockin']
+    POST_PRODUCT = request.form['product']
+    POST_AMOUNT = request.form['amount']
     POST_DATE = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
 
-    container = Stock.query.order_by(Stock.stockid.desc()).first()
+    #container = Stock.query.order_by(Stock.stockid.desc()).first()
 
     new_stockin = Stock(
 
         Type = POST_TYPE,
-        Amount = POST_AMOUNT,
+        amount = POST_AMOUNT,
         Date = POST_DATE,
+        product = POST_PRODUCT
 
-        Totalcontainers = container.Totalcontainers + int(POST_AMOUNT),
-        containersonhand = container.containersonhand + int(POST_AMOUNT)
     )
 
-    container.insert()
     new_stockin.insert()
 
     return render_template('adminpanel.html') 
@@ -216,7 +217,8 @@ def Registerproduct():
 #api routes
 api.add_resource(CustomerRegister, '/Customer/add')
 api.add_resource(UserRegister, '/User/add')
-api.add_resource(Registerproducts,'/Products/add')
+api.add_resource(Registerproducts, '/Products/add')
+api.add_resource(updatestocks, '/Stock/add')
 
 
 #register blueprints here
