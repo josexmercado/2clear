@@ -12,6 +12,7 @@
       <link rel="stylesheet" href="/static/css/AdminLTE.min.css">
       <link rel="stylesheet" href="/static/css/skins/_all-skins.min.css">
       <link rel="stylesheet" href="/static/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">
+      <link rel="stylesheet" href="/static/css/bootstrap-datepicker.min.css">
       <script type="text/javascript" src="/static/plugins/jQuery/jQuery.min.js"></script>
 
     </head>
@@ -192,6 +193,11 @@
           $('#type').val("");
           $('#amount').val("");
        });
+
+
+       $('#datepicker').datepicker({
+      autoclose: true
+    })
       })
 
 </script>
