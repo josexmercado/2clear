@@ -144,7 +144,12 @@
                                                 <div class="form-group">
                                                                           <label for="order">Order(s):</label>	
                                                                           <input v-model="message" id="order" class="form-control" placeholder="ex: tubig">
-                                                </div>
+                                                    <label for="order">Quantity:</label>	
+                                                    <input v-model="message" id="order" class="form-control" placeholder="ex: ##">
+                                                  </div>
+                                                  <div class="form-group">
+                                                    <input id="btnAddcart" type="submit" class="btn btn-primary" value="Add to cart">
+                          </div>
                                                 <div class="form-group">
                                                     <label for="bill">Bill:</label>	
                                                     <input v-model="message" id="bill" class="form-control" readonly="true">
