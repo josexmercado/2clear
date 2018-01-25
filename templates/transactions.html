@@ -130,7 +130,12 @@
 
                                                   
                                                     <label for="user_name">Name:</label>
-                                                                <input v-model="message" id="name" class="form-control" name ="tbName"placeholder="ex: juan dela cruz">
+                                                    <input list="customers" name= "customers" id="selectcustomer" class="form-control">
+                                                    <datalist id="customers">
+                                                        {% for customers in customers %}
+                                                          <option value="{{ customers.name }}">{{ customers.id }}</option>
+                                                        {% endfor %}
+                                                      </datalist>      
                                                 </div>
                                                 <div class="form-group">
                                                                       <label for="customeradress">Customer address:</label>
@@ -144,16 +149,14 @@
                                                 <div class="form-group">
                                                                           <label for="order">Select product:</label>	
 
-
-
-
-                                                                          <select v-model="message" class="dropdown" name="product" id="product_name" class="form-control">
+                                                                          <input list="products" name= "products" id="selectproduct" class="form-control">
+                                                                          <datalist id="products">
                                                                               {% for products in products %}
-                                                                                <option value="{{ products.id }}">{{ products.pname }}</option>
+                                                                                <option value="{{ products.pname }}">{{ products.id }}</option>
                                                                               {% endfor %}
-                                                                            </select>
-                                                                          </div>
-                                                                          <div class="form-group">
+                                                                            </datalist>                                                    
+                                                   </div>
+                                                  <div class="form-group">
                                                                           <label for="order">Quantity:</label>	
                                                                           
                                                     <input v-model="message" id="order" class="form-control" placeholder="ex: ##">
