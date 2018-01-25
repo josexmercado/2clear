@@ -142,13 +142,24 @@
                                                                         <input v-model="message" id="customernumber" class="form-control" placeholder="ex: 09123456789">
                                                 </div>
                                                 <div class="form-group">
-                                                                          <label for="order">Order(s):</label>	
-                                                                          <input v-model="message" id="order" class="form-control" placeholder="ex: tubig">
-                                                    <label for="order">Quantity:</label>	
+                                                                          <label for="order">Select product:</label>	
+
+
+
+
+                                                                          <select v-model="message" class="dropdown" name="product" id="product_name" class="form-control">
+                                                                              {% for products in products %}
+                                                                                <option value="{{ products.id }}">{{ products.pname }}</option>
+                                                                              {% endfor %}
+                                                                            </select>
+                                                                          </div>
+                                                                          <div class="form-group">
+                                                                          <label for="order">Quantity:</label>	
+                                                                          
                                                     <input v-model="message" id="order" class="form-control" placeholder="ex: ##">
                                                   </div>
                                                   <div class="form-group">
-                                                    <input id="btnAddcart" type="submit" class="btn btn-primary" value="Add to cart">
+                                                      <input id="btnAddcart" type="submit" class="btn btn-primary" value="Add to cart">
                           </div>
                                                 <div class="form-group">
                                                     <label for="bill">Bill:</label>	

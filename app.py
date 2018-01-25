@@ -83,8 +83,10 @@ def logout():
 
 @app.route("/transactions")
 def transactions():
+
+    products = Products.query.all()
     session['logged_in'] = True 
-    return render_template('transactions.html')
+    return render_template('transactions.html',products=products)
 
 @app.route("/registrations")
 def registrations():
