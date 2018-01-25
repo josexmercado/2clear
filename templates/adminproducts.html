@@ -142,14 +142,12 @@
                                 </div>
                                 <div class="form-group">        
                                     <label for="sp">Product Type: </td>
-                                      <br>
-                                      <label for="productsale">Sale: </label>
-                                                      <input type="radio" v-model="picked" name="ptype" id="productsale" value="sale">
-
-                                                      <br>
-                                                      <label for="prodcutrent">Rent: </label>
-                                                                      <input type="radio" v-model="picked" name="ptype" id="productrent" value="rent">
-                            </div>
+                                      <select v-model="message" id="type" class="dropdown">
+                                        <option>Sale</option>
+                                        <option>Rent</option>
+                                
+                                      </select>
+                                </div>
                                 <div class="form-group">        
                                         <label for="sp">Product Price</label>
 
@@ -212,7 +210,7 @@
              var pname = $('#productname').val();
              var pprice = $('#sp').val();
              var quantity = $('#quantity').val();
-            var type =$('#ptype').val();
+             var type =$('#type').val();
      
              var jqxhr = $.ajax({
                method: "post",
