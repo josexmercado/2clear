@@ -20,12 +20,18 @@ class Registerproducts(Resource):
 			required=True,
 			help="This field cannot be left blank!"
 			)
+		parser.add_argument('ptype',
+			type=str,
+			required=True,
+			help="This field cannot be left blank!"
+			)
 		data = parser.parse_args()
 
 		new_product = Products(
 			pname=data.pname,
 			pprice=data.pprice,
-			quantity=data.quantity
+			quantity=data.quantity,
+			ptype=data.ptype
 			)
 		new_product.insert()
 		return {'message':'Product Registered!'}
