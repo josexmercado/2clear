@@ -96,6 +96,13 @@ def registrations():
 def admin():
     return render_template('adminpanel.html')
 
+
+@app.route("/reports")
+def reports():
+
+    stocks = Stock.query.all()
+    return render_template('reports.html', stocks=stocks)
+
 @app.route("/aproduct")
 def adminproduct():
     
