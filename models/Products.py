@@ -3,8 +3,6 @@ from db import db
 class Products(db.Model):
     __tablename__ = 'products'
 
-    
-
     id = db.Column(db.Integer, primary_key=True)
     pname  = db.Column(db.String(45))
     ptype = db.Column(db.String(45))

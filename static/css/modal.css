@@ -14,6 +14,11 @@
   display: table-cell;
   vertical-align: middle;
 }
+.center{
+  width: 150px;
+    margin: 40px auto;
+    
+  }
 
 .modal-container {
   width: 300px;
