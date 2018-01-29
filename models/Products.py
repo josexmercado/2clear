@@ -24,7 +24,10 @@ class Products(db.Model):
             'pprice': self.pprice,
             'quantity': self.quantity,
         }
-
+    
+    @staticmethod
+    def getById(_id):
+        return Products.query.filter_by(id=_id).first()
 
     def insert(self):
         db.session.add(self)

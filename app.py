@@ -16,13 +16,14 @@ from datetime import datetime
 from apps.sampleBlueprint import sample
 
 # all resources
-from resources.Customer import CustomerRegister
+from resources.Customer import CustomerRegister, CustomerData
 from resources.User import UserRegister
 from resources.Products import Registerproducts
 from resources.stocks import UpdateStocks
+from resources.Products import getprice
 
 app = Flask(__name__)
-dbname   = 'mysql+pymysql://root:@127.0.0.1/2_clear'
+dbname   = 'mysql+pymysql://root:admin@127.0.0.1/2_clear'
 
 CORS(app, supports_credentials=True, resources={r"*": {"origins": "*"}})
 
@@ -203,6 +204,8 @@ api.add_resource(CustomerRegister, '/Customer/add')
 api.add_resource(UserRegister, '/User/add')
 api.add_resource(Registerproducts, '/Products/add')
 api.add_resource(UpdateStocks, '/update/stocks')
+api.add_resource(CustomerData, '/customer/<int:_id>')
+api.add_resource(getprice, '/price/<int:_id>')
 
 
 #register blueprints here

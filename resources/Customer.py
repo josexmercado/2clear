@@ -29,3 +29,11 @@ class CustomerRegister(Resource):
 			)
 		new_customer.insert()
 		return {'message':'Customer added!'}
+
+class CustomerData(Resource):
+
+	def get(self, _id):
+	
+		customer = CustomerModel.getById(_id)
+
+		return customer.json()

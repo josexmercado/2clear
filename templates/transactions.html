@@ -131,12 +131,12 @@
 
                                                   
                                                     <label for="user_name">Name:</label>
-                                                    <input list="customers" name= "customers" id="selectcustomer" class="form-control">
-                                                    <datalist id="customers">
+                                                    <!-- <input list="customers" name= "customers" id="selectcustomer" class="form-control"> -->
+                                                    <select id="customers" class="form-control">
                                                         {% for customers in customers %}
-                                                          <option value="{{ customers.name }}">{{ customers.id }}</option>
+                                                          <option value="{{ customers.id }}">{{ customers.name }}</option>
                                                         {% endfor %}
-                                                      </datalist>      
+                                                    </select>      
                                                 </div>
                                                 <div class="form-group">
                                                                       <label for="customeradress">Customer address:</label>
@@ -150,12 +150,14 @@
                                                 <div class="form-group">
                                                                           <label for="order">Select product:</label>	
 
-                                                                          <input list="products" name= "products" id="selectproduct" class="form-control">
-                                                                          <datalist id="products">
+                                                                          <!-- <input list="products" name= "products" id="selectproduct" class="form-control">
+                                                                          <datalist id="products"> -->
+                                                                              <select   id= "selectproduct" class="form-control">
                                                                               {% for products in products %}
-                                                                                <option value="{{ products.pname }}">{{ products.id }}</option>
+                                                                                <option value="{{ products.id }}">{{ products.pname   }}</option>
                                                                               {% endfor %}
-                                                                            </datalist>                                                    
+                                                                              </select>
+                                                                            <!-- </datalist>                                                     -->
                                                    </div>
                                                    <div class="form-group">
                                                       <label for="price">Price:</label>	
@@ -168,22 +170,20 @@
                                                     <input v-model="message" id="quantity" class="form-control" placeholder="ex: ##">
                                                   </div>
                                                   <div class="form-group">
-<<<<<<< HEAD
-                                                      <input id="addOption" type="button" class="btn btn-primary" value="Add to cart" onclick="addopt">
+                                                      <input id="addOption" type="button" class="btn btn-primary" value="Add to cart" >
+                                                   </div>
                                                    </div>
                                                    <div class="form-group">
                                                    <select id="dynamic-select" class="form-control">
                                                       
                                                         </select>
-                                                    
-                                                        <button id="getOption" class="btn btn-primary">get item</button>
+                                                        </div>
+                                                        </form>
+                                           
                                                         <button id="removeOption" class="btn btn-primary">remove item</button>
                                                         <button id="removeAllOptions" class="btn btn-primary">remove all</button>
-                                                      </div>
-=======
-                                                    <input id="btnAddcart" type="submit" class="btn btn-primary" value="Add to cart">
-                                                   </div>
->>>>>>> d116453b87b44ee7d435b554e4f52539c3aa18ad
+                                                  </div>
+                                                  
                                                 <div class="form-group">
                                                     <label for="bill">Bill:</label>	
                                                     <input v-model="message" id="bill" class="form-control" readonly="true">
@@ -198,16 +198,13 @@
           
                                             </form>
                                     </div>
-<<<<<<< HEAD
-=======
                                       </div>
->>>>>>> d116453b87b44ee7d435b554e4f52539c3aa18ad
               </section>
             </div>
 
-
     </body>
     </html>
+
     <script type="text/javascript">
       $(function(){
         $('#getOption').unbind('click').on('click', function(e){
@@ -240,9 +237,53 @@ $('#removeAllOption').unbind('click').on('click', function(e){
         e.preventDefault();
     var select = document.getElementById("dynamic-select");
     select.options.length = 0;
+
 })
+})
+$(function(){
+		$('#customers').on('change', function(){
+			var id = $(this).find(":selected").val();
+      console.log(id, 'id');
+			var jqaxhr = $.ajax({
+				method: "GET",
+				url: window.location.origin+"/customer/"+id 
+			})
+			.done( function(data){
+        console.log(data);
+				$('#customeraddress').val(data.address);
+				$('#customernumber').val(data.number);
+		
+			})
+			.fail(function(e){
+				alert('error')
+			})
+			.always(function(){
+			})
+		});
+	}) 
+  
+  $(function(){
+		$('#selectproduct').on('change', function(){
+			var id = $(this).find(":selected").val();
+      console.log(id, 'id');
+			var jqaxhr = $.ajax({
+				method: "GET",
+				url: window.location.origin+"/price/"+id 
+			})
+			.done( function(data){
+        console.log(data);
+				$('#price').val(data.pprice)  ;
+		
+			})
+			.fail(function(e){
+				alert('error')
+			})
+			.always(function(){
+			})
+		});
+	}) 
 
 
-      })
+
 
       </script>

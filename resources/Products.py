@@ -35,3 +35,12 @@ class Registerproducts(Resource):
 			)
 		new_product.insert()
 		return {'message':'Product Registered!'}
+
+
+class getprice(Resource):
+
+	def get(self, _id):
+	
+		price = Products.getById(_id)
+
+		return price.json()
