@@ -171,52 +171,73 @@
                                                                           <datalist id="products"> -->
                                                                               <select   id= "selectproduct" class="form-control">
                                                                               {% for products in products %}
-                                                                                <option value="{{ products.id }}">{{ products.pname   }}</option>
+                                                                                <option value="{{ products.pname }}">{{ products.pname   }}</option>
                                                                               {% endfor %}
                                                                               </select>
                                                                             <!-- </datalist>                                                     -->
                                                    </div>
-                                                   <div class="form-group">
+                                                   <fieldset>
+                                                   <div class="col-xs-3">
                                                       <label for="price">Price:</label>	
-                                                x       
-                                <input v-model="message" id="price" class="form-control" readonly="true">
-                              </div>
-                                                  <div class="form-group">
-                                                                          <label for="quantity">Quantity:</label>	
-                                                                          
-                                                    <input v-model="message" id="quantity" class="form-control" placeholder="ex: ##">
-                                                  </div>
-                                                  <div class="form-group">
-<<<<<<< HEAD
-                                                      <input id="addOption" type="button" class="btn btn-primary" value="Add to cart" >
-                                                   </div>
-=======
+                                                      <input v-model="message" id="price" class="form-control" readonly="true">
+                                                      <br>
                                                       <input id="addOption" type="button" class="btn btn-primary" value="Add to cart" onclick="addopt">
->>>>>>> 56b67568ca742c4c058c577ce0cc9486f30fbbc3
-                                                   </div>
-                                                   <div class="form-group">
-                                                   <select id="dynamic-select" class="form-control">
-                                                      
-                                                        </select>
-                                                        </div>
-                                                        </form>
-                                           
-                                                        <button id="removeOption" class="btn btn-primary">remove item</button>
-                                                        <button id="removeAllOptions" class="btn btn-primary">remove all</button>
-<<<<<<< HEAD
+                                                    </div>
+                                                  <div class="col-xs-3">
+                                                      <label for="quantity">Quantity:</label>	
+                                                      <input v-model="message" id="quantity" class="form-control" placeholder="ex: ##">
                                                   </div>
                                                   
-=======
-                                                      </div>
->>>>>>> 56b67568ca742c4c058c577ce0cc9486f30fbbc3
-                                                <div class="form-group">
-                                                    <label for="bill">Bill:</label>	
-                                                    <input v-model="message" id="bill" class="form-control" readonly="true">
-                                                </div>
-                                                <div class="form-group">
-                                                      <label for="date">Date:</label>	
-                                                    <input v-model="message" id="date" class="form-control">
+                                                  
+                                                  </fieldset>
+                                                  <br>
+                                                   <fieldset> 
+                                                   <div class="form-group">
 
+
+                                                      <div class="col-xs-5">
+                                                        <div class="form-group">
+                                                          <label>Cart:</label>
+                                                          <select id="dynamic-select" class="form-control">
+                                                          </select>
+                                                        </div>
+                                                        <div class="form-group">
+                                                        <label for="date">Date:</label>	
+                                                        <input type="date" id="date" class="form-control">
+                                                      </div>
+                                                      <div class="form-group">
+                                                          <label for="bill">Bill:</label>	
+                                                          <input v-model="message" id="bill" class="form-control" readonly="true">
+                                                        </div>                                                     
+                                                      </div>
+
+                                                      <div class="col-xs-3">
+                                                          <label>Quantity:</label>
+                                                          <input type="text" class="form-control" placeholder=".col-xs-3">
+                                                      </div>
+                                                      <div class="col-xs-3">
+                                                        <div class="form-group">
+                                                          <label>Amount:</label>
+                                                          <input type="text" class="form-control" placeholder=".col-xs-3">
+                                                        </div>
+                                                        <div class="form-group">
+                                                          <br>
+                                                            <button id="removeOption" class="btn btn-primary">remove item</button>
+                                                        </div>
+                                                        
+                                                      </div>
+
+                                                        
+                                                      
+                                                      
+                                                      
+                                                    </div>
+
+
+
+
+                                                    </fieldset>
+                                               
                                                 <div class="box-footer">
                                                   <input id="btnAdd" type="submit" class="btn btn-primary" value="Record New Order">
                                                   </div>
@@ -246,6 +267,9 @@
 $('#addOption').unbind('click').on('click', function(e){
         e.preventDefault();
     var selected = $('#selectproduct').val();
+
+
+    
     var select = document.getElementById("dynamic-select");
     select.options[select.options.length] = new Option(selected, '0', false, false);
 })
@@ -289,11 +313,11 @@ $(function(){
   
   $(function(){
 		$('#selectproduct').on('change', function(){
-			var id = $(this).find(":selected").val();
-      console.log(id, 'id');
+			var pname = $(this).find(":selected").val();
+      console.log(pname, 'pname');
 			var jqaxhr = $.ajax({
 				method: "GET",
-				url: window.location.origin+"/price/"+id 
+				url: window.location.origin+"/price/"+pname
 			})
 			.done( function(data){
         console.log(data);
