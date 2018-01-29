@@ -56,6 +56,11 @@ body {
 .layout-boxed {
   background: url('../img/boxed-bg.jpg') repeat fixed;
 }
+.center{
+  width: 150px;
+    margin: 40px auto;
+    
+  }
 /*
  * Content Wrapper - contains the main content
  */
