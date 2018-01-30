@@ -1,224 +1,251 @@
 <html>
-        
-    <head>
-      <meta charset="utf-8">
-      <meta http-equiv="X-UA-Compatible" content="IE=edge">
-      <title>2clear</title>
-      <!-- Tell the browser to be responsive to screen width -->
-      <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-      <link rel="stylesheet" href="/static/bower_components/bootstrap/dist/css/bootstrap.min.css">
-      <link rel="stylesheet" href="/static/bower_components/font-awesome/css/font-awesome.min.css">
-      <link rel="stylesheet" href="/static/bower_components/Ionicons/css/ionicons.min.css">
-      <link rel="stylesheet" href="/static/css/AdminLTE.min.css">
-      <link rel="stylesheet" href="/static/css/skins/_all-skins.min.css">
-      <link rel="stylesheet" href="/static/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">
-      <script type="text/javascript" src="/static/plugins/jQuery/jQuery.min.js"></script>
 
-    </head>
-    <body class="hold-transition skin-blue sidebar-mini">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>2clear</title>
+  <!-- Tell the browser to be responsive to screen width -->
+  <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+  <link rel="stylesheet" href="/static/bower_components/bootstrap/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/static/bower_components/font-awesome/css/font-awesome.min.css">
+  <link rel="stylesheet" href="/static/bower_components/Ionicons/css/ionicons.min.css">
+  <link rel="stylesheet" href="/static/css/AdminLTE.min.css">
+  <link rel="stylesheet" href="/static/css/skins/_all-skins.min.css">
+  <link rel="stylesheet" href="/static/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">
+  <script type="text/javascript" src="/static/plugins/jQuery/jQuery.min.js"></script>
 
-    <div class="wrapper">
-            
-              <header class="main-header">
-                <a class="logo">
-                  <span class="logo-mini"><b>A</b>LT</span>
-                  <span class="logo-lg"><b>2</b>Clear</span>
-                </a>
-                <nav class="navbar navbar-static-top">
-                    <!-- Sidebar toggle button-->
-                    <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
-                      <span class="sr-only">Toggle navigation</span>
-                    </a>
-                    <!-- Navbar Right Menu -->
-                    <div class="navbar-custom-menu">
-                      <ul class="nav navbar-nav">
-                        <!-- Messages: style can be found in dropdown.less-->
-                  
-                        <!-- Tasks: style can be found in dropdown.less -->
-                        <li class="dropdown tasks-menu">
-                          <a href="/logout" class="dropdown-toggle" data-toggle="dropdown">
-                            <i class=" fa-sign-out"></i>
-                            <span class="label label-danger">Log-out</span>
-                          </a>
-                          
-                        </li>
-                      </ul>     
-                    </div>
-              </nav>
-              </header>
-              <aside class="main-sidebar">
-                <section class="sidebar">
-                  <div class="user-panel">
-                    <div class="pull-left image">
-                      <img src="/static/img/user2-160x160.jpg" class="img-circle" alt="User Image">
-                    </div>
-                    <div class="pull-left info">
-                      <p id="userstatus">User</p>
-                      <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
-                    </div>
-                  </div>
-                  <form action="#" method="get" class="sidebar-form">
-                    <div class="input-group">
-                      <input type="text" name="q" class="form-control" placeholder="Search...">
-                      <span class="input-group-btn">
-                            <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i>
-                            </button>
-                          </span>
-                    </div>
-                  </form>
-                </section>
-              </aside>
-            
-              <div class="content-wrapper">
-                
-                <section class="content">
-                    <h1>        Admin Panel        <small>2clear</small>       </h1>
-                  <div class="row">
-                    <div class="col-lg-3 col-xs-6">
-                      <div class="small-box bg-aqua">
-                        <div class="inner">
-                          <h3 id="transactioncount">00</h3>
-            
-                          <p>Transactions</p>
-                        </div>
-                        <div class="icon">
-                          <i class="ion ion-bag"></i>
-                        </div>
-                        <a href="/transactions" class="small-box-footer">Go <i class="fa fa-arrow-circle-right"></i></a>
-                      </div>
-                    </div>
-                    <div class="col-lg-3 col-xs-6">
-                      <div class="small-box bg-yellow">
-                          <div class="inner">
-                            <h3 id="userregistration">00</h3>
-              
-                            <p>Customer Registrations</p>
-                          </div>
-                          <div class="icon">
-                            <i class="ion ion-person-add"></i>
-                          </div>
-                          <a href="/registrations" class="small-box-footer">Go <i class="fa fa-arrow-circle-right"></i></a>
-                        </div>
-                      </div>
-                    <div class="col-lg-3 col-xs-6">
-                      <div class="small-box bg-green">
-                          <div class="inner">
-                            <h3>2<sup style="font-size: 20px">clear</sup></h3>
-              
-                            <p>Inventory</p>
-                          </div>
-                          <div class="icon">
-                            <i class="ion ion-stats-bars"></i>
-                          </div>
-                          <a href="/products" class="small-box-footer">Go <i class="fa fa-arrow-circle-right"></i></a>
-                        </div>
-                      </div>
-                    <div class="col-lg-3 col-xs-6">
-                      <div class="small-box bg-red">
-                        <div class="inner">
-                          <h3>65</h3>
-            
-                          <p>Admin Panel</p>
-                        </div>
-                        <div class="icon">
-                          <i class="ion ion-pie-graph"></i>
-                        </div>
-                        <a href="/admin" class="small-box-footer">Go <i class="fa fa-arrow-circle-right"></i></a>
-                      </div>
-                    </div>
-                  </div>
+</head>
 
-                  <div class="row">
-                      <div class="col-lg-3 col-xs-6">
-                          <button type="button" id="btnau" class="btn btn-block btn-danger btn-lg"><a href="/aadd">ADD USER</a></button>
-                      </div>
-                      <div class="col-lg-3 col-xs-6">
-                          <button type="button" id="btnstock" class="btn btn-block btn-danger btn-lg"><a href="/aastock">STOCK IN & STOCK OUT</a></button>
-                        </div>
-                      <div class="col-lg-3 col-xs-6">
-                          <button type="submit" id="btnproducts" class="btn btn-block btn-danger btn-lg"><a href="/aproduct">MANAGE PRODUCTS</a></button>
-                        </div>
-                      <div class="col-lg-3 col-xs-6">
-                          <button type="button" id="btnaccts" class="btn btn-block btn-danger btn-lg"><a href="/amanage">MANAGE ACCOUNTS</a></button>
-                      </div>
-                      
-                    </div>
-                    
-              
-                              <div class="box-header with-border">
-                                  <h3 class="box-title">Add User</h3>
-                                </div>
-                                <form method="POST">
-                                    <div class="box-body">
-                                    <div class="form-group">
-                                    <label for="user_name">Name:</label>
-                                        <input v-model="message" id="user_name" class="form-control" name ="tbusersname"placeholder="ex: juan dela cruz">
-                                    </div>
-                                      <div class="form-group">
-                                          <label for="username">Username:</label>
-                                              <input v-model="message" id="username" class="form-control" name="tbusername" placeholder="ex: username">
-                                      </div>
-                  
-                                      <div class="form-group">
-                                          <label for="password">Password:</label>	
-                                          <input v-model="message" id="password" class="form-control" type="password" name="tbpassword" placeholder="ex: password">
-                                      </div>
-                                      <div class="form-group">
-                                          <label for="confirmpassword">Confirm password:</label>	
-                                          <input v-model="message" id="confirmpassword" class="form-control" type="password" name="tbconpassword" placeholder="ex: password">
-                                      </div>
-                                      <div class="form-group">
-                                          <label for="username">Role:</label>
-                                              <input v-model="message" id="role" class="form-control" name="role" placeholder="ex: admin/user">
-                                      </div>
-                                      <div class="box-footer">
-                                          <input id="btn_reg" type="submit" class="btn btn-primary" value="Add User">
-                                      </div>
-                                    </form>
-                                  </div>
-                        </div>
-                    
+<body class="hold-transition skin-blue sidebar-mini">
+
+  <div class="wrapper">
+
+    <header class="main-header">
+      <a class="logo">
+        <span class="logo-mini">
+          <b>A</b>LT</span>
+        <span class="logo-lg">
+          <b>2</b>Clear</span>
+      </a>
+      <nav class="navbar navbar-static-top">
+        <!-- Sidebar toggle button-->
+        <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
+          <span class="sr-only">Toggle navigation</span>
+        </a>
+        <!-- Navbar Right Menu -->
+        <div class="navbar-custom-menu">
+          <ul class="nav navbar-nav">
+            <!-- Messages: style can be found in dropdown.less-->
+
+            <!-- Tasks: style can be found in dropdown.less -->
+            <li class="dropdown tasks-menu">
+              <a href="/logout" class="dropdown-toggle" data-toggle="dropdown">
+                <i class=" fa-sign-out"></i>
+                <span class="label label-danger">Log-out</span>
+              </a>
+
+            </li>
+          </ul>
+        </div>
+      </nav>
+    </header>
+    <aside class="main-sidebar">
+      <section class="sidebar">
+        <div class="user-panel">
+          <div class="pull-left image">
+            <img src="/static/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+          </div>
+          <div class="pull-left info">
+            <p id="userstatus">User</p>
+            <a href="#">
+              <i class="fa fa-circle text-success"></i> Online</a>
+          </div>
+        </div>
+        <form action="#" method="get" class="sidebar-form">
+
+          <ul class="fixed sidebar-menu">
+
+            <li class="active treeview">
+              <a href="#">
+                <i class="fa fa-dashboard"></i>
+                <span>Admin Panel</span>
+                <span class="pull-right-container">
+                  <i class="fa fa-angle-left pull-right"></i>
+                </span>
+              </a>
+              <ul class="treeview-menu">
+                <li class = "active">
+                  <a href="/aadd" >
+                    <i class="fa fa-circle-o"></i> Add User</a>
+                </li>
+                <li>
+                  <a href="/aastock">
+                    <i class="fa fa-circle-o"></i>Stock In & Stock Out</a>
+                </li>
+                <li>
+                  <a href="/aproduct">
+                    <i class="fa fa-circle-o"></i>Manage Products</a>
+                </li>
+                <li>
+                  <a href="/amanage">
+                    <i class="fa fa-circle-o"></i>Manage Accounts</a>
+                </li>
+                <li>
+                  <a href="/reports">
+                    <i class="fa fa-circle-o"></i>View Reports</a>
+                </li>
+              </ul>
+
+        </form>
+      </section>
+    </aside>
+
+    <div class="content-wrapper">
+
+      <section class="content">
+        <h1> Admin Panel
+          <small>2clear</small>
+        </h1>
+        <div class="row">
+          <div class="col-lg-3 col-xs-6">
+            <div class="small-box bg-aqua">
+              <div class="inner">
+                <h3 id="transactioncount">00</h3>
+
+                <p>Transactions</p>
+              </div>
+              <div class="icon">
+                <i class="ion ion-bag"></i>
+              </div>
+              <a href="/transactions" class="small-box-footer">Go
+                <i class="fa fa-arrow-circle-right"></i>
+              </a>
+            </div>
+          </div>
+          <div class="col-lg-3 col-xs-6">
+            <div class="small-box bg-yellow">
+              <div class="inner">
+                <h3 id="userregistration">00</h3>
+
+                <p>Customer Registrations</p>
+              </div>
+              <div class="icon">
+                <i class="ion ion-person-add"></i>
+              </div>
+              <a href="/registrations" class="small-box-footer">Go
+                <i class="fa fa-arrow-circle-right"></i>
+              </a>
+            </div>
+          </div>
+          <div class="col-lg-3 col-xs-6">
+            <div class="small-box bg-green">
+              <div class="inner">
+                <h3>2
+                  <sup style="font-size: 20px">clear</sup>
+                </h3>
+
+                <p>Inventory</p>
+              </div>
+              <div class="icon">
+                <i class="ion ion-stats-bars"></i>
+              </div>
+              <a href="/products" class="small-box-footer">Go
+                <i class="fa fa-arrow-circle-right"></i>
+              </a>
+            </div>
+          </div>
+          <div class="col-lg-3 col-xs-6">
+            <div class="small-box bg-red">
+              <div class="inner">
+                <h3>65</h3>
+
+                <p>Admin Panel</p>
+              </div>
+              <div class="icon">
+                <i class="ion ion-pie-graph"></i>
+              </div>
+              <a href="/admin" class="small-box-footer">Go
+                <i class="fa fa-arrow-circle-right"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+
+</section>
 
 
-    </body>
-    <script type="text/javascript">
-    $(function(){
-      $('#btn_reg').unbind('click').on('click', function(e){
-        e.preventDefault();
-        var name = $('#user_name').val();
-        var username = $('#username').val();
-        var password = $('#password').val();
-        var confirmpassword = $('#confirmpassword').val();
-        var role = $('#role').val();
+        <div class="box-header with-border">
+          <h3 class="box-title">Add User</h3>
+        </div>
+        <form method="POST">
+          <div class="box-body">
+            <div class="form-group">
+              <label for="user_name">Name:</label>
+              <input v-model="message" id="user_name" class="form-control" name="tbusersname" placeholder="ex: juan dela cruz">
+            </div>
+            <div class="form-group">
+              <label for="username">Username:</label>
+              <input v-model="message" id="username" class="form-control" name="tbusername" placeholder="ex: username">
+            </div>
 
-        if(password !== confirmpassword){
-          alert('Password do not match')
-        }else{
-          var jqxhr = $.ajax({
-              method: "post",
-              url: "/User/add",
-              data: { username: username, name:name, password:password, role:role }
-          })
-          .done(function(data) {
+            <div class="form-group">
+              <label for="password">Password:</label>
+              <input v-model="message" id="password" class="form-control" type="password" name="tbpassword" placeholder="ex: password">
+            </div>
+            <div class="form-group">
+              <label for="confirmpassword">Confirm password:</label>
+              <input v-model="message" id="confirmpassword" class="form-control" type="password" name="tbconpassword" placeholder="ex: password">
+            </div>
+            <div class="form-group">
+              <label for="username">Role:</label>
+              <input v-model="message" id="role" class="form-control" name="role" placeholder="ex: admin/user">
+            </div>
+            <div class="box-footer">
+              <input id="btn_reg" type="submit" class="btn btn-primary" value="Add User">
+            </div>
+        </form>
+        </div>
+    </div>
+
+
+
+</body>
+<script type="text/javascript">
+  $(function () {
+    $('#btn_reg').unbind('click').on('click', function (e) {
+      e.preventDefault();
+      var name = $('#user_name').val();
+      var username = $('#username').val();
+      var password = $('#password').val();
+      var confirmpassword = $('#confirmpassword').val();
+      var role = $('#role').val();
+
+      if (password !== confirmpassword) {
+        alert('Password do not match')
+      } else {
+        var jqxhr = $.ajax({
+          method: "post",
+          url: "/User/add",
+          data: { username: username, name: name, password: password, role: role }
+        })
+          .done(function (data) {
             alert(data.message);
           })
-          .fail(function() {
-            alert( "error" );
+          .fail(function () {
+            alert("error");
           })
-          .always(function() {
+          .always(function () {
             //alert($('#name').val() );
           });
-          $('#user_name').val("");
-          $('#username').val("");
-          $('#password').val("");
-          $('#confirmpassword').val("");
-          $('#role').val("");
-        }
-      });
-      })
+        $('#user_name').val("");
+        $('#username').val("");
+        $('#password').val("");
+        $('#confirmpassword').val("");
+        $('#role').val("");
+      }
+    });
+  })
 
 </script>
-    </html>
 
-
-    
+</html>
