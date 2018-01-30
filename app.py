@@ -3,8 +3,6 @@ import os
 from flask import Flask, abort, flash, redirect, render_template, request,session, make_response, jsonify
 from flask_cors import CORS
 from flask_restful import Api
-from flask_jwt import JWT, jwt_required, current_identity
-from werkzeug.security import safe_str_cmp
 
 #models and libs
 from models.CustomerModel import CustomerModel
