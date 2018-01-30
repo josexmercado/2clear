@@ -191,7 +191,7 @@
                       <td class="quantity">{{ row.quantity }}</td>
                       <td>
                         <a class="btn btn-primary add-to-cart" name="enteramount">
-                          <i class="fa fa-check" id = {{ row.id }} ></i>Add to Cart</a>
+                          <i class="fa fa-check" id={ { row.id }}></i>Add to Cart</a>
                       </td>
                       {% else %}
                     </tr>
@@ -210,7 +210,7 @@
                 <h2>Customer Cart</h2>
               </div>
               <div class="box-body">
-                <table  class="table table-bordered">
+                <table class="table table-bordered">
                   <thead>
                     <tr>
                       <th>ID</th>
@@ -236,7 +236,11 @@
                       <th id="total_bill"></th>
                       <th></th>
                       <th></th>
-                      <th><a id="checkout" class="btn btn-primary">checkout <i class="fa fa-money"></i></a></th>
+                      <th>
+                        <a id="checkout" class="btn btn-primary">checkout
+                          <i class="fa fa-money"></i>
+                        </a>
+                      </th>
 
                     </tr>
                   </tfoot>
@@ -249,96 +253,97 @@
     </div>
   </div>
 </body>
+
 </html>
 
 <script type="text/javascript">
 
-$(function () {
-  $('.add-to-cart').on('click', function(e) {
-    e.preventDefault();
-    
-    var quantity = $(this).closest('td').siblings('td.quantity').text();
-    orderquantity = prompt('Quantity (maximum of '+quantity+'):'),
-    number_only = /^\d+$/;
-    console.log(orderquantity)
-    if(number_only.test(orderquantity)) {
-        
-        if(orderquantity <= parseInt(quantity)) {
+  $(function () {
+    $('.add-to-cart').on('click', function (e) {
+      e.preventDefault();
+
+      var quantity = $(this).closest('td').siblings('td.quantity').text();
+      orderquantity = prompt('Quantity (maximum of ' + quantity + '):'),
+        number_only = /^\d+$/;
+      console.log(orderquantity)
+      if (number_only.test(orderquantity)) {
+
+        if (orderquantity <= parseInt(quantity)) {
           var id = $(this).closest('td').siblings('td.id').text()
-          var price =  $(this).closest('td').siblings('td.price').data('price');
+          var price = $(this).closest('td').siblings('td.price').data('price');
           var sub_total = parseFloat(price) * orderquantity;
           var product_name = $(this).closest('td').siblings('td.name').text()
-          var type =  $(this).closest('td').siblings('td.type').text()
-          console.log({id:id, price:price, sub_total:sub_total, product_name:product_name, type:type})
+          var type = $(this).closest('td').siblings('td.type').text()
+          console.log({ id: id, price: price, sub_total: sub_total, product_name: product_name, type: type })
           $('#cart-empty').remove();
-          $('#myCart').append('<tr><td>'+id+'</td><td>'+type+'</td><td>'+product_name+'</td><td>'+price+'</td><td>'+orderquantity+'</td><td class="sub_total">'+sub_total+'</td><td><a class="remove"><i class="fa fa-remove"></i></a></td></tr>');
+          $('#myCart').append('<tr><td>' + id + '</td><td>' + type + '</td><td>' + product_name + '</td><td>' + price + '</td><td>' + orderquantity + '</td><td class="sub_total">' + sub_total + '</td><td><a class="remove"><i class="fa fa-remove"></i></a></td></tr>');
           var totalQuantity = 0;
-          $(".sub_total").each(function(){
+          $(".sub_total").each(function () {
             totalQuantity += parseInt($(this).text());
             $("#total_bill").text(totalQuantity);
           });
-            
-        }else{
+
+        } else {
           alert('Invalid quantity, the number of items you encoded exceeds the available on hand items.');
         }
-    
-    }else {
+
+      } else {
         alert('Invalid Input, the prompt only accepts numbers');
-    }
-  });
-  $(document).on('click', '.remove', function(e){
-    e.preventDefault();
-    var sub_total = $(this).closest('td').siblings('td.sub_total').text();
-    $(this).closest('tr').remove();
-    var total_bill = parseFloat($("#total_bill").text());
-    var new_total = total_bill - parseFloat(sub_total);
-    $('#total_bill').text(new_total);
+      }
+    });
+    $(document).on('click', '.remove', function (e) {
+      e.preventDefault();
+      var sub_total = $(this).closest('td').siblings('td.sub_total').text();
+      $(this).closest('tr').remove();
+      var total_bill = parseFloat($("#total_bill").text());
+      var new_total = total_bill - parseFloat(sub_total);
+      $('#total_bill').text(new_total);
 
-  });
+    });
 
 
 
-  $('#customers').on('change', function () {
-    var id = $(this).find(":selected").val();
-    console.log(id, 'id');
-    var jqaxhr = $.ajax({
-      method: "GET",
-      url: window.location.origin + "/customer/" + id
-    })
-      .done(function (data) {
-        console.log(data);
-        $('#customeraddress').val(data.address);
-        $('#customernumber').val(data.number);
-
+    $('#customers').on('change', function () {
+      var id = $(this).find(":selected").val();
+      console.log(id, 'id');
+      var jqaxhr = $.ajax({
+        method: "GET",
+        url: window.location.origin + "/customer/" + id
       })
-      .fail(function (e) {
-        alert('error')
-      })
-      .always(function () {
-      })
-  });
+        .done(function (data) {
+          console.log(data);
+          $('#customeraddress').val(data.address);
+          $('#customernumber').val(data.number);
+
+        })
+        .fail(function (e) {
+          alert('error')
+        })
+        .always(function () {
+        })
+    });
 
 
-  $('#selectproduct').on('change', function () {
-    var pname = $(this).find(":selected").val();
-    console.log(pname, 'pname');
-    var jqaxhr = $.ajax({
-      method: "GET",
-      url: window.location.origin + "/price/" + pname
-    })
-      .done(function (data) {
-        console.log(data);
-        $('#price').val(data.pprice);
+    $('#selectproduct').on('change', function () {
+      var pname = $(this).find(":selected").val();
+      console.log(pname, 'pname');
+      var jqaxhr = $.ajax({
+        method: "GET",
+        url: window.location.origin + "/price/" + pname
+      })
+        .done(function (data) {
+          console.log(data);
+          $('#price').val(data.pprice);
 
-      })
-      .fail(function (e) {
-        alert('error')
-      })
-      .always(function () {
-      })
-  });
+        })
+        .fail(function (e) {
+          alert('error')
+        })
+        .always(function () {
+        })
+    });
 
-})
+  })
 
 
 
