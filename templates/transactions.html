@@ -334,6 +334,80 @@
             $(this).attr('disabled', true);
           }
 
+    
+$(function(){
+		$('#customers').on('change', function(){
+			var id = $(this).find(":selected").val();
+      console.log(id, 'id');
+			var jqaxhr = $.ajax({
+				method: "GET",
+				url: window.location.origin+"/customer/"+id 
+			})
+			.done( function(data){
+        console.log(data);
+				$('#customeraddress').val(data.address);
+				$('#customernumber').val(data.number);
+		
+			})
+			.fail(function(e){
+				alert('error')
+			})
+			.always(function(){
+			})
+		});
+	}) 
+  
+  $(function(){
+		$('#selectproduct').on('change', function(){
+			var pname = $(this).find(":selected").val();
+      console.log(pname, 'pname');
+			var jqaxhr = $.ajax({
+				method: "GET",
+				url: window.location.origin+"/price/"+pname
+			})
+			.done( function(data){
+        console.log(data);
+				$('#price').val(data.pprice)  ;
+		
+			})
+			.fail(function(e){
+				alert('error')
+			})
+			.always(function(){
+			})
+		});
+	}) 
+
+
+//plugin bootstrap minus and plus
+//http://jsfiddle.net/laelitenetwork/puJ6G/
+$('.btn-number').click(function(e){
+    e.preventDefault();
+    
+    fieldName = $(this).attr('data-field');
+    type      = $(this).attr('data-type');
+    var input = $("input[name='"+fieldName+"']");
+    var currentVal = parseInt(input.val());
+    if (!isNaN(currentVal)) {
+        if(type == 'minus') {
+            
+            if(currentVal > input.attr('min')) {
+                input.val(currentVal - 1).change();
+            } 
+            if(parseInt(input.val()) == input.attr('min')) {
+                $(this).attr('disabled', true);
+            }
+
+        } else if(type == 'plus') {
+
+            if(currentVal < input.attr('max')) {
+                input.val(currentVal + 1).change();
+            }
+            if(parseInt(input.val()) == input.attr('max')) {
+                $(this).attr('disabled', true);
+            }
+>>>>>>> 15fe8ac724179e55742102fcfad4c7dbea50fcec
+
         }
       } else {
         input.val(0);
