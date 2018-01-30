@@ -55,7 +55,7 @@
                       <img src="/static/img/user2-160x160.jpg" class="img-circle" alt="User Image">
                     </div>
                     <div class="pull-left info">
-                      <p id="userstatus">User</p>
+                      <p id="user"  >{{session.username}}</p>
                       <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
                     </div>
                   </div>
@@ -254,9 +254,6 @@ $('#addOption').unbind('click').on('click', function(e){
     select.options[select.options.length] = new Option(selected, '0', false, false);
 })
 
-=======
->>>>>>> 2dda48a2fb2d7e7d066cf83555be0fc4e867a0be
-
     
 $(function(){
 		$('#customers').on('change', function(){
@@ -377,5 +374,5 @@ $(".input-number").keydown(function (e) {
     });
 
 
-
+      })
       </script>

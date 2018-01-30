@@ -3,7 +3,8 @@ import os
 from flask import Flask, abort, flash, redirect, render_template, request,session, make_response, jsonify
 from flask_cors import CORS
 from flask_restful import Api
-
+from flask_jwt import JWT, jwt_required, current_identity
+from werkzeug.security import safe_str_cmp
 
 #models and libs
 from models.CustomerModel import CustomerModel
@@ -70,11 +71,13 @@ def do_admin_login():
     if result:
         session['uid'] = result.id
         session['logged_in'] = True
+        session['username'] = result.username
         # redirect to /home
     else:
         flash('wrong password!')
         # redirect to login
     return redirect('/')
+
 
 @app.route("/logout")
 def logout():
@@ -100,7 +103,7 @@ def admin():
 
 @app.route("/reports")
 def reports():
-
+    
     stocks = Stock.query.all()
     return render_template('reports.html', stocks=stocks)
 
