@@ -55,7 +55,7 @@
             <img src="/static/img/user2-160x160.jpg" class="img-circle" alt="User Image">
           </div>
           <div class="pull-left info">
-            <p id="user">{{session.name}}</p>
+            <p id="userstatus">User</p>
             <a href="#">
               <i class="fa fa-circle text-success"></i> Online</a>
           </div>
@@ -73,12 +73,12 @@
                 </span>
               </a>
               <ul class="treeview-menu">
-                <li class="active">
-                  <a href="/transactions" >
+                <li >
+                  <a href="/transactions">
                     <i class="fa fa-circle-o"></i> Add Order</a>
                 </li>
-                <li>
-                  <a href="/vieworders">
+                <li class ="active">
+                  <a href="/vieworders" >
                     <i class="fa fa-circle-o"></i>View Orders</a>
                 </li>
 
@@ -161,12 +161,11 @@
 
         <!-- #Order -->
 
-
         <div class="row">
           <div class="col-md-6">
             <div class="box box-primary">
               <div class="box-header with-border">
-                <h2>Product List</h2>
+                <h2>Order List</h2>
               </div>
               <div class="box-body">
                 <table class="table table-bordered">
@@ -207,7 +206,7 @@
           <div class="col-md-6">
             <div class="box box-primary">
               <div class="box-header with-border">
-                <h2>Customer Cart</h2>
+                <h2>Customer Information</h2>
               </div>
               <div class="box-body">
                 <table class="table table-bordered">

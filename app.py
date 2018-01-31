@@ -100,6 +100,9 @@ def registrations():
 def admin():
     return render_template('adminpanel.html')
 
+@app.route("/vieworders")
+def vieworders():
+    return render_template('Orders.html')
 
 @app.route("/reports")
 def reports():
