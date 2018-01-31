@@ -74,7 +74,7 @@
               </a>
               <ul class="treeview-menu">
                 <li class="active">
-                  <a href="/transactions" >
+                  <a href="/transactions">
                     <i class="fa fa-circle-o"></i> Add Order</a>
                 </li>
                 <li>
@@ -302,6 +302,21 @@
 
                 var st1 = $(this).closest('td').siblings('td.sub_total').text();
                 $(this).closest('td').siblings('td.sub_total').html(parseFloat(st1) + sub_total);
+
+                var Quant = $(this).closest('td').siblings('td.order_quantity').text();
+
+                $('#ProductList').find('tr').each(function (idx, row) {
+                  var product_id = $(row).find('.id').text();
+                  if (product_id == id) {
+
+                    productquantity = $(row).find('td.quantity').text()
+
+                    $(row).find('td.quantity').html(parseInt(productquantity) - parseInt(orderquantity));
+
+                    console.log(productquantity)
+                  }
+
+                })
                 return false;
               }
             });
@@ -333,18 +348,18 @@
       e.preventDefault();
       var sub_total = $(this).closest('td').siblings('td.sub_total').text();
       var Quant = $(this).closest('td').siblings('td.order_quantity').text();
- 
+
       var id = $(this).closest('td').siblings('td.item-id').text();
- 
+
       $(this).closest('tr').remove();
       var total_bill = parseFloat($("#total_bill").text());
       var new_total = total_bill - parseFloat(sub_total);
       $('#total_bill').text(new_total);
 
-      $('#ProductList').find('tr').each(function(idx, row) {
+      $('#ProductList').find('tr').each(function (idx, row) {
         var product_id = $(row).find('.id').text();
-        if( product_id == id ) {
-          
+        if (product_id == id) {
+
           productquantity = $(row).find('td.quantity').text()
 
           $(row).find('td.quantity').html(parseInt(Quant) + parseInt(productquantity));
