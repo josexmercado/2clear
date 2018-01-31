@@ -71,6 +71,7 @@ def do_admin_login():
         session['logged_in'] = True
         session['username'] = result.username
         session['name'] = result.name
+        session['role'] =result.role
         # redirect to /home
     else:
         flash('wrong password!')
