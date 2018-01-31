@@ -194,6 +194,7 @@
         <div>
           <select v-model="message" class="form-control" name="type" id="type">
 
+<<<<<<< HEAD
             <option>Stock In</option>
             <option>Stock Out</option>
           </select>
@@ -201,6 +202,21 @@
         <label for="user_name">Date:</label>
         <div class="form-group">
           <input type='date' id='date' class="form-control">
+=======
+      </div>
+      <div class="form-group">
+      <label for="amount">Amount:</label>
+    
+      <input v-model="message" id="amount" class="form-control">
+    </div>
+      <div class="form-group">
+          <label >Recorded by:</label>
+          <input v-model="message" id='recby' class="form-control" value="{{session.name}}" readonly="true">
+  
+        </div>
+      <div class="box-footer">
+        
+>>>>>>> 0a8109e51edc9b947139e96111ce56367ff2b64e
 
         </div>
         <label for="amount">Amount:</label>
@@ -223,6 +239,7 @@
       var type = $('#type').val();
       var amount = $('#amount').val();
       var date = $('#date').val();
+      var recby = $('#recby').val();
       var jqxhr = $.ajax({
         method: "POST",
         url: "/update/stocks",
@@ -230,7 +247,8 @@
           product: product,
           amount: amount,
           type: type,
-          date: date
+          date: date,
+          recby:recby
         }
       })
 

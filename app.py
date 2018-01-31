@@ -22,7 +22,7 @@ from resources.stocks import UpdateStocks
 from resources.Products import getprice
 
 app = Flask(__name__)
-dbname   = 'mysql+pymysql://root:admin@127.0.0.1/2_clear'
+dbname   = 'mysql+pymysql://root:@127.0.0.1/2_clear'
 
 CORS(app, supports_credentials=True, resources={r"*": {"origins": "*"}})
 
@@ -70,6 +70,7 @@ def do_admin_login():
         session['uid'] = result.id
         session['logged_in'] = True
         session['username'] = result.username
+        session['name'] = result.name
         # redirect to /home
     else:
         flash('wrong password!')

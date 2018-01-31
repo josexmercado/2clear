@@ -8,7 +8,7 @@ class Stock(db.Model):
     product = db.Column(db.String(45))
     amount = db.Column(db.Integer)
     date = db.Column(db.String(45))
-    
+    recby= db.Column(db.String(50))
 
     def __init__(self, *args, **kwargs):
         for name, value in kwargs.items():
@@ -20,7 +20,8 @@ class Stock(db.Model):
             'type': self.type,
             'product': self.product,
             'amount': self.amount,
-            'date': self.date
+            'date': self.date,
+            'recby': self.recby
         }
 
 

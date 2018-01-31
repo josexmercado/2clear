@@ -26,13 +26,19 @@ class UpdateStocks(Resource):
 			required=True,
 			help="This field cannot be left blank!"
 			)
+		parser.add_argument('recby',
+			type=str,
+			required=True,
+			help="This field cannot be left blank!"
+			)
 		data = parser.parse_args()
 
 		new_stocks = Stock(
 			product=data.product,
 			amount=data.amount,
 			type=data.type,
-			date=data.date
+			date=data.date,
+			recby=data.recby
 			)
 
 		new_stocks.insert()
