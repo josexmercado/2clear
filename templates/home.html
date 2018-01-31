@@ -4,6 +4,7 @@
 <link rel="stylesheet" href="/static/css/AdminLTE.min.css">
 <link rel="stylesheet" href="/static/css/skins/_all-skins.min.css">
 <link rel="stylesheet" href="/static/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">
+<script type="text/javascript" src="/static/plugins/jQuery/jQuery.min.js"></script>
 <html>
         
     <head>
@@ -61,7 +62,7 @@
                     </div>
                     <div class="pull-left info">
                       <p id="user"  >{{session.username}}</p>
-                      <a><i class="fa fa-circle text-success"></i>online</a>
+                      <input type="text" readonly="true" id="role" class="form-control" value="{{session.role}}">
                     </div>
                   </div>
                   <!-- search form -->
@@ -132,7 +133,7 @@
                     <!-- ./col -->
                     <div class="col-lg-3 col-xs-6">
                       <!-- small box -->
-                      <div class="small-box bg-red">
+                      <div id="wadu" class="small-box bg-red">
                         <div class="inner">
                           <h3>65</h3>
             
@@ -176,5 +177,14 @@
     </html>
 
     <script type="text/javascript">
-  
+      $(function () {
+  if ($('#role').val() == "admin")
+  {
+    $('#apanel').show();
+  }
+  else
+  {
+    $('#apanel').hide();
+  }
+})
     </script>
