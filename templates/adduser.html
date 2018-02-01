@@ -59,6 +59,7 @@
             <p id="user">{{session.name}}</p>
             <a href="#">
               <i class="fa fa-circle text-success"></i> Online</a>
+              <input type="hidden" readonly="true" id="role" class="form-control" hide="true" value="{{session.role}}">
           </div>
         </div>
         <form action="#" method="get" class="sidebar-form">
@@ -140,7 +141,7 @@
               <div class="icon">
                 <i class="ion ion-pie-graph"></i>
               </div>
-              <a href="/admin" class="small-box-footer">Go
+              <a id="apanel" href="/admin" class="small-box-footer">Go
                 <i class="fa fa-arrow-circle-right"></i>
               </a>
             </div>
@@ -206,7 +207,16 @@
       $('#customeraddress').val("");
       $('#customercontact').val("");
     })
+      $(function () {
+  if ($('#role').val() == "admin")
+  {
+    $('#apanel').show();
+  }
+  else
+  {
+    $('#apanel').hide();
+  }
+})
   })
-</script>
 
-</html>
+</script>
