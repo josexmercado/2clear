@@ -17,8 +17,6 @@
 
 <body class="hold-transition skin-blue sidebar-mini">
 
-
-
   <div class="wrapper">
 
     <header class="main-header">
@@ -55,7 +53,7 @@
             <img src="/static/img/user2-160x160.jpg" class="img-circle" alt="User Image">
           </div>
           <div class="pull-left info">
-            <p id="userstatus">User</p>
+            <p id="userstatus">{{session.name}}</p>
             <a href="#">
               <i class="fa fa-circle text-success"></i> Online</a>
           </div>
@@ -73,12 +71,12 @@
                 </span>
               </a>
               <ul class="treeview-menu">
-                <li >
+                <li>
                   <a href="/transactions">
                     <i class="fa fa-circle-o"></i> Add Order</a>
                 </li>
-                <li class ="active">
-                  <a href="/vieworders" >
+                <li class="active">
+                  <a href="/vieworders">
                     <i class="fa fa-circle-o"></i>View Orders</a>
                 </li>
 
@@ -98,9 +96,9 @@
           <div class="col-lg-3 col-xs-6">
             <div class="small-box bg-aqua">
               <div class="inner">
-                <h3 id="transactioncount">00</h3>
+                <h3 id="transactioncount">Orders</h3>
 
-                <p>Transactions</p>
+                <p>Order Registration</p>
               </div>
               <div class="icon">
                 <i class="ion ion-bag"></i>
@@ -113,7 +111,7 @@
           <div class="col-lg-3 col-xs-6">
             <div class="small-box bg-yellow">
               <div class="inner">
-                <h3 id="userregistration">00</h3>
+                <h3 id="userregistration">Customers</h3>
 
                 <p>Customer Registrations</p>
               </div>
@@ -128,8 +126,8 @@
           <div class="col-lg-3 col-xs-6">
             <div class="small-box bg-green">
               <div class="inner">
-                <h3>2
-                  <sup style="font-size: 20px">clear</sup>
+                <h3>Products
+                  <sup style="font-size: 20px"></sup>
                 </h3>
 
                 <p>Inventory</p>
@@ -145,7 +143,7 @@
           <div class="col-lg-3 col-xs-6">
             <div class="small-box bg-red">
               <div class="inner">
-                <h3>65</h3>
+                <h3>Welcome Admin</h3>
 
                 <p>Admin Panel</p>
               </div>
@@ -332,18 +330,18 @@
       e.preventDefault();
       var sub_total = $(this).closest('td').siblings('td.sub_total').text();
       var Quant = $(this).closest('td').siblings('td.order_quantity').text();
- 
+
       var id = $(this).closest('td').siblings('td.item-id').text();
- 
+
       $(this).closest('tr').remove();
       var total_bill = parseFloat($("#total_bill").text());
       var new_total = total_bill - parseFloat(sub_total);
       $('#total_bill').text(new_total);
 
-      $('#ProductList').find('tr').each(function(idx, row) {
+      $('#ProductList').find('tr').each(function (idx, row) {
         var product_id = $(row).find('.id').text();
-        if( product_id == id ) {
-          
+        if (product_id == id) {
+
           productquantity = $(row).find('td.quantity').text()
 
           $(row).find('td.quantity').html(parseInt(Quant) + parseInt(productquantity));

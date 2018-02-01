@@ -59,18 +59,33 @@
             <p id="user">{{session.name}}</p>
             <a href="#">
               <i class="fa fa-circle text-success"></i> Online</a>
-              <input type="hidden" readonly="true" id="role" class="form-control" hide="true" value="{{session.role}}">
+            <input type="hidden" readonly="true" id="role" class="form-control" hide="true" value="{{session.role}}">
           </div>
         </div>
         <form action="#" method="get" class="sidebar-form">
-          <div class="input-group">
-            <input type="text" name="q" class="form-control" placeholder="Search...">
-            <span class="input-group-btn">
-              <button type="submit" name="search" id="search-btn" class="btn btn-flat">
-                <i class="fa fa-search"></i>
-              </button>
-            </span>
-          </div>
+
+          <ul class="fixed sidebar-menu">
+
+            <li class="active treeview">
+              <a href="#">
+                <i class="fa fa-dashboard"></i>
+                <span>Customers</span>
+                <span class="pull-right-container">
+                  <i class="fa fa-angle-left pull-right"></i>
+                </span>
+              </a>
+              <ul class="treeview-menu">
+                <li class="active">
+                  <a href="/registrations">
+                    <i class="fa fa-circle-o"></i> Register New Customer</a>
+                </li>
+                <li>
+                  <a href="/viewcustomers">
+                    <i class="fa fa-circle-o"></i>View Customer Details</a>
+                </li>
+
+              </ul>
+
         </form>
       </section>
     </aside>
@@ -78,16 +93,16 @@
     <div class="content-wrapper">
 
       <section class="content">
-        <h1> Admin Panel
+        <h1> Customer Registration
           <small>2clear</small>
         </h1>
         <div class="row">
           <div class="col-lg-3 col-xs-6">
             <div class="small-box bg-aqua">
               <div class="inner">
-                <h3 id="transactioncount">00</h3>
+                <h3 id="transactioncount">Orders</h3>
 
-                <p>Transactions</p>
+                <p>Order Registration</p>
               </div>
               <div class="icon">
                 <i class="ion ion-bag"></i>
@@ -100,7 +115,7 @@
           <div class="col-lg-3 col-xs-6">
             <div class="small-box bg-yellow">
               <div class="inner">
-                <h3 id="userregistration">00</h3>
+                <h3 id="userregistration">Customers</h3>
 
                 <p>Customer Registrations</p>
               </div>
@@ -115,8 +130,8 @@
           <div class="col-lg-3 col-xs-6">
             <div class="small-box bg-green">
               <div class="inner">
-                <h3>2
-                  <sup style="font-size: 20px">clear</sup>
+                <h3>Products
+                  <sup style="font-size: 20px"> </sup>
                 </h3>
 
                 <p>Inventory</p>
@@ -132,8 +147,8 @@
           <div class="col-lg-3 col-xs-6">
             <div class="small-box bg-red">
               <div class="inner">
-                <h3>2
-                  <sup style="font-size: 20px">clear</sup>
+                <h3>Welcome Admin
+                  <sup style="font-size: 20px"> </sup>
                 </h3>
 
                 <p>Admin Panel</p>
@@ -207,16 +222,14 @@
       $('#customeraddress').val("");
       $('#customercontact').val("");
     })
-      $(function () {
-  if ($('#role').val() == "admin")
-  {
-    $('#apanel').show();
-  }
-  else
-  {
-    $('#apanel').hide();
-  }
-})
+    $(function () {
+      if ($('#role').val() == "admin") {
+        $('#apanel').show();
+      }
+      else {
+        $('#apanel').hide();
+      }
+    })
   })
 
 </script>
