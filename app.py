@@ -92,6 +92,13 @@ def transactions():
     session['logged_in'] = True 
     return render_template('transactions.html',products=products,customers=customers)
 
+@app.route("/viewcustomers")
+def viewcustomers():
+    customers = CustomerModel.query.all()
+    products = Products.query.all()
+    session['logged_in'] = True 
+    return render_template('viewcustomers.html',products=products,customers=customers)
+
 @app.route("/registrations")
 def registrations():
     return render_template('adduser.html')

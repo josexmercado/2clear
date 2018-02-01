@@ -59,18 +59,33 @@
             <p id="user">{{session.name}}</p>
             <a href="#">
               <i class="fa fa-circle text-success"></i> Online</a>
-              <input type="hidden" readonly="true" id="role" class="form-control" hide="true" value="{{session.role}}">
+            <input type="hidden" readonly="true" id="role" class="form-control" hide="true" value="{{session.role}}">
           </div>
         </div>
         <form action="#" method="get" class="sidebar-form">
-          <div class="input-group">
-            <input type="text" name="q" class="form-control" placeholder="Search...">
-            <span class="input-group-btn">
-              <button type="submit" name="search" id="search-btn" class="btn btn-flat">
-                <i class="fa fa-search"></i>
-              </button>
-            </span>
-          </div>
+
+          <ul class="fixed sidebar-menu">
+
+            <li class="active treeview">
+              <a href="#">
+                <i class="fa fa-dashboard"></i>
+                <span>Customers</span>
+                <span class="pull-right-container">
+                  <i class="fa fa-angle-left pull-right"></i>
+                </span>
+              </a>
+              <ul class="treeview-menu">
+                <li class="active">
+                  <a href="/registrations">
+                    <i class="fa fa-circle-o"></i> Register New Customer</a>
+                </li>
+                <li>
+                  <a href="/viewcustomers">
+                    <i class="fa fa-circle-o"></i>View Customer Details</a>
+                </li>
+
+              </ul>
+
         </form>
       </section>
     </aside>
@@ -132,7 +147,7 @@
           <div class="col-lg-3 col-xs-6">
             <div class="small-box bg-red">
               <div class="inner">
-                <h3>Welcome {{session.name}}
+                <h3>Welcome Admin
                   <sup style="font-size: 20px"> </sup>
                 </h3>
 
@@ -207,16 +222,14 @@
       $('#customeraddress').val("");
       $('#customercontact').val("");
     })
-      $(function () {
-  if ($('#role').val() == "admin")
-  {
-    $('#apanel').show();
-  }
-  else
-  {
-    $('#apanel').hide();
-  }
-})
+    $(function () {
+      if ($('#role').val() == "admin") {
+        $('#apanel').show();
+      }
+      else {
+        $('#apanel').hide();
+      }
+    })
   })
 
 </script>
