@@ -22,7 +22,7 @@ from resources.stocks import UpdateStocks
 from resources.Products import getprice
 
 app = Flask(__name__)
-dbname   = 'mysql+pymysql://root:admin@127.0.0.1/2_clear'
+dbname   = 'mysql+pymysql://root:@127.0.0.1/2_clear'
 
 CORS(app, supports_credentials=True, resources={r"*": {"origins": "*"}})
 
@@ -98,7 +98,10 @@ def registrations():
 
 @app.route("/admin")
 def admin():
+  
     return render_template('adminpanel.html')
+
+
 
 @app.route("/vieworders")
 def vieworders():
@@ -106,9 +109,15 @@ def vieworders():
 
 @app.route("/reports")
 def reports():
-    
-    stocks = Stock.query.all()
-    return render_template('reports.html', stocks=stocks)
+    return render_template('reports.html')
+
+@app.route("/search_by_date")
+def search_by_date():
+    reqdate = request.form["searchdate"]
+    filteredstocks = stock.query(all).filter(stock.date.where(reqdate))
+    return render_template( filteredstocks=filteredstocks)
+    #filteredstocks = Stock.query.filter(date=reqdate).first_or_404()
+   # return render_template('reports.html', filteredstocks=filteredstocks)
 
 @app.route("/aproduct")
 def adminproduct():
@@ -122,7 +131,7 @@ def aadd():
 
 @app.route("/amanage")
 def amanage(): 
-    
+    users = User.query.all()
     return render_template('adminaccounts.html')
 
 @app.route("/aastock")
