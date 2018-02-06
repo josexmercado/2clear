@@ -232,12 +232,13 @@
         url: "/update/stocks",
         data: {
           product: product,
-          amount: amount,
           type: type,
           date: date,
-          recby: recby
+          recby: recby,
+          amount: amount
         }
       })
+
 
         .done(function (data) {
           alert(data.message);

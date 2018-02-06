@@ -232,6 +232,7 @@
             <div class="box-header with-border">
               <h2>Daily stockin report</h2>
             </div>
+            
             <div class="box-body">
                 <div>
                 <label for="user_name">Search date History:</label>
@@ -251,6 +252,7 @@
                 <button type="submit"  class="btn btn-primary" id="searchdate" value="/search_by_date">
                   <i class="fa fa-search"></i> search </button>
                 </div>
+              
                 <br>
                 <br>  
                   <table class="table table-bordered">
@@ -267,7 +269,8 @@
                 </thead>
                 
                 <tbody>
-                  {% for row in stocks %}
+                  {% for row in stocks if row.type == "Stock In" %}
+                  
                   <tr>
                     <td>{{ row.date }}</td>
                     <td>{{ row.id }}</td>
@@ -296,22 +299,6 @@
   </div>
 
 </body>
-<script type="text/javascript">
-  $(function () {
-		$('#searchdate').unbind('click').on('click', function (e) {
-      e.preventDefault();
-      var filteredstocks
-      var jqxhr = $.ajax({
-        method: "GET",
-      })
-      .done(function (data) {
-          alert(data.message);
-        })
-        .fail(function () {
-          alert("error");
-        })
-	  }) 
-  })
-</script>
+
 
 </html>
