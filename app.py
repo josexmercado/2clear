@@ -148,12 +148,14 @@ def amanage():
     users = User.query.all()
     return render_template('adminaccounts.html')
 
-@app.route("/aastock")
-def astock():
-
-    products = Products.query.all()
-    
-
+#@app.route("/aastock")
+#def astock():
+#
+#    products = Products.query.all()
+#    POST_AMOUNT = request.form['amount']
+#    Products.update().values(quantity=POST_AMOUNT).where(
+#        Product.name
+#    )
 
     return render_template('adminstockin.html', products=products)
 
