@@ -265,8 +265,9 @@
                     
                   </tr>
                 </thead>
+                
                 <tbody>
-                  {% for row in filteredstocks %}
+                  {% for row in stocks %}
                   <tr>
                     <td>{{ row.date }}</td>
                     <td>{{ row.id }}</td>
@@ -284,6 +285,8 @@
                   <a class="btn btn-primary">
                     <i class="fa fa-print"></i> print</a>
             </div>
+
+        
           </div>
         </div>
 
@@ -297,9 +300,9 @@
   $(function () {
 		$('#searchdate').unbind('click').on('click', function (e) {
       e.preventDefault();
-		
+      var filteredstocks
       var jqxhr = $.ajax({
-        method: "GET,POST",
+        method: "GET",
       })
       .done(function (data) {
           alert(data.message);

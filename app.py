@@ -3,6 +3,7 @@ import os
 from flask import Flask, abort, flash, redirect, render_template, request,session, make_response, jsonify
 from flask_cors import CORS
 from flask_restful import Api
+from sqlalchemy import update
 
 #models and libs
 from models.CustomerModel import CustomerModel
@@ -117,18 +118,21 @@ def vieworders():
 
 @app.route("/reports")
 def reports():
-    stocks = Stock.query.all()
+    #dateval= request.form['sdate']
+    stocks= Stock.query.all()
+    #stocks = Stock.query.filter_by(date=dateval)
+    
     return render_template('reports.html',stocks=stocks)
 
-@app.route("/search_by_date")
-def search_by_date():
-    reqdate = request.form["searchdate"]
-    filteredstockss = getBydate(where(reqdate)) 
-    return render_template('reports.html', filteredstocks=filteredstocks)
+#@app.route("/search_by_date")
+#def search_by_date():
+ #   reqdate = request.form["sdate"]
+  #  filteredstocks = Stock.query.filter_by(date=reqdate)
+   # return render_template('reports.html', filteredstocks=filteredstocks)
 
 @app.route("/aproduct")
 def adminproduct():
-    
+    products.update().values(name).where()
     return render_template('adminproducts.html')
 
 @app.route("/aadd")
@@ -152,6 +156,7 @@ def astock():
 def products():
     stocks = Stock.query.all()
     products = Products.query.all()
+    
     return render_template('products.html',stocks=stocks, products=products )
 
 
