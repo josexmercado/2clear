@@ -19,6 +19,7 @@ from resources.Customer import CustomerRegister, CustomerData
 from resources.User import UserRegister
 from resources.Products import Registerproducts
 from resources.stocks import UpdateStocks
+from resources.stocks import getBydate
 from resources.Products import getprice
 
 app = Flask(__name__)
@@ -116,15 +117,14 @@ def vieworders():
 
 @app.route("/reports")
 def reports():
-    return render_template('reports.html')
+    stocks = Stock.query.all()
+    return render_template('reports.html',stocks=stocks)
 
 @app.route("/search_by_date")
 def search_by_date():
     reqdate = request.form["searchdate"]
-    filteredstocks = stock.query(all).filter(stock.date.where(reqdate))
-    return render_template( filteredstocks=filteredstocks)
-    #filteredstocks = Stock.query.filter(date=reqdate).first_or_404()
-   # return render_template('reports.html', filteredstocks=filteredstocks)
+    filteredstockss = getBydate(where(reqdate)) 
+    return render_template('reports.html', filteredstocks=filteredstocks)
 
 @app.route("/aproduct")
 def adminproduct():
@@ -228,7 +228,7 @@ api.add_resource(Registerproducts, '/Products/add')
 api.add_resource(UpdateStocks, '/update/stocks')
 api.add_resource(CustomerData, '/customer/<int:_id>')
 api.add_resource(getprice, '/price/<int:_id>')
-
+api.add_resource(getBydate,'/date/str:_date')
 
 #register blueprints here
 app.register_blueprint(sample, url_prefix='/sample')

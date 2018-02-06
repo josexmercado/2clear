@@ -193,51 +193,23 @@
         <label for="user_name">Option:</label>
         <div>
           <select v-model="message" class="form-control" name="type" id="type">
-<<<<<<< HEAD
-
-=======
->>>>>>> f2e8ccb1e8094eb96f96f9cdb80bcf90b88b38e3
             <option>Stock In</option>
             <option>Stock Out</option>
           </select>
         </div>
         
         <div class="form-group">
-<<<<<<< HEAD
-            <label for="user_name">Date:</label>
-          <input type='date' id='date' class="form-control">
-      </div>
-      <div class="form-group">
-      <label for="amount">Amount:</label>
-    
-      <input v-model="message" id="amount" class="form-control">
-    </div>
-      <div class="form-group">
-          <label >Recorded by:</label>
-          <input v-model="message" id='recby' class="form-control" value="{{session.name}}" readonly="true">
-  
-        </div>
-      <div class="box-footer">
-        
-=======
           <input type='date' id='date' class="form-control"> 
         </div>
         <div class="form-group">
           <label for="amount">Amount:</label>
->>>>>>> f2e8ccb1e8094eb96f96f9cdb80bcf90b88b38e3
 
           <input v-model="message" id="amount" class="form-control">
         </div>
-<<<<<<< HEAD
-        <div class="box-footer">
-
-          <input id="btn_record" type="button" class="btn btn-primary" value="Save">
-=======
         <div class="form-group">
           <label>Recorded by:</label>
-          <input v-model="message" id='recby' class="form-control" value="{{session.name}}" readonly="true">
->>>>>>> f2e8ccb1e8094eb96f96f9cdb80bcf90b88b38e3
-        </div>
+          
+        </div><input v-model="message" id='recby' class="form-control" value="{{session.name}}" readonly="true">
         <input id="btn_record" type="button" class="btn btn-primary" value="Save">
       </div>
       </form>

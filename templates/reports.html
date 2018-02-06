@@ -238,7 +238,14 @@
                 </div>
               <div class="col-xs-3">
                 
-                <input type='date' id='sdate' class="form-control">
+                <select type="message" id='sdate' class="form-control">
+                    {% for stocks in stocks %}
+                    <datalist>
+                      <option value="{{stocks.date}}">{{stocks.date}}</option>
+                    </datalist>
+
+                    {% endfor %}
+                </select>
               </div>
               <div class="col-xs-4">
                 <button type="submit"  class="btn btn-primary" id="searchdate" value="/search_by_date">
@@ -290,10 +297,9 @@
   $(function () {
 		$('#searchdate').unbind('click').on('click', function (e) {
       e.preventDefault();
-			var filteredstocks = $('#sdate').val();
-      
+		
       var jqxhr = $.ajax({
-        method: "get",
+        method: "GET,POST",
       })
       .done(function (data) {
           alert(data.message);
