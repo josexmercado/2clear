@@ -126,17 +126,21 @@ def vieworders():
 
 @app.route("/reports")
 def reports():
-    #stocks= Stock.query.all()
-    #return render_template('reports.html',stocks=stocks)
-    qdate = request.form['sdate']
-    qry = Stock.query(Stock.date).filter(Stock.date.where(qdate))
-    
-    return render_template('reports.html',qry=qry)
-
-@app.route("/reportsout")
-def reportsout():
     stocks= Stock.query.all()
-    return render_template('reportstockout.html',stocks=stocks)
+    return render_template('reports.html',stocks=stocks)
+   
+@app.route("/process",methods=['POST'])
+def process():
+    sdate = request.form['dateval']
+    stocks= Stock.query.all()
+    stockings= Stock.query.filter_by(date=sdate)
+
+    return render_template('reports.html',stocks=stocks,stockings=stockings)
+#@app.route("/getdata" ,methods=['GET'])
+#def getdata():
+#    dateval = str(request.form['sdate'])
+#    stockings= Stock.query.filter(Stock.date.where(Stock.date==dateval))
+#    return render_template('reports.html',stockings=stockings)
 
 
 #@app.route("/search_by_date")
@@ -221,14 +225,14 @@ def Registerproduct():
     POST_PRODPRICE = str(request.form['sp'])
     POST_PRODQUANTITY = str(request.form['quantity'])
     POST_PRODTYPE = str(request.form['type'])
-    new_product = Product(
+    new_product = Products(
         pname = POST_PRODNAME,
         pprice = POST_PRODPRICE,
         quantity = POST_PRODQUANTITY,
         ptype = POST_PRODTYPE
     )
     try:
-        new_user.insert()
+        new_product.insert()
         return render_template('adminproducts.html')
     except:
         return 'error'

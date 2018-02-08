@@ -236,8 +236,9 @@
                 <div>
                 <label for="user_name">Search date History:</label>
                 </div>
-              <div class="col-xs-3">
-                
+                <form>
+                <div class="col-xs-3">
+              
                 <select type="message" id='sdate' class="form-control">
                     {% for stocks in stocks %}
                     <datalist>
@@ -251,7 +252,7 @@
                 <button type="submit"  class="btn btn-primary" id="searchdate" value="/search_by_date">
                   <i class="fa fa-search"></i> search </button>
                 </div>
-              
+              </form>
                 <br>
                 <br>  
                   <table class="table table-bordered">
@@ -268,7 +269,7 @@
                 </thead>
                 
                 <tbody>
-                  {% for row in stocks if row.type == "Stock In" %}
+                  {% for stocks in stockings %}
                   
                   <tr>
                     <td>{{ row.date }}</td>
@@ -306,17 +307,33 @@
 
 </html>
 <script type="text/javascript">
-$(function () {
-    $('#searchdate').unbind('click').on('click', function (e) {
-      e.preventDefault();
+$(document).ready(function () {
 
-    var dateval = $('#sdate').val();
-    
+  $('form').on('submit',function(event){
 
-    $('#tobeprinted').append('{% for row in stocks%}'+'<tr><td class="date">' + '{{row.date}}' + '</td><td>' + '{{row.id}}' + '</td><td>' + '{{row.type}}' + '</td><td>' + '{{row.product}}'+ '</td><td>' + '{{row.amount}}' + '</td><td>' + '{{row.recby}}' + '</td><td></td></tr>'+'{% endfor %}');
+    $.ajax({
+        type: "POST",
+        url: "/process",
+        data: {dateval: $('#sdate').val() }
+      })
+      .done(function(data){
+        if (data.error){
+          alert('ERROR')
+        }
+        else{
+          alert('Success')
+          $('#tobeprinted').append('{% for row in stockings %}'+'<tr><td>' + '{{row.date}}' + '</td><td>' + '{{row.id}}' + '</td><td>' + '{{row.product}}' + '</td><td>' + '{{row.amount}}' + '</td><td>' + '{{row.recby}}' + '</tr>{% endfor %}');
 
+        }
+      })
+      event.preventDefault();
+
+    })
+
+     
+   
 
 
       })
-  })
+
 </script>
