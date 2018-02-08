@@ -43,3 +43,10 @@ class UpdateStocks(Resource):
 
 		new_stocks.insert()
 		return {'message':'Stocks Updated!'}
+
+class getBydate(Resource):
+	def get(self, _date):
+	
+		date = Stock.getBydate(_date)
+
+		return date.json()

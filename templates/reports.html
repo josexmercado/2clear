@@ -230,23 +230,43 @@
         <div class="col-md-12">
           <div class="box box-primary">
             <div class="box-header with-border">
-              <h2>Stockin</h2>
+              <h2>Daily stockin report</h2>
             </div>
             <div class="box-body">
-              <table class="table table-bordered">
+                <div>
+                <label for="user_name">Search date History:</label>
+                </div>
+              <div class="col-xs-3">
+                
+                <select type="message" id='sdate' class="form-control">
+                    {% for stocks in stocks %}
+                    <datalist>
+                      <option value="{{stocks.date}}">{{stocks.date}}</option>
+                    </datalist>
+
+                    {% endfor %}
+                </select>
+              </div>
+              <div class="col-xs-4">
+                <button type="submit"  class="btn btn-primary" id="searchdate" value="/search_by_date">
+                  <i class="fa fa-search"></i> search </button>
+                </div>
+                <br>
+                <br>  
+                  <table class="table table-bordered">
                 <thead>
                   <tr>
                     <th>Date</th>
                     <th>ID</th>
                     <th>Type</th>
-                    <th>Product Number</th>
+                    <th>Product Name</th>
                     <th>Quantities</th>
                     <tH>Recorded By</tH>
-                    <th>Action</th>
+                    
                   </tr>
                 </thead>
                 <tbody>
-                  {% for row in stocks %}
+                  {% for row in filteredstocks %}
                   <tr>
                     <td>{{ row.date }}</td>
                     <td>{{ row.id }}</td>
@@ -255,15 +275,14 @@
                     <th>{{ row.amount }}</th>
                     <td>{{ row.recby}} </td>
 
-                    <td>
-                      <a class="btn btn-primary" href="/stocks/{row.id}">
-                        <i class="fa fa-search"></i>View</a>
-                    </td>
+                    
                     {% else %}
                   </tr>
                   {% endfor %}
                 </tbody>
               </table>
+                  <a class="btn btn-primary">
+                    <i class="fa fa-print"></i> print</a>
             </div>
           </div>
         </div>
@@ -276,60 +295,19 @@
 </body>
 <script type="text/javascript">
   $(function () {
-    $('#btn_products').unbind('click').on('click', function (e) {
+		$('#searchdate').unbind('click').on('click', function (e) {
       e.preventDefault();
-      var pname = $('#productname').val();
-      var pprice = $('#sp').val();
-      var quantity = $('#quantity').val();
-
-
+		
       var jqxhr = $.ajax({
-        method: "post",
-        url: "/Products/add",
-        data: { pname: pname, pprice: pprice, quantity: quantity }
+        method: "GET,POST",
       })
-        .done(function (data) {
+      .done(function (data) {
           alert(data.message);
         })
         .fail(function () {
           alert("error");
         })
-        .always(function () {
-          //alert($('#name').val() );
-        });
-      $('#productname').val("");
-      $('#sp').val("");
-      $('#quantity').val("");
-    });
-
-
-
-    $('#rbtn_products').unbind('click').on('click', function (e) {
-      e.preventDefault();
-      var rproductname = $('#rproductname').val();
-      var rprice = $('#rp').val();
-      var rquantity = $('#rquantity').val();
-
-      var jqxhr = $.ajax({
-        method: "post",
-        url: "/rentalproducts/add",
-        data: { rproductname: rproductname, rprice: rprice, rquantity: rquantity }
-      })
-        .done(function (data) {
-          alert(data.message);
-        })
-        .fail(function () {
-          alert("error");
-        })
-        .always(function () {
-          //alert($('#name').val() );
-        });
-      $('#rproductname').val("");
-      $('#rp').val("");
-      $('#rquantity').val("");
-    });
-
-
+	  }) 
   })
 </script>
 

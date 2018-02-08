@@ -21,13 +21,14 @@ from resources.Customer import CustomerRegister, CustomerData
 from resources.User import UserRegister
 from resources.Products import Registerproducts
 from resources.stocks import UpdateStocks
+from resources.stocks import getBydate
 from resources.Products import getprice
 from resources.Orders import registerorder
 from resources.Orders import recordorderlist
 from resources.Orderlist import getorderlist
 
 app = Flask(__name__)
-dbname   = 'mysql+pymysql://root:admin@127.0.0.1/2_clear'
+dbname   = 'mysql+pymysql://root:@127.0.0.1/2_clear'
 
 CORS(app, supports_credentials=True, resources={r"*": {"origins": "*"}})
 
@@ -110,7 +111,10 @@ def registrations():
 
 @app.route("/admin")
 def admin():
+  
     return render_template('adminpanel.html')
+
+
 
 @app.route("/vieworders")
 def vieworders():
@@ -121,9 +125,14 @@ def vieworders():
 
 @app.route("/reports")
 def reports():
-    
     stocks = Stock.query.all()
-    return render_template('reports.html', stocks=stocks)
+    return render_template('reports.html',stocks=stocks)
+
+@app.route("/search_by_date")
+def search_by_date():
+    reqdate = request.form["searchdate"]
+    filteredstockss = getBydate(where(reqdate)) 
+    return render_template('reports.html', filteredstocks=filteredstocks)
 
 @app.route("/aproduct")
 def adminproduct():
@@ -137,7 +146,7 @@ def aadd():
 
 @app.route("/amanage")
 def amanage(): 
-    
+    users = User.query.all()
     return render_template('adminaccounts.html')
 
 @app.route("/aastock")
@@ -209,6 +218,7 @@ api.add_resource(getprice, '/price/<int:_id>')
 api.add_resource(getorderlist, '/orderid/<int:_id>')
 api.add_resource(registerorder, '/registerorder')
 api.add_resource(recordorderlist, '/recordorderlist')
+api.add_resource(getBydate,'/date/str:_date')
 
 
 #register blueprints here

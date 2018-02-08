@@ -24,6 +24,9 @@ class Stock(db.Model):
             'recby': self.recby
         }
 
+    @staticmethod
+    def getBydate(_date):
+        return Stock.query.filter_by(date=_date).first()
 
     def insert(self):
         db.session.add(self)
@@ -32,3 +35,5 @@ class Stock(db.Model):
     def delete(self):
         db.session.delete(self)
         db.session.commit()
+
+        
