@@ -10,6 +10,8 @@ from models.User import User
 from models.Stock import Stock
 from models.Products import Products
 from datetime import datetime
+from models.Orders import Orders
+from models.Orderlist import Orderlist
 
 #blueprints
 from apps.sampleBlueprint import sample
@@ -20,6 +22,9 @@ from resources.User import UserRegister
 from resources.Products import Registerproducts
 from resources.stocks import UpdateStocks
 from resources.Products import getprice
+from resources.Orders import registerorder
+from resources.Orders import recordorderlist
+from resources.Orderlist import getorderlist
 
 app = Flask(__name__)
 dbname   = 'mysql+pymysql://root:admin@127.0.0.1/2_clear'
@@ -109,7 +114,10 @@ def admin():
 
 @app.route("/vieworders")
 def vieworders():
-    return render_template('Orders.html')
+
+    orders = Orders.query.all()
+    orderlist = Orderlist.query.all()
+    return render_template('Orders.html' , orders=orders , orderlist=orderlist)
 
 @app.route("/reports")
 def reports():
@@ -170,27 +178,6 @@ def recordnewcustomer():
 
     return render_template('adduser.html', customers=customers,users=users)
 
-@app.route('/recordnewuser', methods=['POST'])
-def recordnewuser():     
-
-    POST_USERNAME = str(request.form['username'])
-    POST_NAME = str(request.form['user_name'])
-    POST_PASS = str(request.form['password'])
-    POST_CPASS = str(request.form['confirmpassword'])
-    POST_ROLE = str(request.form['role'])
-
-    new_user = User(
-        username = POST_USERNAME,
-        password = POST_PASS,
-        name = POST_NAME,
-        role = POST_ROLE
-    )
-    try:
-        new_user.insert()
-        return render_template('adduser.html', customers=customers,users=users)
-    except:
-        return 'error'
-
 @app.route('/Registerproduct', methods=['POST'])
 def Registerproduct():     
 
@@ -219,6 +206,9 @@ api.add_resource(Registerproducts, '/Products/add')
 api.add_resource(UpdateStocks, '/update/stocks')
 api.add_resource(CustomerData, '/customer/<int:_id>')
 api.add_resource(getprice, '/price/<int:_id>')
+api.add_resource(getorderlist, '/orderid/<int:_id>')
+api.add_resource(registerorder, '/registerorder')
+api.add_resource(recordorderlist, '/recordorderlist')
 
 
 #register blueprints here

@@ -1,0 +1,105 @@
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>2clear</title>
+  <!-- Tell the browser to be responsive to screen width -->
+  <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+  <link rel="stylesheet" href="/static/bower_components/bootstrap/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/static/bower_components/font-awesome/css/font-awesome.min.css">
+  <link rel="stylesheet" href="/static/bower_components/Ionicons/css/ionicons.min.css">
+  <link rel="stylesheet" href="/static/css/AdminLTE.min.css">
+  <link rel="stylesheet" href="/static/css/skins/_all-skins.min.css">
+  <link rel="stylesheet" href="/static/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">
+  <script type="text/javascript" src="/static/plugins/jQuery/jQuery.min.js"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
+            <!-- MODAL -->
+
+            <div class="modal fade" id="yourid" role="dialog">
+              <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Order Details</h4>
+                  </div>
+                  <div class="modal-body">
+
+                    <p>
+                      <table class="table table-bordered">
+                        <thead>
+                          <tr>
+                            <th>Order ID</th>
+                            <th>Product ID</th>
+                            <th>Quantity</th>
+                            <th>Sub Total</th>
+                            <th>Total Bill </th>
+
+                          </tr>
+                        </thead>
+                        <tbody id="orders">
+
+                          <tr>
+
+                            <td id="orderid"></td>
+                            <td id="productid"></td>
+                            <td id="quantity"></td>
+                            <td id="subtotal"></td>
+                            <td id="totalbill"></td>
+
+                            <td>
+
+                          </tr>
+
+                        </tbody>
+                      </table>
+                    </p>
+
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+</body>
+
+</html>
+
+<script type="text/javascript">
+
+$('.orderlist').click(function (e) {
+    e.preventDefault();
+
+    var id = (this.id);
+    var jqaxhr = $.ajax({
+      method: "GET",
+      url: window.location.origin + "/orderid/" + id
+    })
+      .done(function (data) {
+        console.log('id', id)
+        console.log('data',data);
+        $('#orderid').val(data.orderid);
+        $('#productid').val(data.productid);
+        $('#quantity').val(data.quantity);
+        $('#subtotal').val(data.subtotal);
+        $('#totalbill').val(data.totalbill);
+        
+        $('#yourid').modal({show:true});
+      })
+      .fail(function (e) {
+        alert('error')
+      })
+      .always(function () {
+      })
+
+
+  });
+
+</script>

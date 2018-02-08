@@ -14,6 +14,7 @@
   <link rel="stylesheet" href="/static/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">
   <script type="text/javascript" src="/static/plugins/jQuery/jQuery.min.js"></script>
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
@@ -78,16 +79,34 @@
                   <a href="/transactions">
                     <i class="fa fa-circle-o"></i> Add Order</a>
                 </li>
-                <li class="active">
-                  <a href="/vieworders">
-                    <i class="fa fa-circle-o"></i>View Orders</a>
-                </li>
               </ul>
               </a>
           </ul>
           </span>
         </form>
       </section>
+
+      <form action="#" method="get" class="sidebar-form">
+        <ul class="fixed sidebar-menu">
+          <li class="active treeview">
+            <a href="#">
+              <i class="fa fa-dashboard"></i>
+              <span>Orders</span>
+              <ul class="treeview-menu">
+                <li class="active">
+                  <a href="/vieworders">
+                    <i class="fa fa-circle-o"></i>View Orders</a>
+                </li>
+                <li>
+                  <a href=" ">
+                    <i class="fa fa-circle-o"></i>Order Approval</a>
+                </li>
+
+                </span>
+      </form>
+      </section>
+
+
     </aside>
 
     <div class="content-wrapper">
@@ -163,8 +182,8 @@
 
         <!-- #Order -->
 
-        <div class="Order">
-          <div class="col-md-13">
+        <div class="row">
+          <div class="col-md-12">
             <div class="box box-primary">
               <div class="box-header with-border">
                 <h2>Order List</h2>
@@ -174,7 +193,7 @@
                   <thead>
                     <tr>
                       <th>Order ID</th>
-                      <th>Customer Name</th>
+                      <th>Customer ID</th>
                       <th>Total Bill</th>
                       <th>Recorded By</th>
                       <th>Date Recorded</th>
@@ -185,14 +204,14 @@
                     {% for row in orders %}
                     <tr>
 
-                      <td class="id" id={ { row.orderid }} value={ { row.orderid }}>{{ row.orderid }}</td>
-                      <td class="type">{{ row.customername }}</td>
-                      <td class="totalbill">{{ row.totalbill}}</td>
+                      <td class="id">{{ row.orderid }}</td>
+                      <td class="type">{{ row.customerid }}</td>
+                      <td class="name">{{ row.totalbill}}</td>
                       <td class="quantity">{{ row.recordedby }}</td>
                       <td class="Date">{{ row.date}}</td>
                       <td>
-                        <a name="listt">
-                          <button id={{ row.orderid }} type="button" class="fa fa-check orderlist" class="trigger" data-target="#yourid">View Order Details</button>
+                        <a class="btn btn-primary view-order-details" name="enteramount">
+                          <button id = id={{ row.id }} type="button" class="fa-check" data-toggle="modal" data-target="#myModal">View Order Details</button>
                       </td>
                       {% else %}
                     </tr>
@@ -202,122 +221,11 @@
               </div>
             </div>
 
-            <!-- MODAL -->
-
-            <div class="modal fade" id="yourid" role="dialog">
-              <div class="modal-dialog modal-lg">
-                <div class="modal-content">
-                  <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title" id="ordernumber"> </h4>
-                  </div>
-                  <div class="modal-body">
-
-                    <p>
-                      <table class="table table-bordered">
-                        <thead>
-                          <tr>
-                            <th>Product ID</th>
-                            <th>Product Name</th>
-                            <th>Quantity</th>
-                            <th>Sub Total</th>
-
-                          </tr>
-                        </thead>
-
-                        <tbody id="listorder">
-
-                          <tr>
-                            <td id="orderid"></td>
-                            <td class="productid"></td>
-                            <td class="quantity"></td>
-                            <td class="subtotal"></td>
-                            <td class="totalbill"></td>
-                            <td>
-                          </tr>
-                        </tbody>
-                      </table>
-                    </p>
-                  </div>
-                  <div class="modal-footer">
-                    <tfoot>
-                      <a id="checkout" class="btn btn-primary checkout">Complete Customer Order
-                        <i class="fa fa-truck"></i>
-                      </a>
-                    </tfoot>
-                    <button type="button" class="btn btn-default closemodal " data-dismiss="modal">Close</button>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
 </body>
 
 </html>
 
 <script type="text/javascript">
 
-  $('.orderlist').click(function (e) {
-    e.preventDefault();
 
-    var id = (this.id);
-    var jqaxhr = $.ajax({
-      method: "GET",
-      url: window.location.origin + "/orderid/" + id
-    })
-
-      .done(function (data) {
-        console.log('id', id);
-        console.log('data', data);
-
-        $('#listorder').empty();
-
-        $('#ordernumber').html("Order Number: " + id);
-        var totalbill = 0;
-        for (var i = 0; i < data.length; i++) {
-          console.log("orderid", data.orderid)
-          $('#listorder').append('<tr><td id="orderid">' + data[i].productid + '</td><td id="productid">' + data[i].pname + '</td><td id="quantity">' + data[i].quantity + '</td><td id="subtotal">' + data[i].subtotal + '</td>');
-
-          var totalbill = totalbill + parseFloat(data[i].subtotal);
-
-        }
-        $('#listorder').append('<tr><th id="subtotal">' + 'Total Bill:' + '</th>' + '<th id="totalbill">' + totalbill + '</th>');
-        $('#yourid').modal('show');
-
-      })
-      .fail(function (e) {
-        alert('error')
-      })
-      .always(function () {
-      })
-
-  });
-
-  $(function () {
-    $('.checkout').on('click', function (e) {
-      e.preventDefault();
-
-      var totalbill = $('#totalbill').html();
-      tenderedcash = prompt('Input Tendered Cash Amount(Total Bill of): ' + totalbill),
-        number_only = /^\d+$/;
-
-      if (number_only.test(tenderedcash)) {
-
-        if (tenderedcash >= parseInt(totalbill)) {
-
-          var change = tenderedcash - parseInt(totalbill);
-          alert('Customer Change is: ' + change + ' php');
-
-
-
-
-        } else {
-          alert('Invalid Input, Tendered amount is invalid');
-        }
-      } else {
-        alert('Invalid Input, the prompt only accepts numbers');
-      }
-    })
-  });
 </script>

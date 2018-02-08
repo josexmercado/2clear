@@ -55,10 +55,10 @@
             <img src="/static/img/user2-160x160.jpg" class="img-circle" alt="User Image">
           </div>
           <div class="pull-left info">
-            <p id="user" value="{{session.name}}">{{session.name}}</p>
+            <p id="user" value ="{{session.name}}" >{{session.name}}</p>
 
             <a>
-              <i class="fa fa-circle text-success"></i> {{session.role}}</a>
+              <i class="fa fa-circle text-success"></i> Online</a>
             <input type="hidden" readonly="true" id="role" class="form-control" hide="true" value="{{session.role}}">
             <input type="hidden" readonly="true" id="recordedby" class="form-control" value="{{session.name}}">
           </div>
@@ -84,9 +84,7 @@
                   <a href="/vieworders">
                     <i class="fa fa-circle-o"></i>View Orders</a>
                 </li>
-
               </ul>
-
         </form>
       </section>
     </aside>
@@ -171,18 +169,13 @@
           {% endfor %}
         </select>
         <div class="form-group">
-          <label for="customeradress">Customer Address:</label>
+          <label for="customeradress">Customer address:</label>
           <input v-model="message" id="customeraddress" class="form-control" readonly="true">
         </div>
         <div class="form-group">
-          <label for="customernumber">Contact Number:</label>
+          <label for="customernumber">Customer number:</label>
           <input v-model="message" id="customernumber" class="form-control" readonly="true">
         </div>
-        <div class="form-group" hidden="true" >
-            <label for="customername" value="{{ customers.name }}" ></label>
-            <input v-model="message" id="customername" class="form-control" readonly="true">
-          </div>
-  
 
         <!-- #Order -->
 
@@ -314,7 +307,7 @@
           var type = $(this).closest('td').siblings('td.type').text()
 
           console.log({ id: id, price: price, sub_total: sub_total, product_name: product_name, type: type })
-
+          
           $('#cart-empty').remove();
 
           if (validate.length >= 1) {
@@ -391,6 +384,7 @@
 
           $(row).find('td.quantity').html(parseInt(Quant) + parseInt(productquantity));
 
+
         }
       })
     });
@@ -413,7 +407,6 @@
           console.log(data);
           $('#customeraddress').val(data.address);
           $('#customernumber').val(data.number);
-          $('#customername').val(data.name);
 
         })
         .fail(function (e) {
@@ -452,7 +445,6 @@
       var n = $("#myCart").find("tr").length;
 
       console.log('waDU', n)
-      var orderid = Math.floor((Math.random() * 100) + 1);
       for (var i = 0; i < n; i++) {
         var total = 0;
         var id = $("#myCart").find("tr").eq(i).find("td").eq(0).text();
@@ -461,21 +453,26 @@
         var price = $("#myCart").find("tr").eq(i).find("td").eq(3).text();
         var quantity = $("#myCart").find("tr").eq(i).find("td").eq(4).text();
         var subtotal = $("#myCart").find("tr").eq(i).find("td").eq(5).text();
-        var user = $('#recordedby').val();
+        var user =  $('#recordedby').val();
         var customerid = $('#customers').val();
-        var total = parseFloat($("#total_bill").text());
-        var customer_name = $('#customername').val();
+        var total = total + subtotal;
 
-        console.log('id', id)
-        console.log('customername' , customer_name)
+
+  
+        console.log('id', id )
+        console.log('customerid' , customerid)
+        console.log('type', type)
+        console.log('product_name', product_name)
+        console.log('price', price)
         console.log('quantity', quantity)
         console.log('subtotal', subtotal)
+        console.log('totalbill', total)
+        console.log('recordedby' , user )
 
-        // RECORD INTO ORDERLIST
         $.ajax({
           type: "Post",
-          url: "/recordorderlist",
-          data: { orderid: orderid, pname:product_name , productid: id, quantity: quantity, subtotal: subtotal }
+          url: "/registerorder",
+          data: { orderid: '1', pid: id, type: type, pname: product_name, price: price, quantity: quantity, subtotal: subtotal, totalbill:total , recordedby:user}
         })
 
           .done(function (data) {
@@ -487,31 +484,7 @@
           .always(function () {
             //alert($('#name').val() );
           });
-
       }
-        var tdate = new Date();
-        var dd = tdate.getDate(); //yields day
-        var MM = tdate.getMonth(); //yields month
-        var yyyy = tdate.getFullYear(); //yields year
-        var currentDate = (MM + 1)  + "-" + dd+ "-" + yyyy;
-        console.log('date', currentDate)
-   
-      $.ajax({
-        type: "Post",
-        url: "/registerorder",
-        data: { orderid: orderid, customerid: customerid , customername:customer_name, totalbill: total, recordedby: user , date:currentDate}
-      })
-
-        .done(function (data) {
-          alert(data.message);
-        })
-        .fail(function () {
-          alert("error");
-        })
-        .always(function () {
-          //alert($('#name').val() );
-        });
-
     });
   })
 
