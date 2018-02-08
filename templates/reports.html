@@ -283,6 +283,10 @@
                   </tr>
                   {% endfor %}
                 </tbody>
+
+                <tbody id="tobeprinted">
+
+                </tbody>
               </table>
                   <a class="btn btn-primary">
                     <i class="fa fa-print"></i> print</a>
@@ -301,3 +305,18 @@
 
 
 </html>
+<script type="text/javascript">
+$(function () {
+    $('#searchdate').unbind('click').on('click', function (e) {
+      e.preventDefault();
+
+    var dateval = $('#sdate').val();
+    
+
+    $('#tobeprinted').append('{% for row in stocks%}'+'<tr><td class="date">' + '{{row.date}}' + '</td><td>' + '{{row.id}}' + '</td><td>' + '{{row.type}}' + '</td><td>' + '{{row.product}}'+ '</td><td>' + '{{row.amount}}' + '</td><td>' + '{{row.recby}}' + '</td><td></td></tr>'+'{% endfor %}');
+
+
+
+      })
+  })
+</script>

@@ -118,8 +118,12 @@ def vieworders():
 
 @app.route("/reports")
 def reports():
-    stocks= Stock.query.all()
-    return render_template('reports.html',stocks=stocks)
+    #stocks= Stock.query.all()
+    #return render_template('reports.html',stocks=stocks)
+    qdate = request.form['sdate']
+    qry = Stock.query(Stock.date).filter(Stock.date.where(qdate))
+    
+    return render_template('reports.html',qry=qry)
 
 @app.route("/reportsout")
 def reportsout():
@@ -157,17 +161,17 @@ def amanage():
 #        Product.name
 #    )
 
-    return render_template('adminstockin.html', products=products)
+#    return render_template('adminstockin.html', products=products)
 
 
-@app.route("/aastock/<int:_id>", methods=['POST','GET'])
-def aastock(_product):
-    return _product
-    POST_AMOUNT = request.form['amount']
-    return products.json()
-    products.quantity = str(products.quantity) + POST_AMOUNT
-    products.insert()
-    return render_template('reports.html')
+#@app.route("/aastock/<int:_id>", methods=['POST','GET'])
+#def aastock(_product):
+#    return _product
+#    POST_AMOUNT = request.form['amount']
+#    return products.json()
+#    products.quantity = str(products.quantity) + POST_AMOUNT
+#    products.insert()
+#    return render_template('reports.html')
 
 @app.route("/products")
 def products():
