@@ -23,7 +23,7 @@ from resources.User import UserRegister
 from resources.Products import Registerproducts
 from resources.stocks import UpdateStocks
 from resources.stocks import getBydate
-from resources.Products import getprice
+from resources.Products import getproduct
 from resources.Orders import registerorder
 from resources.Orders import recordorderlist
 from resources.Orderlist import getorderlist
@@ -129,19 +129,20 @@ def reports():
     stocks= Stock.query.all()
     return render_template('reports.html',stocks=stocks)
    
-@app.route("/process",methods=['POST'])
+@app.route("/process",methods=['POST','GET'])
 def process():
     sdate = request.form['dateval']
     stocks= Stock.query.all()
     stockings= Stock.query.filter_by(date=sdate)
 
     return render_template('reports.html',stocks=stocks,stockings=stockings)
+    return jsonify(stockings=stockings)
+
 #@app.route("/getdata" ,methods=['GET'])
 #def getdata():
 #    dateval = str(request.form['sdate'])
 #    stockings= Stock.query.filter(Stock.date.where(Stock.date==dateval))
 #    return render_template('reports.html',stockings=stockings)
-
 
 #@app.route("/search_by_date")
 #def search_by_date():
@@ -152,7 +153,8 @@ def process():
 
 @app.route("/aproduct")
 def adminproduct():
-    return render_template('adminproducts.html')
+    products = Products.query.all()
+    return render_template('adminproducts.html',products=products)
 
 @app.route("/aadd")
 def aadd(): 
@@ -245,7 +247,7 @@ api.add_resource(UserRegister, '/User/add')
 api.add_resource(Registerproducts, '/Products/add')
 api.add_resource(UpdateStocks, '/update/stocks')
 api.add_resource(CustomerData, '/customer/<int:_id>')
-api.add_resource(getprice, '/price/<int:_id>')
+api.add_resource(getproduct, '/product/<int:_id>')
 api.add_resource(getorderlist, '/orderid/<int:_id>')
 api.add_resource(registerorder, '/registerorder')
 api.add_resource(recordorderlist, '/recordorderlist')

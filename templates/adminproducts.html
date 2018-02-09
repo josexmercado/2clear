@@ -219,17 +219,26 @@
                     <div class="box-body">
                       <div class="form-group">
                         <label for="left">Search Product Name:</label>
-                        <input v-model="message" id="vproductname" name="tbproductname" class="form-control" placeholder="ex: Mineral water">
+                        <select type="message" id='vpname' class="form-control">
+                          {% for products in products %}
+                          <datalist>
+                            <option value="{{products.id}}">{{products.pname}}</option>
+                          </datalist>
+      
+                          {% endfor %}
+                      </select>
+                      </div>
+                      <div class="form-group">
+                        <label for="id">product ID</td>
+                          <input type="message" id="id" class="form-control" placeholder="ex:#####">
                       </div>
                       <div class="form-group">
                         <label for="sp">Product Type: </td>
-                          <br>
-                          <label for="vproductsale">Sale: </label>
-                          <input type="radio" v-model="picked" name="ptype" id="vproductsale">
-
-                          <br>
-                          <label for="vprodcutrent">Rent: </label>
-                          <input type="radio" v-model="picked" name="ptype" id="vproductrent">
+                          <select v-model="message" id="vtype" class="form-control">
+                            <option>Sale</option>
+                            <option>Rent</option>
+        
+                          </select>
                       </div>
                       <div class="form-group">
                         <label for="rp">Product Price</label>
@@ -273,9 +282,26 @@
           //alert($('#name').val() );
         });
     });
-
-
-
+      $('#vbpname').on('change', function(){
+        var id = $(this).find(":selected").val();
+        console.log(id, 'id');
+        var jqaxhr = $.ajax({
+          method: "GET",
+          url: window.location.origin+"/product/"+id 
+        })
+        .done( function(data){
+          console.log(data);
+          $('#vtype').val(data.ptype);
+          $('#vprice').val(data.pprice);
+          $('#vquantity').val(data.quantity);
+      
+        })
+        .fail(function(e){
+          alert('error')
+        })
+        .always(function(){
+        })
+      });
   })
 </script>
 

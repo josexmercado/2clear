@@ -269,7 +269,7 @@
                 </thead>
                 
                 <tbody>
-                  {% for stocks in stockings %}
+                  {% for row in stockings %}
                   
                   <tr>
                     <td>{{ row.date }}</td>
@@ -322,7 +322,6 @@ $(document).ready(function () {
         }
         else{
           alert('Success')
-          $('#tobeprinted').append('{% for row in stockings %}'+'<tr><td>' + '{{row.date}}' + '</td><td>' + '{{row.id}}' + '</td><td>' + '{{row.product}}' + '</td><td>' + '{{row.amount}}' + '</td><td>' + '{{row.recby}}' + '</tr>{% endfor %}');
 
         }
       })

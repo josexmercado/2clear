@@ -37,10 +37,10 @@ class Registerproducts(Resource):
 		return {'message':'Product Registered!'}
 
 
-class getprice(Resource):
+class getproduct(Resource):
 
 	def get(self, _id):
 	
-		price = Products.getById(_id)
+		product = Products.getById(_id)
 
-		return price.json()
+		return product.json()
