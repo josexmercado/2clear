@@ -44,3 +44,11 @@ class getproduct(Resource):
 		product = Products.getById(_id)
 
 		return product.json()
+
+class deleteproduct(Resource):
+
+	def delete(self, _id):
+	
+		product = Products.delete(_id)
+
+		return product.json()

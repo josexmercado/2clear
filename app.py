@@ -24,6 +24,7 @@ from resources.Products import Registerproducts
 from resources.stocks import UpdateStocks
 from resources.stocks import getBydate
 from resources.Products import getproduct
+from resources.Products import deleteproduct
 from resources.Orders import registerorder
 from resources.Orders import recordorderlist
 from resources.Orderlist import getorderlist
@@ -154,6 +155,7 @@ def process():
 @app.route("/aproduct")
 def adminproduct():
     products = Products.query.all()
+    
     return render_template('adminproducts.html',products=products)
 
 @app.route("/aadd")
@@ -220,6 +222,23 @@ def recordnewcustomer():
 
     return render_template('adduser.html', customers=customers,users=users)
 
+@app.route("/updateproducts/<int:_id>", methods=['POST','GET'])
+def updateproducts(_id):
+    return _id
+    POST_ID = request.form['prid']
+    POST_TYPE = request.form['vtype']
+    POST_PRICE = request.form['vprice']
+    POST_QUANTITY = request.form['vquantity']
+          
+    return Products.json()
+    Products.id = str(Products.id) + POST_ID
+    Products.ptype = str(Products.ptype) + POST_TYPE
+    Products.pprice = str(Products.pprice) + POST_PRICE
+    Products.quantity = str(Products.quantity) + POST_QUANTITY
+    Products.insert()
+
+    return render_template('home.html')
+
 @app.route('/Registerproduct', methods=['POST'])
 def Registerproduct():     
 
@@ -248,6 +267,7 @@ api.add_resource(Registerproducts, '/Products/add')
 api.add_resource(UpdateStocks, '/update/stocks')
 api.add_resource(CustomerData, '/customer/<int:_id>')
 api.add_resource(getproduct, '/product/<int:_id>')
+api.add_resource(deleteproduct, '/delproduct/<int:_id>')
 api.add_resource(getorderlist, '/orderid/<int:_id>')
 api.add_resource(registerorder, '/registerorder')
 api.add_resource(recordorderlist, '/recordorderlist')
