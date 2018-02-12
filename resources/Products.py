@@ -36,6 +36,35 @@ class Registerproducts(Resource):
 		new_product.insert()
 		return {'message':'Product Registered!'}
 
+class UpdateProduct(Resource):
+
+	def post(self):
+		parser = reqparse.RequestParser()
+		parser.add_argument('pprice',
+			type=str,
+			required=True,
+			help="This field cannot be left blank!"
+			)
+		parser.add_argument('quantity',
+			type=str,
+			required=True,
+			help="This field cannot be left blank!"
+			)
+		parser.add_argument('ptype',
+			type=str,
+			required=True,
+			help="This field cannot be left blank!"
+			)
+		data = parser.parse_args()
+
+		updated_product = Products(
+			pprice=data.pprice,
+			quantity=data.quantity,
+			ptype=data.ptype
+			)
+		updated_product.insert()
+		return {'message':'Product Updated!'}
+
 
 class getproduct(Resource):
 

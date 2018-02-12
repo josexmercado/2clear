@@ -1,0 +1,24 @@
+$('#btn_saveproduct').unbind('click').on('click', function (e) {
+      e.preventDefault();
+      var id = $('#vpname').val();
+      var sprice = $('#vprice').val();
+      var squantity = $('#vquantity').val();
+      var stype = $('#vtype').val();
+
+      var jqxhr = $.ajax({
+        method: "post",
+        url: "/Products/update",
+        data: {id, pprice: sprice, quantity: squantity, ptype: stype }
+
+      })
+        .done(function (data) {
+          alert(data.message);
+        })
+        .fail(function () {
+          alert("error");
+        })
+        .always(function () {
+          //alert($('#name').val() );
+        });
+    });
+  })

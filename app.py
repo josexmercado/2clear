@@ -21,6 +21,7 @@ from apps.sampleBlueprint import sample
 from resources.Customer import CustomerRegister, CustomerData
 from resources.User import UserRegister
 from resources.Products import Registerproducts
+from resources.Products import UpdateProduct
 from resources.stocks import UpdateStocks
 from resources.stocks import getBydate
 from resources.Products import getproduct
@@ -137,7 +138,6 @@ def process():
     stockings= Stock.query.filter_by(date=sdate)
 
     return render_template('reports.html',stocks=stocks,stockings=stockings)
-    return jsonify(stockings=stockings)
 
 #@app.route("/getdata" ,methods=['GET'])
 #def getdata():
@@ -152,7 +152,7 @@ def process():
     
      # return render_template('reports.html', filteredstocks=filteredstocks)
 
-@app.route("/aproduct")
+@app.route("/aproduct" , methods = ['POST', 'GET'])
 def adminproduct():
     products = Products.query.all()
     
@@ -222,22 +222,22 @@ def recordnewcustomer():
 
     return render_template('adduser.html', customers=customers,users=users)
 
-@app.route("/updateproducts/<int:_id>", methods=['POST','GET'])
-def updateproducts(_id):
-    return _id
-    POST_ID = request.form['prid']
-    POST_TYPE = request.form['vtype']
-    POST_PRICE = request.form['vprice']
-    POST_QUANTITY = request.form['vquantity']
-          
-    return Products.json()
-    Products.id = str(Products.id) + POST_ID
-    Products.ptype = str(Products.ptype) + POST_TYPE
-    Products.pprice = str(Products.pprice) + POST_PRICE
-    Products.quantity = str(Products.quantity) + POST_QUANTITY
-    Products.insert()
+#@app.route("/updateproducts/<int:_id>", methods=['POST','GET'])
+#def updateproducts(_id):
+#    prrd = Products.id.query.first()
+#    prrd2 = Products.ptype.query.first()
+#    prrd3 = Products.pprice.query.first()
+#    prrd4 = Products.quantity.query.first()
+#    POST_ID = request.form['prid']
+#    POST_TYPE = request.form['vtype']
+#    POST_PRICE = request.form['vprice']
+#    POST_QUANTITY = request.form['vquantity']
+#    prrd2.ptype = str(prrd2.ptype) + POST_TYPE
+#    prrd3.pprice = str(prrd3.pprice) + POST_PRICE
+#    prrd4.quantity = str(prrd4.quantity) + POST_QUANTITY
+#    prrd.insert()
 
-    return render_template('home.html')
+#    return render_template('home.html')
 
 @app.route('/Registerproduct', methods=['POST'])
 def Registerproduct():     
@@ -264,6 +264,7 @@ def Registerproduct():
 api.add_resource(CustomerRegister, '/Customer/add')
 api.add_resource(UserRegister, '/User/add')
 api.add_resource(Registerproducts, '/Products/add')
+api.add_resource(UpdateProduct, '/Products/update')
 api.add_resource(UpdateStocks, '/update/stocks')
 api.add_resource(CustomerData, '/customer/<int:_id>')
 api.add_resource(getproduct, '/product/<int:_id>')

@@ -21,7 +21,7 @@ class Products(db.Model):
             'pname': self.pname,
             'pprice': self.pprice,
             'quantity': self.quantity,
-             'ptype': self.ptype
+            'ptype': self.ptype
         }
     
     @staticmethod

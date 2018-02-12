@@ -307,28 +307,28 @@
 
 </html>
 <script type="text/javascript">
-$(document).ready(function () {
 
-  $('form').on('submit',function(event){
-
-    $.ajax({
-        type: "POST",
-        url: "/process",
-        data: {dateval: $('#sdate').val() }
-      })
-      .done(function(data){
-        if (data.error){
-          alert('ERROR')
-        }
-        else{
-          alert('Success')
-
-        }
-      })
-      event.preventDefault();
-
-    })
-
+    $(function(){
+       $('#searchdate').on('change', function(){
+         var date = $(this).find(":selected").val();
+         console.log(date, 'date');
+         var jqaxhr = $.ajax({
+           method: "GET",
+           url: window.location.origin+"/date/"+date 
+         })
+         .done(function(data){
+           console.log(data);
+          
+           $('#table').val(data.recby);
+ 
+ 
+         })
+         .fail(function(e){
+           alert('error')
+         })
+         .always(function(){
+         })
+       })
      
    
 
