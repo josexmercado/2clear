@@ -57,12 +57,13 @@ class UpdateProduct(Resource):
 			)
 		data = parser.parse_args()
 
-		updated_product = Products(
+		prod = Products.getById(id)
+		updated_product = Products.prod(
 			pprice=data.pprice,
 			quantity=data.quantity,
 			ptype=data.ptype
 			)
-		updated_product.insert()
+		updated_product.save()
 		return {'message':'Product Updated!'}
 
 
