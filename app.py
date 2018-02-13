@@ -264,7 +264,7 @@ def Registerproduct():
 api.add_resource(CustomerRegister, '/Customer/add')
 api.add_resource(UserRegister, '/User/add')
 api.add_resource(Registerproducts, '/Products/add')
-api.add_resource(UpdateProduct, '/Products/update')
+api.add_resource(UpdateProduct, '/products/update')
 api.add_resource(UpdateStocks, '/update/stocks')
 api.add_resource(CustomerData, '/customer/<int:_id>')
 api.add_resource(getproduct, '/product/<int:_id>')

@@ -40,6 +40,9 @@ class UpdateProduct(Resource):
 
 	def post(self):
 		parser = reqparse.RequestParser()
+		parser.add_argument('id',
+			type=str,
+			)
 		parser.add_argument('pprice',
 			type=str,
 			required=True,
@@ -56,14 +59,17 @@ class UpdateProduct(Resource):
 			help="This field cannot be left blank!"
 			)
 		data = parser.parse_args()
-
-		prod = Products.getById(id)
-		updated_product = Products.prod(
+		product = Products.getById(data.id)
+		
+		updated_product = Products(
+			id= product.id,
 			pprice=data.pprice,
 			quantity=data.quantity,
 			ptype=data.ptype
 			)
-		updated_product.save()
+		updated_product.update()
+
+
 		return {'message':'Product Updated!'}
 
 
