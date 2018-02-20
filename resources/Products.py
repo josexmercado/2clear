@@ -1,4 +1,7 @@
 from flask_restful import Resource, reqparse
+from db import db
+from sqlalchemy import update
+from flask_sqlalchemy import SQLAlchemy
 from models.Products import Products
 
 class Registerproducts(Resource):
@@ -59,19 +62,25 @@ class UpdateProduct(Resource):
 			help="This field cannot be left blank!"
 			)
 		data = parser.parse_args()
-		product = Products.getById(data.id)
 		
-		updated_product = Products(
-			id= product.id,
+		product = Products.getById(data.id)
+		(
+			product.pprice == data.pprice,
+			product.quantity == data.quantity,
+			product.ptype == data.ptype
+
+		)
+		product.update()
+
+		updated = Products (
 			pprice=data.pprice,
 			quantity=data.quantity,
-			ptype=data.ptype
+			ptype= data.ptype
 			)
-		updated_product.update()
+		updated.commit()
 
 
 		return {'message':'Product Updated!'}
-
 
 class getproduct(Resource):
 

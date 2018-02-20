@@ -3,6 +3,7 @@ import os
 from flask import Flask, abort, flash, redirect, render_template, request,session, make_response, jsonify
 from flask_cors import CORS
 from flask_restful import Api
+from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import update
 
 #models and libs
@@ -152,7 +153,7 @@ def process():
     
      # return render_template('reports.html', filteredstocks=filteredstocks)
 
-@app.route("/aproduct" , methods = ['POST', 'GET'])
+@app.route("/aproduct" , methods = ['POST', 'GET','PUT','PATCH'])
 def adminproduct():
     products = Products.query.all()
     
