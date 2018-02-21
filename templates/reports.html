@@ -269,7 +269,7 @@
                 </thead>
                 
                 <tbody>
-                  {% for data in x %}
+                  {% for data in data %}
                   
                   <tr>
                     <td>{{ data.date }}</td>
@@ -307,7 +307,31 @@
 
 </html>
 <script type="text/javascript">
+$(function(){
+      $('#searchdate').on('change', function(){
+        var date = $(this).find(":selected").val();
+        console.log(date, 'date');
+        var jqaxhr = $.ajax({
+          method: "GET",
+          url: window.location.origin+"/product/"+date
+        })
+        .done(function(data){
+          console.log(data);
+          $('#prid').val(data.date);
+          $('#vtype').val(data.id);
+          $('#vprice').val(data.type);
+          $('#vquantity').val(data.amount);
+          $('#vquantity').val(data.recby);
+         /*  $('#myCart').append( */
 
+        })
+        .fail(function(e){
+          alert('error')
+        })
+        .always(function(){
+        })
+      })
+  })
     $(function(){
        $('#searchdate').on('change', function(){
          var date = $(this).find(":selected").val();

@@ -47,6 +47,6 @@ class UpdateStocks(Resource):
 class getBydate(Resource):
 	def get(self, _date):
 	
-		stockbydate = Stock.getBydate(_date)
-		x = Stock.query.filter_by(date=stockbydate.date).first()
-		return x.json()
+		stockbydate = Stock.getBydate(_date).all()
+		
+		return stockbydate.json()
