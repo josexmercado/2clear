@@ -338,6 +338,25 @@ $('#btn_saveproduct').unbind('click').on('click', function (e) {
           //alert($('#name').val() );
         });
     });
+    $('#btn_deleteproduct').unbind('click').on('click', function (e) {
+      e.preventDefault();
+      var id = $('#vpname').val();
+      var jqxhr = $.ajax({
+        method: "delete",
+        url: "/delproduct",
+        data: {id:id}
+
+      })
+        .done(function (data) {
+          alert(data.message);
+        })
+        .fail(function () {
+          alert("error");
+        })
+        .always(function () {
+          //alert($('#name').val() );
+        });
+    });
   })
   })
 </script>

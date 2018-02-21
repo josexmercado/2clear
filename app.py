@@ -153,7 +153,7 @@ def process():
     
      # return render_template('reports.html', filteredstocks=filteredstocks)
 
-@app.route("/aproduct" , methods = ['POST', 'GET','PUT','PATCH'])
+@app.route("/aproduct" , methods = ['POST', 'GET','PUT','DELETE'])
 def adminproduct():
     products = Products.query.all()
     
@@ -269,7 +269,7 @@ api.add_resource(UpdateProduct, '/products/update')
 api.add_resource(UpdateStocks, '/update/stocks')
 api.add_resource(CustomerData, '/customer/<int:_id>')
 api.add_resource(getproduct, '/product/<int:_id>')
-api.add_resource(deleteproduct, '/delproduct/<int:_id>')
+api.add_resource(deleteproduct, '/delproduct')
 api.add_resource(getorderlist, '/orderid/<int:_id>')
 api.add_resource(registerorder, '/registerorder')
 api.add_resource(recordorderlist, '/recordorderlist')

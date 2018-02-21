@@ -40,7 +40,7 @@ class Registerproducts(Resource):
 		return {'message':'Product Registered!'}
 
 class UpdateProduct(Resource):
-
+	
 	def post(self):
 		parser = reqparse.RequestParser()
 		parser.add_argument('id',
@@ -62,25 +62,33 @@ class UpdateProduct(Resource):
 			help="This field cannot be left blank!"
 			)
 		data = parser.parse_args()
-		
 		product = Products.getById(data.id)
+		updatex = Products.query.filter_by(id=product.id).first()
+
+		updatex.pprice= data.pprice
+		updatex.quantity= data.quantity
+		updatex.ptype= data.ptype
+		updatex.commit()
+
+		return {'message':'Product Updated!'}
+
+	''' 	product = Products.getById(data.id)
 		(
 			product.pprice == data.pprice,
 			product.quantity == data.quantity,
 			product.ptype == data.ptype
-
 		)
-		product.update()
+		product.insert()
 
 		updated = Products (
 			pprice=data.pprice,
 			quantity=data.quantity,
 			ptype= data.ptype
 			)
-		updated.commit()
+		updated.insert() '''
 
 
-		return {'message':'Product Updated!'}
+		
 
 class getproduct(Resource):
 
@@ -92,8 +100,29 @@ class getproduct(Resource):
 
 class deleteproduct(Resource):
 
-	def delete(self, _id):
-	
-		product = Products.delete(_id)
-
-		return product.json()
+	def delete(self , _id):
+		parser = reqparse.RequestParser()
+		parser.add_argument('id',
+			type=str,
+			)
+		parser.add_argument('pprice',
+			type=str,
+			required=True,
+			help="This field cannot be left blank!"
+			)
+		parser.add_argument('quantity',
+			type=str,
+			required=True,
+			help="This field cannot be left blank!"
+			)
+		parser.add_argument('ptype',
+			type=str,
+			required=True,
+			help="This field cannot be left blank!"
+			)
+		data = parser.parse_args()
+		product = Products.getById(data.id)
+		delprod = Products.query.filter_by(id = product.id)
+		delprod.delete(product)
+		delprod.commit()
+		return {'message':'Product deleted!'}
