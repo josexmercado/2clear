@@ -181,10 +181,10 @@
           <form action="/updatestocks" method="post">
             <label for="product_name">Choose Product:</label>
 
-            <input list="browsers" name="product" id="product_name" class="form-control">
+            <input list="browsers" id="product_name" class="form-control">
             <datalist id="browsers">
               {% for products in products %}
-              <option value="{{ products.pname }}">{{ products.id }}</option>
+              <option value="{{ products.id }}">{{ products.pname }}</option>
               {% endfor %}
             </datalist>
         </div>
@@ -238,9 +238,15 @@
           amount: amount
         }
       })
-
-
-        .done(function (data) {
+        var jqxhr = $.ajax({
+        method: "POST",
+        url: "/update/quantity",
+        data: {
+          id:product,
+          quantity: amount
+        }
+      })
+      .done(function (data) {
           alert(data.message);
         })
         .fail(function () {
@@ -249,11 +255,11 @@
         .always(function () {
           //alert($('#name').val() );
         });
-
       $('#product_name').val("");
       $('#type').val("");
       $('#amount').val("");
       $('#date').val("");
+    
     });
 
 

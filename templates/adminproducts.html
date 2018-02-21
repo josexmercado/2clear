@@ -247,9 +247,10 @@
                           <input v-model="message" readonly="true" id="vquantity" class="form-control" >
                         </div>
                         <div class="box-footer" id="app">
-                          <button id="btn_editproduct" type="submit" class="btn btn-primary">Edit</button>
+                          <button id="btn_editproduct" type="submit" class="btn btn-primary" >Edit</button>
+                          <button id="btn_canceledit" type="submit" style="display: none;" class="btn btn-primary" >Cancel edit</button>
                           <button id="btn_deleteproduct"  class="btn btn-primary">Delete</button>
-                          <button id="btn_saveproduct" type="submit" class="btn btn-primary">Save</button>
+                          <button id="btn_saveproduct" type="submit"  style="display: none;" class="btn btn-primary">Save</button>
                         </div>
                     </div>
 
@@ -298,6 +299,10 @@
       })
         .done(function (data) {
           alert(data.message);
+        $('#productname').val("");
+        $('#sp').val("");
+        $('#quantity').val("");
+        $('#type').val("");
         })
         .fail(function () {
           alert("error");
@@ -306,14 +311,37 @@
           //alert($('#name').val() );
         });
     });
+
+
+   /*  $(document).ready(function(){
+    $("#hide").click(function(){
+        $("#show").hide();
+    });
+    $("#show").click(function(){
+        $("#hide").show();
+    });
+});
+ */
+
     $(function () {
 $('#btn_editproduct').unbind('click').on('click', function (e) {
       e.preventDefault();
+      $("#btn_canceledit").show();
+      $("#btn_saveproduct").show();
+      $("#btn_editproduct").hide();
       $('#brn_editproduct').text("Cancel save")
-      $('#prid').attr("readonly", false)
       $('#vtype').attr("readonly", false) 
       $('#vprice').attr("readonly", false)
       $('#vquantity').attr("readonly", false) 
+})
+$('#btn_canceledit').unbind('click').on('click', function (e) {
+      e.preventDefault();
+      $("#btn_canceledit").hide();
+      $("#btn_saveproduct").hide();
+      $("#btn_editproduct").show();
+      $('#vtype').attr("readonly", true) 
+      $('#vprice').attr("readonly", true)
+      $('#vquantity').attr("readonly", true) 
 })
 $('#btn_saveproduct').unbind('click').on('click', function (e) {
       e.preventDefault();
@@ -343,12 +371,17 @@ $('#btn_saveproduct').unbind('click').on('click', function (e) {
       var id = $('#vpname').val();
       var jqxhr = $.ajax({
         method: "delete",
-        url: "/delproduct",
+        url: "/deleteproduct",
         data: {id:id}
 
       })
         .done(function (data) {
           alert(data.message);
+          $('#prid').val("");
+          $('#vpname').val("");
+          $('#vprice').val("");
+          $('#vquantity').val("");
+          $('#vtype').val("");
         })
         .fail(function () {
           alert("error");
