@@ -64,7 +64,7 @@ class UpdateProduct(Resource):
 		data = parser.parse_args()
 		product = Products.getById(data.id)
 		updatex = Products.query.filter_by(id=product.id).first()
-
+		updatex.id= data.id
 		updatex.pprice= data.pprice
 		updatex.quantity= data.quantity
 		updatex.ptype= data.ptype
@@ -72,22 +72,26 @@ class UpdateProduct(Resource):
 
 		return {'message':'Product Updated!'}
 
-	''' 	product = Products.getById(data.id)
-		(
-			product.pprice == data.pprice,
-			product.quantity == data.quantity,
-			product.ptype == data.ptype
-		)
-		product.insert()
 
-		updated = Products (
-			pprice=data.pprice,
-			quantity=data.quantity,
-			ptype= data.ptype
+class UpdateQuantity(Resource):
+	
+	def post(self):
+		parser = reqparse.RequestParser()
+		parser.add_argument('id',
+			type=str,
 			)
-		updated.insert() '''
+		parser.add_argument('quantity',
+			type=str,
+			required=True,
+			help="This field cannot be left blank!"
+			)
+		data = parser.parse_args()
+		product = Products.getById(data.id)
+		xupdatex = Products.query.filter_by(id=product.id).first()
+		xupdatex.quantity= data.quantity
+		xupdatex.commit()
 
-
+		return {'message':'Stocks recorded!'}
 		
 
 class getproduct(Resource):
@@ -100,29 +104,14 @@ class getproduct(Resource):
 
 class deleteproduct(Resource):
 
-	def delete(self , _id):
+	def delete(self):
 		parser = reqparse.RequestParser()
 		parser.add_argument('id',
 			type=str,
 			)
-		parser.add_argument('pprice',
-			type=str,
-			required=True,
-			help="This field cannot be left blank!"
-			)
-		parser.add_argument('quantity',
-			type=str,
-			required=True,
-			help="This field cannot be left blank!"
-			)
-		parser.add_argument('ptype',
-			type=str,
-			required=True,
-			help="This field cannot be left blank!"
-			)
 		data = parser.parse_args()
 		product = Products.getById(data.id)
-		delprod = Products.query.filter_by(id = product.id)
-		delprod.delete(product)
+		delprod = Products.query.filter_by(id = product.id).first()
+		delprod.delete()
 		delprod.commit()
 		return {'message':'Product deleted!'}

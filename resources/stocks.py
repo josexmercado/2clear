@@ -42,11 +42,11 @@ class UpdateStocks(Resource):
 			)
 
 		new_stocks.insert()
-		return {'message':'Stocks Updated!'}
+		return {'message':'Stocks Updated!','button id="confirm"':'OK'}
 
 class getBydate(Resource):
 	def get(self, _date):
 	
 		stockbydate = Stock.getBydate(_date)
-
-		return stockbydate.json()
+		x = Stock.query.filter_by(date=stockbydate.date).first()
+		return x.json()

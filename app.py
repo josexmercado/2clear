@@ -26,6 +26,7 @@ from resources.Products import UpdateProduct
 from resources.stocks import UpdateStocks
 from resources.stocks import getBydate
 from resources.Products import getproduct
+from resources.Products import UpdateQuantity
 from resources.Products import deleteproduct
 from resources.Orders import registerorder
 from resources.Orders import recordorderlist
@@ -169,16 +170,11 @@ def amanage():
     users = User.query.all()
     return render_template('adminaccounts.html')
 
-#@app.route("/aastock")
-#def astock():
-#
-#    products = Products.query.all()
-#    POST_AMOUNT = request.form['amount']
-#    Products.update().values(quantity=POST_AMOUNT).where(
-#        Product.name
-#    )
-
-#    return render_template('adminstockin.html', products=products)
+@app.route("/aastock")
+def astock():
+    products = Products.query.all()
+    
+    return render_template('adminstockin.html', products=products)
 
 
 #@app.route("/aastock/<int:_id>", methods=['POST','GET'])
@@ -269,11 +265,12 @@ api.add_resource(UpdateProduct, '/products/update')
 api.add_resource(UpdateStocks, '/update/stocks')
 api.add_resource(CustomerData, '/customer/<int:_id>')
 api.add_resource(getproduct, '/product/<int:_id>')
-api.add_resource(deleteproduct, '/delproduct')
+api.add_resource(deleteproduct, '/deleteproduct')
 api.add_resource(getorderlist, '/orderid/<int:_id>')
 api.add_resource(registerorder, '/registerorder')
 api.add_resource(recordorderlist, '/recordorderlist')
-api.add_resource(getBydate,'/date/str:_date')
+api.add_resource(getBydate,'/date')
+api.add_resource(UpdateQuantity, '/update/quantity')
 
 
 #register blueprints here

@@ -269,15 +269,15 @@
                 </thead>
                 
                 <tbody>
-                  {% for row in stockings %}
+                  {% for data in x %}
                   
                   <tr>
-                    <td>{{ row.date }}</td>
-                    <td>{{ row.id }}</td>
-                    <td>{{ row.type }}</td>
-                    <td>{{ row.product }}</td>
-                    <th>{{ row.amount }}</th>
-                    <td>{{ row.recby}} </td>
+                    <td>{{ data.date }}</td>
+                    <td>{{ data.id }}</td>
+                    <td>{{ data.type }}</td>
+                    <td>{{ data.product }}</td>
+                    <th>{{ data.amount }}</th>
+                    <td>{{ data.recby}} </td>
 
                     
                     {% else %}
@@ -314,7 +314,7 @@
          console.log(date, 'date');
          var jqaxhr = $.ajax({
            method: "GET",
-           url: window.location.origin+"/date/"+date 
+           url: window.location.origin+"/date"
          })
          .done(function(data){
            console.log(data);

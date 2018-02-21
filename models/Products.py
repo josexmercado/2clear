@@ -36,13 +36,10 @@ class Products(db.Model):
         
     def commit(self):
         db.session.commit()
-
-    def update(self):
-        db.session.update(self)
-        db.session.commit()
         
     def delete(self):
         db.session.delete(self)
+        db.session.commit()
     
 
 
