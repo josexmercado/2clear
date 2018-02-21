@@ -236,8 +236,9 @@
                 <div>
                 <label for="user_name">Search date History:</label>
                 </div>
-              <div class="col-xs-3">
-                
+                <form>
+                <div class="col-xs-3">
+              
                 <select type="message" id='sdate' class="form-control">
                     {% for stocks in stocks %}
                     <datalist>
@@ -251,6 +252,7 @@
                 <button type="submit"  class="btn btn-primary" id="searchdate" value="/search_by_date">
                   <i class="fa fa-search"></i> search </button>
                 </div>
+              </form>
                 <br>
                 <br>  
                   <table class="table table-bordered">
@@ -265,8 +267,10 @@
                     
                   </tr>
                 </thead>
+                
                 <tbody>
-                  {% for row in filteredstocks %}
+                  {% for row in stockings %}
+                  
                   <tr>
                     <td>{{ row.date }}</td>
                     <td>{{ row.id }}</td>
@@ -280,10 +284,16 @@
                   </tr>
                   {% endfor %}
                 </tbody>
+
+                <tbody id="tobeprinted">
+
+                </tbody>
               </table>
                   <a class="btn btn-primary">
                     <i class="fa fa-print"></i> print</a>
             </div>
+
+        
           </div>
         </div>
 
@@ -293,22 +303,36 @@
   </div>
 
 </body>
-<script type="text/javascript">
-  $(function () {
-		$('#searchdate').unbind('click').on('click', function (e) {
-      e.preventDefault();
-		
-      var jqxhr = $.ajax({
-        method: "GET,POST",
-      })
-      .done(function (data) {
-          alert(data.message);
-        })
-        .fail(function () {
-          alert("error");
-        })
-	  }) 
-  })
-</script>
+
 
 </html>
+<script type="text/javascript">
+
+    $(function(){
+       $('#searchdate').on('change', function(){
+         var date = $(this).find(":selected").val();
+         console.log(date, 'date');
+         var jqaxhr = $.ajax({
+           method: "GET",
+           url: window.location.origin+"/date/"+date 
+         })
+         .done(function(data){
+           console.log(data);
+          
+           $('#table').val(data.recby);
+ 
+ 
+         })
+         .fail(function(e){
+           alert('error')
+         })
+         .always(function(){
+         })
+       })
+     
+   
+
+
+      })
+
+</script>

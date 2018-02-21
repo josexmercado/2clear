@@ -3,6 +3,8 @@ import os
 from flask import Flask, abort, flash, redirect, render_template, request,session, make_response, jsonify
 from flask_cors import CORS
 from flask_restful import Api
+from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy import update
 
 #models and libs
 from models.CustomerModel import CustomerModel
@@ -21,9 +23,11 @@ from apps.sampleBlueprint import sample
 from resources.Customer import CustomerRegister, CustomerData
 from resources.User import UserRegister
 from resources.Products import Registerproducts
+from resources.Products import UpdateProduct
 from resources.stocks import UpdateStocks
 from resources.stocks import getBydate
-from resources.Products import getprice
+from resources.Products import getproduct
+from resources.Products import deleteproduct
 from resources.Orders import registerorder
 from resources.Orders import recordorderlist
 from resources.Orderlist import getorderlist
@@ -147,19 +151,35 @@ def vieworders():
 
 @app.route("/reports")
 def reports():
-    stocks = Stock.query.all()
+    stocks= Stock.query.all()
     return render_template('reports.html',stocks=stocks)
+   
+@app.route("/process",methods=['POST','GET'])
+def process():
+    sdate = request.form['dateval']
+    stocks= Stock.query.all()
+    stockings= Stock.query.filter_by(date=sdate)
 
-@app.route("/search_by_date")
-def search_by_date():
-    reqdate = request.form["searchdate"]
-    filteredstockss = getBydate(where(reqdate)) 
-    return render_template('reports.html', filteredstocks=filteredstocks)
+    return render_template('reports.html',stocks=stocks,stockings=stockings)
 
-@app.route("/aproduct")
-def adminproduct():
+#@app.route("/getdata" ,methods=['GET'])
+#def getdata():
+#    dateval = str(request.form['sdate'])
+#    stockings= Stock.query.filter(Stock.date.where(Stock.date==dateval))
+#    return render_template('reports.html',stockings=stockings)
+
+#@app.route("/search_by_date")
+#def search_by_date():
+#    datediss = Stock.query.filter_by(date=valuedate)
+#    return datediss
     
-    return render_template('adminproducts.html')
+     # return render_template('reports.html', filteredstocks=filteredstocks)
+
+@app.route("/aproduct" , methods = ['POST', 'GET','PUT','DELETE'])
+def adminproduct():
+    products = Products.query.all()
+    
+    return render_template('adminproducts.html',products=products)
 
 @app.route("/aadd")
 def aadd(): 
@@ -171,18 +191,34 @@ def amanage():
     users = User.query.all()
     return render_template('adminaccounts.html')
 
-@app.route("/aastock")
-def astock():
+#@app.route("/aastock")
+#def astock():
+#
+#    products = Products.query.all()
+#    POST_AMOUNT = request.form['amount']
+#    Products.update().values(quantity=POST_AMOUNT).where(
+#        Product.name
+#    )
 
-    products = Products.query.all()
+#    return render_template('adminstockin.html', products=products)
 
-    return render_template('adminstockin.html', products=products)
+
+#@app.route("/aastock/<int:_id>", methods=['POST','GET'])
+#def aastock(_product):
+#    return _product
+#    POST_AMOUNT = request.form['amount']
+#    return products.json()
+#    products.quantity = str(products.quantity) + POST_AMOUNT
+#    products.insert()
+#    return render_template('reports.html')
 
 @app.route("/products")
 def products():
     stocks = Stock.query.all()
     products = Products.query.all()
+    
     return render_template('products.html',stocks=stocks, products=products )
+
 
 
 @app.route("/return")
@@ -209,6 +245,23 @@ def recordnewcustomer():
 
     return render_template('adduser.html', customers=customers,users=users)
 
+#@app.route("/updateproducts/<int:_id>", methods=['POST','GET'])
+#def updateproducts(_id):
+#    prrd = Products.id.query.first()
+#    prrd2 = Products.ptype.query.first()
+#    prrd3 = Products.pprice.query.first()
+#    prrd4 = Products.quantity.query.first()
+#    POST_ID = request.form['prid']
+#    POST_TYPE = request.form['vtype']
+#    POST_PRICE = request.form['vprice']
+#    POST_QUANTITY = request.form['vquantity']
+#    prrd2.ptype = str(prrd2.ptype) + POST_TYPE
+#    prrd3.pprice = str(prrd3.pprice) + POST_PRICE
+#    prrd4.quantity = str(prrd4.quantity) + POST_QUANTITY
+#    prrd.insert()
+
+#    return render_template('home.html')
+
 @app.route('/Registerproduct', methods=['POST'])
 def Registerproduct():     
 
@@ -216,14 +269,14 @@ def Registerproduct():
     POST_PRODPRICE = str(request.form['sp'])
     POST_PRODQUANTITY = str(request.form['quantity'])
     POST_PRODTYPE = str(request.form['type'])
-    new_product = Product(
+    new_product = Products(
         pname = POST_PRODNAME,
         pprice = POST_PRODPRICE,
         quantity = POST_PRODQUANTITY,
         ptype = POST_PRODTYPE
     )
     try:
-        new_user.insert()
+        new_product.insert()
         return render_template('adminproducts.html')
     except:
         return 'error'
@@ -232,9 +285,11 @@ def Registerproduct():
 api.add_resource(CustomerRegister, '/Customer/add')
 api.add_resource(UserRegister, '/User/add')
 api.add_resource(Registerproducts, '/Products/add')
+api.add_resource(UpdateProduct, '/products/update')
 api.add_resource(UpdateStocks, '/update/stocks')
 api.add_resource(CustomerData, '/customer/<int:_id>')
-api.add_resource(getprice, '/price/<int:_id>')
+api.add_resource(getproduct, '/product/<int:_id>')
+api.add_resource(deleteproduct, '/delproduct')
 api.add_resource(getorderlist, '/orderid/<int:_id>')
 api.add_resource(registerorder, '/registerorder')
 api.add_resource(recordorderlist, '/recordorderlist')
