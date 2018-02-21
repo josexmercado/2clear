@@ -1,14 +1,15 @@
 from flask_restful import Resource, reqparse
 from models.Orders import Orders
 from models.Orderlist import Orderlist
+from models.Sales import Sales
 
-class registerorder(Resource):
+class recordsales(Resource):
 
 	def post(self):
 		parser = reqparse.RequestParser()
-		parser.add_argument('orderid',
+		parser.add_argument('ordernumber',
 			type=str,
-			required=True,
+			# required=True,
 			help="This field cannot be left blank!"
 			)
 		parser.add_argument('customerid',
@@ -21,7 +22,7 @@ class registerorder(Resource):
 			# required=True,
 			help="This field cannot be left blank!"
 			)
-		parser.add_argument('totalbill',
+		parser.add_argument('totalsale',
 			type=str,
 			# required=True,
 			help="This field cannot be left blank!"
@@ -36,24 +37,18 @@ class registerorder(Resource):
 			# required=True,
 			help="This field cannot be left blank!"
 			)
-		parser.add_argument('status',
-			type=str,
-			# required=True,
-			help="This field cannot be left blank!"
-			)
 		data = parser.parse_args()
 
-		new_orders = Orders(
-			orderid=data.orderid,
+		new_sales = Sales(
 			customerid=data.customerid,
+			ordernumber=data.ordernumber,
 			customername=data.customername,
-			totalbill=data.totalbill,
+			totalsale=data.totalsale,
 			recordedby=data.recordedby,
 			date=data.date,
-			status=data.status
 			)
-		new_orders.insert()
-		return {'message':'New Order Registered!'}
+		new_sales.insert()
+		return {'message':'New Sales Recorded!'}
 
 class recordorderlist(Resource):
 
@@ -61,7 +56,7 @@ class recordorderlist(Resource):
 		parser = reqparse.RequestParser()
 		parser.add_argument('orderid',
 			type=str,
-			#required=True,
+		#		required=True,
 			help="This field cannot be left blank!"
 			)
 		parser.add_argument('productid',
@@ -94,61 +89,4 @@ class recordorderlist(Resource):
 			subtotal=data.subtotal
 			)
 		new_orderlist.insert()
-		return {'message':'Orderlist Recorded!'}
-
-class salescustomer(Resource):
-
-	def get(self, _id):
-	
-		customer = Orders.getById(_id)
-
-		return customer.json()
-
-class ordernumber(Resource):
-
-	def get(self, _id):
-	
-		ordernumber = Orders.getById(_id)
-
-		return ordernumber.json()
-
-class updateorders(Resource):
-
-	def post(self):
-		parser = reqparse.RequestParser()
-		parser.add_argument('orderid',
-			type=str,
-			#required=True,
-			help="This field cannot be left blank!"
-			)
-		parser.add_argument('productid',
-			type=str,
-			# required=True,
-			help="This field cannot be left blank!"
-			)
-		parser.add_argument('pname',
-			type=str,
-			# required=True,
-			help="This field cannot be left blank!"
-			)
-		parser.add_argument('quantity',
-			type=str,
-			# required=True,
-			help="This field cannot be left blank!"
-			)
-		parser.add_argument('subtotal',
-			type=str,
-			# required=True,
-			help="This field cannot be left blank!"
-			)
-		data = parser.parse_args()
-
-		new_orderlist = Orderlist(
-			orderid=data.orderid,
-			productid=data.productid,
-			pname=data.pname,
-			quantity=data.quantity,
-			subtotal=data.subtotal
-			)
-		new_orderlist.update()
 		return {'message':'Orderlist Recorded!'}

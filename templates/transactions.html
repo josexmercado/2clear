@@ -465,6 +465,7 @@
         var customerid = $('#customers').val();
         var total = parseFloat($("#total_bill").text());
         var customer_name = $('#customername').val();
+        var status = "undelivered";
 
         console.log('id', id)
         console.log('customername' , customer_name)
@@ -499,7 +500,7 @@
       $.ajax({
         type: "Post",
         url: "/registerorder",
-        data: { orderid: orderid, customerid: customerid , customername:customer_name, totalbill: total, recordedby: user , date:currentDate}
+        data: { orderid: orderid, customerid: customerid , customername:customer_name, totalbill: total, recordedby: user , date:currentDate , status:status}
       })
 
         .done(function (data) {
