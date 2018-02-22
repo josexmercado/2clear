@@ -269,15 +269,15 @@
                 </thead>
                 
                 <tbody id="wadu">
-                  {% for row in data %}
+                  {% for stock in stocklist %}
                   
                   <tr>
-                    <td>{{ row.date }}</td>
-                    <td>{{ row.id }}</td>
-                    <td>{{ row.type }}</td>
-                    <td>{{ row.product }}</td>
-                    <th>{{ row.amount }}</th>
-                    <td>{{ row.recby}} </td>
+                    <td>{{ stock.date }}</td>
+                    <td>{{ stock.id }}</td>
+                    <td>{{ stock.type }}</td>
+                    <td>{{ stock.product }}</td>
+                    <th>{{ stock.amount }}</th>
+                    <td>{{ stock.recby}} </td>
 
                     
                     {% else %}

@@ -36,6 +36,9 @@ from resources.Orders import recordorderlist
 from resources.Orderlist import getorderlist
 from resources.Sales import recordsales
 from resources.Orders import salescustomer
+from resources.Orders import approveorder
+from resources.Orders import orderid
+from resources.Products import deliverproduct
 
 
 app = Flask(__name__)
@@ -56,25 +59,6 @@ def output_json(data, code, headers=None):
     resp = make_response(jsonify(data), code)
     resp.headers.extend(headers or {})
     return resp
-
-@app.route("/updateorders/<int:_id>", methods=['POST','GET'])
-def updateorders(_id):
-
-     return _id
-
-     POST_STATUS = "delivered"
-
-     orderstatus = Orders.query.filter_by(orderid=_id).all()
-    
-     return orderstatus.json()
-     
-     orderstatus.status = str(orderstatus.status) + POST_STATUS
-
-     orderstatus.insert()
-
-     return render_template('adminpanel.html')
-
-
 
 @app.route('/')
 def home():
@@ -296,12 +280,21 @@ api.add_resource(deleteproduct, '/deleteproduct')
 api.add_resource(getorderlist, '/orderid/<int:_id>')
 api.add_resource(registerorder, '/registerorder')
 api.add_resource(recordorderlist, '/recordorderlist')
+<<<<<<< HEAD
 api.add_resource(getBydate,'/dateid/<string:_date>')
 api.add_resource(getBydatex,'/dateidx/<string:_date>')
+=======
+>>>>>>> 5670ac273c05e0c211b6e117f078859873ac92b4
 api.add_resource(recordsales,'/recordsales')
 api.add_resource(salescustomer,'/salescustomer/<int:_id>')
 api.add_resource(UpdateQuantity, '/update/quantity')
+<<<<<<< HEAD
 api.add_resource(UpdatexQuantity, '/update/xquantity')
+=======
+api.add_resource(approveorder,'/approveorder')
+api.add_resource(orderid,'/getorderid/<int:_orderid>')
+api.add_resource(deliverproduct,'/deliverproduct')
+>>>>>>> 5670ac273c05e0c211b6e117f078859873ac92b4
 
 
 #register blueprints here

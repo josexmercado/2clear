@@ -505,16 +505,11 @@
           .always(function () {
             //alert($('#name').val() );
           });
-        // update product
-        var x = $("#myCart").find("tr").length;
-        for (var o = 0; o < x; o++) {
-          var idd = $("#myCart").find("tr").eq(o).find("td").eq(0).text();
-          var quantitits = $("#myCart").find("tr").eq(o).find("td").eq(4).text();
+// update product
         $.ajax({
           type: "Post",
           url: "/deliverproduct",
-          
-          data: { id: idd, quantity: quantitits }
+          data: { id: id, quantity: quantity }
         })
           .done(function (data) {
             console.log("id", id)
@@ -525,8 +520,9 @@
           .always(function () {
             //alert($('#name').val() );
           });
-        }
-      });
-      })
+
+    });
   })
+  })
+
 </script>
