@@ -130,7 +130,6 @@ def registrations():
 
 @app.route("/admin")
 def admin():
- 
     return render_template('adminpanel.html')
     
 
