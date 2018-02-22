@@ -1,4 +1,6 @@
 from db import db
+from sqlalchemy import update
+from flask_sqlalchemy import SQLAlchemy
 
 class Orders(db.Model):
     __tablename__ = 'orders'
@@ -31,17 +33,17 @@ class Orders(db.Model):
     @staticmethod
     def getById(_id):
         return Orders.query.filter_by(orderid=_id).first()
-
-
+   
     def insert(self):
         db.session.add(self)
         db.session.commit()
-    
+        
+    def commit(self):
+        db.session.commit()
+        
     def delete(self):
         db.session.delete(self)
         db.session.commit()
     
-    def update(self):
-        db.session.commit()
     
 
