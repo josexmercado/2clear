@@ -9,6 +9,7 @@ class Orders(db.Model):
     customername = db.Column(db.String(45))
     recordedby = db.Column(db.String(45))
     customerid = db.Column(db.String(45))
+    status = db.Column(db.String(45))
     date  = db.Column(db.String(45))
 
     def __init__(self, *args, **kwargs):
@@ -19,15 +20,18 @@ class Orders(db.Model):
         return {
             'id': self.id,
             'totalbill': self.totalbill,
+            'orderid': self.orderid,
             'recordedby': self.recordedby,
-            'data':self.date,
+            'date':self.date,
             'customerid': self.customerid,
             'customername': self.customername,
+            'status': self.status,
         }
     
     @staticmethod
     def getById(_id):
-        return Orders.query.filter_by(id=_id).first()
+        return Orders.query.filter_by(orderid=_id).first()
+
 
     def insert(self):
         db.session.add(self)
@@ -36,4 +40,8 @@ class Orders(db.Model):
     def delete(self):
         db.session.delete(self)
         db.session.commit()
+    
+    def update(self):
+        db.session.commit()
+    
 

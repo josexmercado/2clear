@@ -14,6 +14,7 @@ from models.Products import Products
 from datetime import datetime
 from models.Orders import Orders
 from models.Orderlist import Orderlist
+from models.Sales import Sales
 
 #blueprints
 from apps.sampleBlueprint import sample
@@ -33,9 +34,12 @@ from resources.Products import deleteproduct
 from resources.Orders import registerorder
 from resources.Orders import recordorderlist
 from resources.Orderlist import getorderlist
+from resources.Sales import recordsales
+from resources.Orders import salescustomer
+
 
 app = Flask(__name__)
-dbname   = 'mysql+pymysql://root:@127.0.0.1/2_clear'
+dbname   = 'mysql+pymysql://root:admin@127.0.0.1/2_clear'
 
 CORS(app, supports_credentials=True, resources={r"*": {"origins": "*"}})
 
@@ -52,6 +56,24 @@ def output_json(data, code, headers=None):
     resp = make_response(jsonify(data), code)
     resp.headers.extend(headers or {})
     return resp
+
+@app.route("/updateorders/<int:_id>", methods=['POST','GET'])
+def updateorders(_id):
+
+     return _id
+
+     POST_STATUS = "delivered"
+
+     orderstatus = Orders.query.filter_by(orderid=_id).all()
+    
+     return orderstatus.json()
+     
+     orderstatus.status = str(orderstatus.status) + POST_STATUS
+
+     orderstatus.insert()
+
+     return render_template('adminpanel.html')
+
 
 
 @app.route('/')
@@ -262,8 +284,6 @@ def Registerproduct():
     except:
         return 'error'
 
-
-
 #api routes
 api.add_resource(CustomerRegister, '/Customer/add')
 api.add_resource(UserRegister, '/User/add')
@@ -276,8 +296,15 @@ api.add_resource(deleteproduct, '/deleteproduct')
 api.add_resource(getorderlist, '/orderid/<int:_id>')
 api.add_resource(registerorder, '/registerorder')
 api.add_resource(recordorderlist, '/recordorderlist')
+<<<<<<< HEAD
 api.add_resource(getBydate,'/dateid/<string:_date>')
 api.add_resource(getBydatex,'/dateidx/<string:_date>')
+=======
+api.add_resource(getBydate,'/date/str:_date')
+api.add_resource(recordsales,'/recordsales')
+api.add_resource(salescustomer,'/salescustomer/<int:_id>')
+api.add_resource(getBydate,'/date')
+>>>>>>> ab6a803439bb53782cba5e8da2296f310528051b
 api.add_resource(UpdateQuantity, '/update/quantity')
 api.add_resource(UpdatexQuantity, '/update/xquantity')
 

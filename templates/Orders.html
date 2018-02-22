@@ -57,12 +57,13 @@
           </div>
           <div class="pull-left info">
             <p id="userstatus">{{session.name}}</p>
+            <input type="hidden" readonly="true" id="recordedby" class="form-control" value="{{session.name}}">
             <a href="#">
               <i class="fa fa-circle text-success"></i> Online</a>
           </div>
         </div>
-        <form action="#" method="get" class="sidebar-form">
-
+        <!-- <form action="#" method="get" class="sidebar-form"> -->
+        <form action="/updateorders" method="post" class="sidebar-form">
           <ul class="fixed sidebar-menu">
 
             <li class="active treeview">
@@ -182,10 +183,10 @@
                     </tr>
                   </thead>
                   <tbody id="orders">
-                    {% for row in orders %}
+                    {% for row in orders if row.status == "undelivered" %}
                     <tr>
 
-                      <td class="id" id={ { row.orderid }} value={ { row.orderid }}>{{ row.orderid }}</td>
+                      <td class="id" id="{{ row.orderid }}" value={{ row.orderid }}>{{ row.orderid }}</td>
                       <td class="type">{{ row.customername }}</td>
                       <td class="totalbill">{{ row.totalbill}}</td>
                       <td class="quantity">{{ row.recordedby }}</td>
@@ -209,6 +210,7 @@
                 <div class="modal-content">
                   <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title" id="order">Order Number: </h4>
                     <h4 class="modal-title" id="ordernumber"> </h4>
                   </div>
                   <div class="modal-body">
@@ -257,41 +259,43 @@
 </html>
 
 <script type="text/javascript">
+  var id;
+  var customername;
+  var customerid;
+  $(function () {
+    $('.orderlist').click(function (e) {
+      e.preventDefault();
 
-  $('.orderlist').click(function (e) {
-    e.preventDefault();
-
-    var id = (this.id);
-    var jqaxhr = $.ajax({
-      method: "GET",
-      url: window.location.origin + "/orderid/" + id
-    })
-
-      .done(function (data) {
-        console.log('id', id);
-        console.log('data', data);
-
-        $('#listorder').empty();
-
-        $('#ordernumber').html("Order Number: " + id);
-        var totalbill = 0;
-        for (var i = 0; i < data.length; i++) {
-          console.log("orderid", data.orderid)
-          $('#listorder').append('<tr><td id="orderid">' + data[i].productid + '</td><td id="productid">' + data[i].pname + '</td><td id="quantity">' + data[i].quantity + '</td><td id="subtotal">' + data[i].subtotal + '</td>');
-
-          var totalbill = totalbill + parseFloat(data[i].subtotal);
-
-        }
-        $('#listorder').append('<tr><th id="subtotal">' + 'Total Bill:' + '</th>' + '<th id="totalbill">' + totalbill + '</th>');
-        $('#yourid').modal('show');
-
-      })
-      .fail(function (e) {
-        alert('error')
-      })
-      .always(function () {
+      id = (this.id); //{ usrtid}
+      var jqaxhr = $.ajax({
+        method: "GET",
+        url: window.location.origin + "/orderid/" + id
       })
 
+        .done(function (data) {
+          console.log('id', id);
+          console.log('data', data);
+
+          $('#listorder').empty();
+
+          $('#ordernumber').html(id);
+          var totalbill = 0;
+          for (var i = 0; i < data.length; i++) {
+            $('#listorder').append('<tr><td id="orderid">' + data[i].productid + '</td><td id="productid">' + data[i].pname + '</td><td id="quantity">' + data[i].quantity + '</td><td id="subtotal">' + data[i].subtotal + '</td>');
+
+            var totalbill = totalbill + parseFloat(data[i].subtotal);
+
+          }
+          $('#listorder').append('<tr><th id="subtotal">' + 'Total Bill:' + '</th>' + '<th id="totalbill">' + totalbill + '</th>');
+          $('#yourid').modal('show');
+
+        })
+        .fail(function (e) {
+          alert('error')
+        })
+        .always(function () {
+        })
+    });
   });
 
   $(function () {
@@ -309,15 +313,63 @@
           var change = tenderedcash - parseInt(totalbill);
           alert('Customer Change is: ' + change + ' php');
 
+          console.log('Transaction Number:', id)
+          var jqaxhr = $.ajax({
+            method: "GET",
+            url: window.location.origin + "/salescustomer/" + id
+          })
+
+            .done(function (data) {
+
+              console.log(data)
+              var customerid = data.customerid;
+              var customername = data.customername;
 
 
+              // Variaballs 
+              var tdate = new Date();
+              var dd = tdate.getDate(); //yields day
+              var MM = tdate.getMonth(); //yields month
+              var yyyy = tdate.getFullYear(); //yields year
+              var currentDate = (MM + 1) + "-" + dd + "-" + yyyy;
+              var ordernumber = $('#ordernumber').text();
+              var recordedby = $('#recordedby').val();
+              console.log(customerid, customername)
 
-        } else {
-          alert('Invalid Input, Tendered amount is invalid');
-        }
+              $.ajax({
+                type: "Post",
+                url: "/recordsales",
+                data: { ordernumber: ordernumber, customerid: customerid, customername: customername, totalsale: totalbill, recordedby: recordedby, date: currentDate }
+              })
+
+              var jqaxhr = $.ajax({
+                method: "POST",
+                url: window.location.origin + "/updateorders/" + id
+              })  
+
+                  .done(function (data) {
+                    alert(data.message);
+                  })
+                  .fail(function () {
+                    alert("error");
+                  })
+                  .always(function () {
+                    //alert($('#name').val() );
+                  });
+
+              })
+                .fail(function (e) {
+                  alert('error')
+                })
+                .always(function () {
+                })
+              // Joe kani ang code oh waduhek
+            } else {
+              alert('Invalid Input, Tendered amount is invalid');
+            }
       } else {
-        alert('Invalid Input, the prompt only accepts numbers');
-      }
-    })
+          alert('Invalid Input, the prompt only accepts numbers');
+        }
+      })
   });
 </script>
