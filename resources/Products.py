@@ -138,3 +138,4 @@ class deliverproduct(Resource):
 		xupdatex.commit()
 
 		return {'message':'wow!'}
+

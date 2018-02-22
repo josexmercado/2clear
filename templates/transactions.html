@@ -469,7 +469,7 @@
           $.ajax({
             type: "Post",
             url: "/recordorderlist",
-            data: { orderid: orderid, pname: product_name, productid: id, quantity: quantity, subtotal: subtotal }
+            data: { orderid: orderid, pname: product_name, type:type, productid: id, quantity: quantity, subtotal: subtotal }
           })
 
             .done(function (data) {

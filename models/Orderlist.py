@@ -8,21 +8,21 @@ class Orderlist(db.Model):
     productid = db.Column(db.String(45))
     pname = db.Column(db.String(45))
     quantity = db.Column(db.String(45))
+    type = db.Column(db.String(45))
     subtotal = db.Column(db.String(45))
     totalbill =db.Column(db.String(45))
 
     def __init__(self, *args, **kwargs):
         for name, value in kwargs.items():
             setattr(self, name, value)
-                
-    def test():
-        return {}
+
 
     def json(self):
         return {
             'id': self.id,
             'orderid': self.orderid,
             'pname': self.pname,
+            'type':self.type,
             'productid': self.productid,
             'quantity': self.quantity,
             'subtotal': self.subtotal,
@@ -40,4 +40,6 @@ class Orderlist(db.Model):
     def delete(self):
         db.session.delete(self)
         db.session.commit()
-
+    
+    def commit(self):
+        db.session.commit()

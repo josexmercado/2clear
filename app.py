@@ -37,6 +37,8 @@ from resources.Orders import salescustomer
 from resources.Orders import approveorder
 from resources.Orders import orderid
 from resources.Products import deliverproduct
+from resources.Customer import customercontainer
+from resources.Orders import orderhistory
 
 
 app = Flask(__name__)
@@ -113,8 +115,9 @@ def transactions():
 def viewcustomers():
     customers = CustomerModel.query.all()
     products = Products.query.all()
+    orders = Orders.query.all()
     session['logged_in'] = True 
-    return render_template('viewcustomers.html',products=products,customers=customers)
+    return render_template('viewcustomers.html',products=products,customers=customers, orders=orders)
 
 @app.route("/registrations")
 def registrations():
@@ -279,7 +282,9 @@ api.add_resource(getBydate,'/date')
 api.add_resource(UpdateQuantity, '/update/quantity')
 api.add_resource(approveorder,'/approveorder')
 api.add_resource(orderid,'/getorderid/<int:_orderid>')
+api.add_resource(customercontainer,'/updatecontainer')
 api.add_resource(deliverproduct,'/deliverproduct')
+api.add_resource(orderhistory,'/orderhistory/<int:_customerid>')
 
 
 #register blueprints here
