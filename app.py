@@ -22,7 +22,7 @@ from apps.sampleBlueprint import sample
 # all resources
 from resources.Customer import CustomerRegister, CustomerData
 from resources.User import UserRegister,UpdateUser
-from resources.User import getuname
+from resources.User import getname,DeleteUser
 from resources.Products import Registerproducts
 from resources.Products import UpdateProduct
 from resources.stocks import UpdateStocks
@@ -41,6 +41,8 @@ from resources.Orders import salescustomer
 from resources.Orders import approveorder
 from resources.Orders import orderid
 from resources.Products import deliverproduct
+
+
 
 
 app = Flask(__name__)
@@ -128,10 +130,9 @@ def registrations():
 
 @app.route("/admin")
 def admin():
-  
+ 
     return render_template('adminpanel.html')
-
-
+    
 
 @app.route("/vieworders")
 def vieworders():
@@ -276,7 +277,8 @@ def Registerproduct():
 api.add_resource(CustomerRegister, '/Customer/add')
 api.add_resource(UserRegister, '/User/add')
 api.add_resource(UpdateUser, '/User/update')
-api.add_resource(getuname, '/name/<int:_id>')
+api.add_resource(DeleteUser, '/User/delete')
+api.add_resource(getname, '/user/<int:_id>')
 api.add_resource(Registerproducts, '/Products/add')
 api.add_resource(UpdateProduct, '/products/update')
 api.add_resource(UpdateStocks, '/update/stocks')
