@@ -26,6 +26,11 @@ class UpdateStocks(Resource):
 			required=True,
 			help="This field cannot be left blank!"
 			)
+		parser.add_argument('time',
+			type=str,
+			required=True,
+			help="This field cannot be left blank!"
+			)
 		parser.add_argument('recby',
 			type=str,
 			required=True,
@@ -38,6 +43,7 @@ class UpdateStocks(Resource):
 			amount=data.amount,
 			type=data.type,
 			date=data.date,
+			time=data.time,
 			recby=data.recby
 			)
 
@@ -47,6 +53,13 @@ class UpdateStocks(Resource):
 class getBydate(Resource):
 	def get(self, _date):
 	
-		stockbydate = Stock.getBydate(_date).all()
+		stocklist = Stock.getBydate(_date)
 		
-		return stockbydate.json()
+		return [stock.json() for stock in stocklist]
+
+class getBydatex(Resource):
+	def get(self, _date):
+	
+		stocklist = Stock.getBydatex(_date)
+		
+		return [stock.json() for stock in stocklist]

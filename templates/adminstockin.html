@@ -12,9 +12,7 @@
   <link rel="stylesheet" href="/static/css/AdminLTE.min.css">
   <link rel="stylesheet" href="/static/css/skins/_all-skins.min.css">
   <link rel="stylesheet" href="/static/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">
-  <link rel="stylesheet" href="/static/css/bootstrap-datepicker.min.css">
-  <script type="text/javascript" src="/static/plugins/jQuery/jQuery.min.js"></script>
-
+ 
 </head>
 
 <body class="hold-transition skin-blue sidebar-mini">
@@ -197,10 +195,6 @@
             <option>Stock Out</option>
           </select>
         </div>
-        
-        <div class="form-group">
-          <input type='date' id='date' class="form-control"> 
-        </div>
         <div class="form-group">
           <label for="amount">Amount:</label>
 
@@ -218,10 +212,10 @@
   </form>
 </body>
 <script type="text/javascript">
-  $(function () {
+ $(function () {
+    
     $('#btn_record').unbind('click').on('click', function (e) {
       e.preventDefault();
-
       var product = $('#product_name').val();
       var type = $('#type').val();
       var amount = $('#amount').val();
@@ -234,15 +228,19 @@
           product: product,
           type: type,
           date: date,
+          time: time,
           recby: recby,
           amount: amount
         }
       })
+      if ($('#type').val()=="Stock In")
+      {
         var jqxhr = $.ajax({
         method: "POST",
         url: "/update/quantity",
         data: {
           id:product,
+          type:type,
           quantity: amount
         }
       })
@@ -255,6 +253,28 @@
         .always(function () {
           //alert($('#name').val() );
         });
+      }
+      else
+      {
+        var jqxhr = $.ajax({
+        method: "POST",
+        url: "/update/xquantity",
+        data: {
+          id:product,
+          type:type,
+          quantity: amount
+        }
+      })
+      .done(function (data) {
+          alert(data.message);
+        })
+        .fail(function () {
+          alert("error");
+        })
+        .always(function () {
+          //alert($('#name').val() );
+        });
+      }
       $('#product_name').val("");
       $('#type').val("");
       $('#amount').val("");

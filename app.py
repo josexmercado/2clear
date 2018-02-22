@@ -25,8 +25,10 @@ from resources.Products import Registerproducts
 from resources.Products import UpdateProduct
 from resources.stocks import UpdateStocks
 from resources.stocks import getBydate
+from resources.stocks import getBydatex
 from resources.Products import getproduct
 from resources.Products import UpdateQuantity
+from resources.Products import UpdatexQuantity
 from resources.Products import deleteproduct
 from resources.Orders import registerorder
 from resources.Orders import recordorderlist
@@ -132,6 +134,11 @@ def vieworders():
 def reports():
     stocks= Stock.query.all()
     return render_template('reports.html',stocks=stocks)
+
+@app.route("/reportsout")
+def reportsout():
+    stocks= Stock.query.all()
+    return render_template('reports2.html',stocks=stocks)
    
 @app.route("/process",methods=['POST','GET'])
 def process():
@@ -269,8 +276,10 @@ api.add_resource(deleteproduct, '/deleteproduct')
 api.add_resource(getorderlist, '/orderid/<int:_id>')
 api.add_resource(registerorder, '/registerorder')
 api.add_resource(recordorderlist, '/recordorderlist')
-api.add_resource(getBydate,'/date')
+api.add_resource(getBydate,'/dateid/<string:_date>')
+api.add_resource(getBydatex,'/dateidx/<string:_date>')
 api.add_resource(UpdateQuantity, '/update/quantity')
+api.add_resource(UpdatexQuantity, '/update/xquantity')
 
 
 #register blueprints here

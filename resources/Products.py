@@ -80,15 +80,45 @@ class UpdateQuantity(Resource):
 		parser.add_argument('id',
 			type=str,
 			)
-		parser.add_argument('quantity',
+		parser.add_argument('type',
 			type=str,
+			required=True,
+			help="This field cannot be left blank!"
+			)
+		parser.add_argument('quantity',
+			type=int,
 			required=True,
 			help="This field cannot be left blank!"
 			)
 		data = parser.parse_args()
 		product = Products.getById(data.id)
 		xupdatex = Products.query.filter_by(id=product.id).first()
-		xupdatex.quantity= data.quantity
+		xupdatex.quantity = Products.quantity + data.quantity
+		xupdatex.commit()
+
+		return {'message':'Stocks recorded!'}
+
+class UpdatexQuantity(Resource):
+	
+	def post(self):
+		parser = reqparse.RequestParser()
+		parser.add_argument('id',
+			type=str,
+			)
+		parser.add_argument('type',
+			type=str,
+			required=True,
+			help="This field cannot be left blank!"
+			)
+		parser.add_argument('quantity',
+			type=int,
+			required=True,
+			help="This field cannot be left blank!"
+			)
+		data = parser.parse_args()
+		product = Products.getById(data.id)
+		xupdatex = Products.query.filter_by(id=product.id).first()
+		xupdatex.quantity = Products.quantity - data.quantity
 		xupdatex.commit()
 
 		return {'message':'Stocks recorded!'}
