@@ -248,10 +248,7 @@
                     {% endfor %}
                 </select>
               </div>
-              <div class="col-xs-4">
-                <button type="submit"  class="btn btn-primary" id="searchdate" value="/search_by_date">
-                  <i class="fa fa-search"></i> search </button>
-                </div>
+              
               </form>
                 <br>
                 <br>  
@@ -308,55 +305,24 @@
 </html>
 <script type="text/javascript">
 $(function(){
-      $('#sdate').on('change', function(){
-        var date = $(this).find(":selected").val();
-        console.log(date, 'date');
-        var jqaxhr = $.ajax({
-          method: "GET",
-          url: window.location.origin+"/dateidx/"+date
-        })
-        .done(function(data){
-          console.log(data);
-          $('#wadu').append('{% for row in data %}  <tr> <td>{{ data.date }}</td><td>{{ data.id }}</td><td>{{ data.type }}</td><td>{{ data.product }}</td><th>{{ data.amount }}</th><td>{{ data.recby}} </td>{% else %}</tr>{% endfor %}');
-         /*  $('#vtype').val(data.id);
-          $('#vprice').val(data.type);
-          $('#vquantity').val(data.amount);
-          $('#vquantity').val(data.recby);
-          $('#myCart').append(
- */
-        })
-        .fail(function(e){
-          alert('error')
-        })
-        .always(function(){
-        })
-      })
-  })
-    $(function(){
-       $('#searchdate').on('change', function(){
-         var date = $(this).find(":selected").val();
-         console.log(date, 'date');
-         var jqaxhr = $.ajax({
-           method: "GET",
-           url: window.location.origin+"/date/" + date
-         })
-         .done(function(data){
-           console.log(data);
-          
-           $('#table').val(data.recby);
- 
- 
-         })
-         .fail(function(e){
-           alert('error')
-         })
-         .always(function(){
-         })
-       })
-     
-   
+  $('#sdate').on('change', function(){
+    var date = $(this).find(":selected").val();
+    console.log(date, 'date');
+    var jqaxhr = $.ajax({
+      method: "GET",
+      url: window.location.origin+"/dateidx/"+date
+    })
+    .done(function(data){
+      console.log(data);
+      for (var i=0; i<data.length; i++) {
+        var row = $('<tr><td>' + data[i].date+ '</td><td>' + data[i].id + '</td><td>' + data[i].type + '</td><td>' + data[i].product + '</td><td>' + data[i].amount + '</td><td>' + data[i].recby + '</td>');
+        $('#tobeprinted').append(row);
+    }
+})
+.fail(function(e){
+      alert('error')
+    })
 
-
-      })
-
+  })   
+})    
 </script>

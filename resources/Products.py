@@ -77,7 +77,7 @@ class UpdateQuantity(Resource):
 	
 	def post(self):
 		parser = reqparse.RequestParser()
-		parser.add_argument('id',
+		parser.add_argument('pname',
 			type=str,
 			)
 		parser.add_argument('type',
@@ -91,8 +91,8 @@ class UpdateQuantity(Resource):
 			help="This field cannot be left blank!"
 			)
 		data = parser.parse_args()
-		product = Products.getById(data.id)
-		xupdatex = Products.query.filter_by(id=product.id).first()
+		product = Products.getByName(data.pname)
+		xupdatex = Products.query.filter_by(pname=product.pname).first()
 		xupdatex.quantity = Products.quantity + data.quantity
 		xupdatex.commit()
 
@@ -102,7 +102,7 @@ class UpdatexQuantity(Resource):
 	
 	def post(self):
 		parser = reqparse.RequestParser()
-		parser.add_argument('id',
+		parser.add_argument('pname',
 			type=str,
 			)
 		parser.add_argument('type',
@@ -116,8 +116,8 @@ class UpdatexQuantity(Resource):
 			help="This field cannot be left blank!"
 			)
 		data = parser.parse_args()
-		product = Products.getById(data.id)
-		xupdatex = Products.query.filter_by(id=product.id).first()
+		product = Products.getByName(data.pname)
+		xupdatex = Products.query.filter_by(pname=product.pname).first()
 		xupdatex.quantity = Products.quantity - data.quantity
 		xupdatex.commit()
 
@@ -129,6 +129,14 @@ class getproduct(Resource):
 	def get(self, _id):
 	
 		product = Products.getById(_id)
+
+		return product.json()
+
+class getproductname(Resource):
+
+	def get(self, _pname):
+	
+		product = Products.getByName(_pname)
 
 		return product.json()
 

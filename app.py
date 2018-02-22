@@ -28,6 +28,7 @@ from resources.stocks import UpdateStocks
 from resources.stocks import getBydate
 from resources.stocks import getBydatex
 from resources.Products import getproduct
+from resources.Products import getproductname
 from resources.Products import UpdateQuantity
 from resources.Products import UpdatexQuantity
 from resources.Products import deleteproduct
@@ -276,25 +277,21 @@ api.add_resource(UpdateProduct, '/products/update')
 api.add_resource(UpdateStocks, '/update/stocks')
 api.add_resource(CustomerData, '/customer/<int:_id>')
 api.add_resource(getproduct, '/product/<int:_id>')
+api.add_resource(getproductname, '/product/<string:_name>')
 api.add_resource(deleteproduct, '/deleteproduct')
 api.add_resource(getorderlist, '/orderid/<int:_id>')
 api.add_resource(registerorder, '/registerorder')
 api.add_resource(recordorderlist, '/recordorderlist')
-<<<<<<< HEAD
 api.add_resource(getBydate,'/dateid/<string:_date>')
 api.add_resource(getBydatex,'/dateidx/<string:_date>')
-=======
->>>>>>> 5670ac273c05e0c211b6e117f078859873ac92b4
+
 api.add_resource(recordsales,'/recordsales')
 api.add_resource(salescustomer,'/salescustomer/<int:_id>')
 api.add_resource(UpdateQuantity, '/update/quantity')
-<<<<<<< HEAD
 api.add_resource(UpdatexQuantity, '/update/xquantity')
-=======
 api.add_resource(approveorder,'/approveorder')
 api.add_resource(orderid,'/getorderid/<int:_orderid>')
 api.add_resource(deliverproduct,'/deliverproduct')
->>>>>>> 5670ac273c05e0c211b6e117f078859873ac92b4
 
 
 #register blueprints here

@@ -181,12 +181,13 @@
           <form action="/updatestocks" method="post">
             <label for="product_name">Choose Product:</label>
 
-            <input list="browsers" id="product_name" class="form-control">
+            <select type="input" list="browsers" id="product_name" class="form-control">
             <datalist id="browsers">
               {% for products in products %}
-              <option value="{{ products.id }}">{{ products.pname }}</option>
+              <option value="{{ products.pname }}">{{ products.pname }}</option>
               {% endfor %}
             </datalist>
+            </select>
         </div>
         <div class="form-group">
         </div>
@@ -246,7 +247,7 @@
         method: "POST",
         url: "/update/quantity",
         data: {
-          id:product,
+          pname:product,
           type:type,
           quantity: amount
         }
@@ -267,7 +268,7 @@
         method: "POST",
         url: "/update/xquantity",
         data: {
-          id:product,
+          pname:product,
           type:type,
           quantity: amount
         }
