@@ -23,6 +23,9 @@ class User(db.Model):
         }
 
     @staticmethod
+    def getByid(_id):
+        return User.query.filter_by(id=_id).first()
+
     def find_by_username(username):
         return User.query.filter_by(username=username).first()
 

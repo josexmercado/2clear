@@ -181,7 +181,7 @@
               <input type="select" list="users" name= "users" id="selectuser" class="form-control">
               <datalist id="users">
                   {% for users in users %}
-                    <option value="{{ users.name }}">{{ users.id }}</option>
+                    <option value="{{ users.id }}">{{ users.name }}</option>
                   {% endfor %}
                 </datalist>      
             <label for="vuid">ID:</label>
@@ -201,10 +201,15 @@
             <label for="password">Password:</label>
             <input v-model="message" id="viewpassword" class="form-control" type="message" name="tbpassword">
           </div>
-          <div class="box-footer">
-            <input id="btn_edit" type="button" class="btn btn-primary" value="Edit">
-            <input id="btn_delete" type="button" class="btn btn-primary" value="Delete">
-            <input id="btn_save" type="button" class="btn btn-primary" value="Save">
+          <div class="form-group">
+            <label for="viewrole">Role:</label>
+            <input v-model="message" id="viewrole" class="form-control" type="message" name="vrole">
+          </div>
+          <div class="box-footer" id="app">
+            <button id="btn_editproduct" type="submit" class="btn btn-primary" >Edit</button>
+            <button id="btn_canceledit" type="submit" style="display: none;" class="btn btn-primary" >Cancel edit</button>
+            <button id="btn_deleteproduct"  class="btn btn-primary">Delete</button>
+            <button id="btn_saveproduct" type="submit"  style="display: none;" class="btn btn-primary">Save</button>
           </div>
       </form>
       </div>
@@ -212,49 +217,98 @@
 
 
 </body>
-<script>
-  $(function () {
-    $('#btn_edit').unbind('click').on('click', function (e) {
-      e.preventDefault();
-
-
-    });
-
-
-
-    $('#btn_delete').unbind('click').on('click', function (e) {
-      e.preventDefault();
-
-    });
-
-
-
-    $('#btn_save').unbind('click').on('click', function (e) {
-      e.preventDefault();
-
-    });
-
+<script type="text/javascript">
+   $(function(){
+      $('#selectuser').on('change', function(){
+        var id = $(this).find(":selected").val();
+        console.log(id,'id');
+        var jqaxhr = $.ajax({
+          method: "GET",
+          url: window.location.origin+"/name/"+id
+        })
+        .done(function(data){
+          console.log(data);
+          $('#viewuser_name').val(data.name);
+          $('#viewusername').val(data.username);
+          $('#viewpassword').val(data.password);
+          $('#viewrole').val(data.role);
+        })
+        .fail(function(e){
+          alert('error')
+        })
+        .always(function(){
+        })
+      })
   })
-  $(function(){
-		$('#selectuser').on('change', function(){
-			var id = $(this).find(":selected").val();
-      console.log(id, 'vuid');
-			var jqaxhr = $.ajax({
-				method: "GET",
-				url: window.location.origin+"/vuid/"+id 
-			})
-			.done( function(data){
-        console.log(data);
-				$('#vuid').val(data.id)  ;
-		
-			})
-			.fail(function(e){
-				alert('error')
-			})
-			.always(function(){
-			})
-		});
-	}) 
+    $(function () {
+$('#btn_editproduct').unbind('click').on('click', function (e) {
+      e.preventDefault();
+      $("#btn_canceledit").show();
+      $("#btn_saveproduct").show();
+      $("#btn_editproduct").hide();
+      $('#brn_editproduct').text("Cancel save")
+      $('#vtype').attr("readonly", false) 
+      $('#vprice').attr("readonly", false)
+      $('#vquantity').attr("readonly", false) 
+})
+$('#btn_canceledit').unbind('click').on('click', function (e) {
+      e.preventDefault();
+      $("#btn_canceledit").hide();
+      $("#btn_saveproduct").hide();
+      $("#btn_editproduct").show();
+      $('#vtype').attr("readonly", true) 
+      $('#vprice').attr("readonly", true)
+      $('#vquantity').attr("readonly", true) 
+})
+$('#btn_saveproduct').unbind('click').on('click', function (e) {
+      e.preventDefault();
+     
+        var uname = $('#viewuser_name').val();
+        var usname =  $('#viewusername').val();
+        var pw =  $('#viewpassword').val();
+        var role =  $('#viewrole').val();
+      var jqxhr = $.ajax({
+        method: "post",
+        url: "/User/update",
+        data: {name:uname, username: usname, password: pw, role: role }
+
+      })
+        .done(function (data) {
+          alert(data.message);
+        })
+        .fail(function () {
+          alert("error");
+        })
+        .always(function () {
+          //alert($('#name').val() );
+        });
+    });
+    $('#btn_deleteproduct').unbind('click').on('click', function (e) {
+      e.preventDefault();
+      var id = $('#vpname').val();
+      var jqxhr = $.ajax({
+        method: "delete",
+        url: "/deleteproduct",
+        data: {id:id}
+
+      })
+        .done(function (data) {
+          alert(data.message);
+          $('#prid').val("");
+          $('#vpname').val("");
+          $('#vprice').val("");
+          $('#vquantity').val("");
+          $('#vtype').val("");
+        })
+        .fail(function () {
+          alert("error");
+        })
+        .always(function () {
+          //alert($('#name').val() );
+        });
+    });
+  })
+  
 </script>
 
 </html>

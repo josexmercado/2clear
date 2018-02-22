@@ -21,7 +21,8 @@ from apps.sampleBlueprint import sample
 
 # all resources
 from resources.Customer import CustomerRegister, CustomerData
-from resources.User import UserRegister
+from resources.User import UserRegister,UpdateUser
+from resources.User import getuname
 from resources.Products import Registerproducts
 from resources.Products import UpdateProduct
 from resources.stocks import UpdateStocks
@@ -60,6 +61,8 @@ def output_json(data, code, headers=None):
     resp = make_response(jsonify(data), code)
     resp.headers.extend(headers or {})
     return resp
+
+
 
 @app.route('/')
 def home():
@@ -182,7 +185,7 @@ def aadd():
 @app.route("/amanage")
 def amanage(): 
     users = User.query.all()
-    return render_template('adminaccounts.html')
+    return render_template('adminaccounts.html', users=users)
 
 @app.route("/aastock")
 def astock():
@@ -272,6 +275,8 @@ def Registerproduct():
 #api routes
 api.add_resource(CustomerRegister, '/Customer/add')
 api.add_resource(UserRegister, '/User/add')
+api.add_resource(UpdateUser, '/User/update')
+api.add_resource(getuname, '/name/<int:_id>')
 api.add_resource(Registerproducts, '/Products/add')
 api.add_resource(UpdateProduct, '/products/update')
 api.add_resource(UpdateStocks, '/update/stocks')
