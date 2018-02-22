@@ -269,15 +269,15 @@
                 </thead>
                 
                 <tbody id="wadu">
-                  {% for stock in stocklist %}
+                  {% for row in data %}
                   
                   <tr>
-                    <td>{{ stock.date }}</td>
-                    <td>{{ stock.id }}</td>
-                    <td>{{ stock.type }}</td>
-                    <td>{{ stock.product }}</td>
-                    <th>{{ stock.amount }}</th>
-                    <td>{{ stock.recby}} </td>
+                    <td>{{ row.date }}</td>
+                    <td>{{ row.id }}</td>
+                    <td>{{ row.type }}</td>
+                    <td>{{ row.product }}</td>
+                    <th>{{ row.amount }}</th>
+                    <td>{{ row.recby}} </td>
 
                     
                     {% else %}
@@ -317,7 +317,7 @@ $(function(){
         })
         .done(function(data){
           console.log(data);
-          $('#wadu').append('{% for row in data %}  <tr> <td>{{ data.date }}</td><td>{{ data.id }}</td><td>{{ data.type }}</td><td>{{ data.product }}</td><th>{{ data.amount }}</th><td>{{ data.recby}} </td>{% else %}</tr>{% endfor %}');
+          $('#tobeprinted').append('<tr> <td>'+date.date+'</td><td>'+ date.id+'</td><td>'+ data.type + '</td><td>'+ data.product +'</td><td>' +data.amount +'</td><td>' +data.recby + '</td></tr>');
          /*  $('#vtype').val(data.id);
           $('#vprice').val(data.type);
           $('#vquantity').val(data.amount);

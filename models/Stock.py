@@ -8,7 +8,6 @@ class Stock(db.Model):
     product = db.Column(db.String(45))
     amount = db.Column(db.Integer)
     date = db.Column(db.String(45))
-    time = db.Column(db.String(20))
     recby= db.Column(db.String(50))
 
     def __init__(self, *args, **kwargs):
@@ -22,7 +21,6 @@ class Stock(db.Model):
             'product': self.product,
             'amount': self.amount,
             'date': self.date,
-            'time': self.time,
             'recby': self.recby
         }
 

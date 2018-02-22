@@ -26,11 +26,6 @@ class UpdateStocks(Resource):
 			required=True,
 			help="This field cannot be left blank!"
 			)
-		parser.add_argument('time',
-			type=str,
-			required=True,
-			help="This field cannot be left blank!"
-			)
 		parser.add_argument('recby',
 			type=str,
 			required=True,
@@ -43,7 +38,6 @@ class UpdateStocks(Resource):
 			amount=data.amount,
 			type=data.type,
 			date=data.date,
-			time=data.time,
 			recby=data.recby
 			)
 

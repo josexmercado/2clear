@@ -39,7 +39,7 @@ from resources.Orders import salescustomer
 
 
 app = Flask(__name__)
-dbname   = 'mysql+pymysql://root:admin@127.0.0.1/2_clear'
+dbname   = 'mysql+pymysql://root:@127.0.0.1/2_clear'
 
 CORS(app, supports_credentials=True, resources={r"*": {"origins": "*"}})
 
@@ -296,15 +296,10 @@ api.add_resource(deleteproduct, '/deleteproduct')
 api.add_resource(getorderlist, '/orderid/<int:_id>')
 api.add_resource(registerorder, '/registerorder')
 api.add_resource(recordorderlist, '/recordorderlist')
-<<<<<<< HEAD
 api.add_resource(getBydate,'/dateid/<string:_date>')
 api.add_resource(getBydatex,'/dateidx/<string:_date>')
-=======
-api.add_resource(getBydate,'/date/str:_date')
 api.add_resource(recordsales,'/recordsales')
 api.add_resource(salescustomer,'/salescustomer/<int:_id>')
-api.add_resource(getBydate,'/date')
->>>>>>> ab6a803439bb53782cba5e8da2296f310528051b
 api.add_resource(UpdateQuantity, '/update/quantity')
 api.add_resource(UpdatexQuantity, '/update/xquantity')
 
