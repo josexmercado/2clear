@@ -465,8 +465,10 @@
           console.log('quantity', quantity)
           console.log('subtotal', subtotal)
 
-          // RECORD INTO ORDERLIST
-          $.ajax({
+
+
+              // RECORD INTO ORDERLIST
+              $.ajax({
             type: "Post",
             url: "/recordorderlist",
             data: { orderid: orderid, pname: product_name, type:type, productid: id, quantity: quantity, subtotal: subtotal }
@@ -483,6 +485,7 @@
             });
 
         }
+           
         var tdate = new Date();
         var dd = tdate.getDate(); //yields day
         var MM = tdate.getMonth(); //yields month
@@ -493,9 +496,8 @@
         $.ajax({
           type: "Post",
           url: "/registerorder",
-          data: { orderid: orderid, customerid: customerid, customername: customer_name, totalbill: total, recordedby: user, date: currentDate, status: status }
+          data: { orderid: orderid, customerid: customerid, name: customer_name, totalbill: total, recordedby: user, date: currentDate, status: status }
         })
-
           .done(function (data) {
             alert(data.message);
           })
@@ -507,7 +509,8 @@
           });
         // update product
         var x = $("#myCart").find("tr").length;
-        for (var o = 0; o < x; o++) {
+        for (var o = 0; o < x; o++) 
+        {
           var idd = $("#myCart").find("tr").eq(o).find("td").eq(0).text();
           var quantitits = $("#myCart").find("tr").eq(o).find("td").eq(4).text();
         $.ajax({
@@ -526,7 +529,9 @@
             //alert($('#name').val() );
           });
         }
+        })
+
       });
+
       })
-  })
 </script>

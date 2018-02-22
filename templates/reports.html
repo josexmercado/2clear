@@ -112,7 +112,7 @@
                     <i class="fa fa-circle-o"></i>Stock In Report</a>
                 </li>
                 <li>
-                  <a href="/reports">
+                  <a href="/reportsout">
                     <i class="fa fa-circle-o"></i>Stock Out Report</a>
                 </li>
               </ul>
@@ -248,10 +248,6 @@
                     {% endfor %}
                 </select>
               </div>
-              <div class="col-xs-4">
-                <button type="submit"  class="btn btn-primary" id="searchdate" value="/search_by_date">
-                  <i class="fa fa-search"></i> search </button>
-                </div>
               </form>
                 <br>
                 <br>  
@@ -265,26 +261,10 @@
                     <th>Quantities</th>
                     <tH>Recorded By</tH>
                     
+                    
                   </tr>
                 </thead>
                 
-                <tbody>
-                  {% for data in data %}
-                  
-                  <tr>
-                    <td>{{ data.date }}</td>
-                    <td>{{ data.id }}</td>
-                    <td>{{ data.type }}</td>
-                    <td>{{ data.product }}</td>
-                    <th>{{ data.amount }}</th>
-                    <td>{{ data.recby}} </td>
-
-                    
-                    {% else %}
-                  </tr>
-                  {% endfor %}
-                </tbody>
-
                 <tbody id="tobeprinted">
 
                 </tbody>
@@ -308,55 +288,24 @@
 </html>
 <script type="text/javascript">
 $(function(){
-      $('#searchdate').on('change', function(){
+      $('#sdate').on('change', function(){
         var date = $(this).find(":selected").val();
         console.log(date, 'date');
         var jqaxhr = $.ajax({
           method: "GET",
-          url: window.location.origin+"/product/"+date
+          url: window.location.origin+"/dateid/"+date
         })
         .done(function(data){
           console.log(data);
-          $('#prid').val(data.date);
-          $('#vtype').val(data.id);
-          $('#vprice').val(data.type);
-          $('#vquantity').val(data.amount);
-          $('#vquantity').val(data.recby);
-         /*  $('#myCart').append( */
-
-        })
-        .fail(function(e){
+          for (var i=0; i<data.length; i++) {
+            var row = $('<tr><td>' + data[i].date+ '</td><td>' + data[i].id + '</td><td>' + data[i].type + '</td><td>' + data[i].product + '</td><td>' + data[i].amount + '</td><td>' + data[i].recby + '</td>');
+            $('#tobeprinted').append(row);
+        }
+    })
+    .fail(function(e){
           alert('error')
         })
-        .always(function(){
-        })
-      })
-  })
-    $(function(){
-       $('#searchdate').on('change', function(){
-         var date = $(this).find(":selected").val();
-         console.log(date, 'date');
-         var jqaxhr = $.ajax({
-           method: "GET",
-           url: window.location.origin+"/date"
-         })
-         .done(function(data){
-           console.log(data);
-          
-           $('#table').val(data.recby);
- 
- 
-         })
-         .fail(function(e){
-           alert('error')
-         })
-         .always(function(){
-         })
-       })
-     
-   
-
-
-      })
-
-</script>
+    
+      })   
+})    
+ </script>

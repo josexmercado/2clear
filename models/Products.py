@@ -30,6 +30,9 @@ class Products(db.Model):
     def getById(_id):
         return Products.query.filter_by(id=_id).first()
 
+    def getByName(_pname):
+        return Products.query.filter_by(pname=_pname).first()
+
     def insert(self):
         db.session.add(self)
         db.session.commit()

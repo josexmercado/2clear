@@ -1,4 +1,6 @@
 from db import db
+from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy import update
 
 class User(db.Model):
     __tablename__ = 'users'
@@ -23,11 +25,14 @@ class User(db.Model):
         }
 
     @staticmethod
-    def find_by_username(username):
-        return User.query.filter_by(username=username).first()
+    def getUserId(_id):
+        return User.query.filter_by(id=_id).first()
 
     def insert(self):
         db.session.add(self)
+        db.session.commit()
+
+    def commit(self):
         db.session.commit()
     
     def delete(self):

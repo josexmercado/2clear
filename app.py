@@ -21,13 +21,17 @@ from apps.sampleBlueprint import sample
 
 # all resources
 from resources.Customer import CustomerRegister, CustomerData
-from resources.User import UserRegister
+from resources.User import UserRegister,UpdateUser
+from resources.User import getname,DeleteUser
 from resources.Products import Registerproducts
 from resources.Products import UpdateProduct
 from resources.stocks import UpdateStocks
 from resources.stocks import getBydate
+from resources.stocks import getBydatex
 from resources.Products import getproduct
+from resources.Products import getproductname
 from resources.Products import UpdateQuantity
+from resources.Products import UpdatexQuantity
 from resources.Products import deleteproduct
 from resources.Orders import registerorder
 from resources.Orders import recordorderlist
@@ -39,6 +43,8 @@ from resources.Orders import orderid
 from resources.Products import deliverproduct
 from resources.Customer import customercontainer
 from resources.Orders import orderhistory
+
+
 
 
 app = Flask(__name__)
@@ -59,6 +65,8 @@ def output_json(data, code, headers=None):
     resp = make_response(jsonify(data), code)
     resp.headers.extend(headers or {})
     return resp
+
+
 
 @app.route('/')
 def home():
@@ -125,10 +133,8 @@ def registrations():
 
 @app.route("/admin")
 def admin():
-  
     return render_template('adminpanel.html')
-
-
+    
 
 @app.route("/vieworders")
 def vieworders():
@@ -141,6 +147,11 @@ def vieworders():
 def reports():
     stocks= Stock.query.all()
     return render_template('reports.html',stocks=stocks)
+
+@app.route("/reportsout")
+def reportsout():
+    stocks= Stock.query.all()
+    return render_template('reports2.html',stocks=stocks)
    
 @app.route("/process",methods=['POST','GET'])
 def process():
@@ -177,7 +188,7 @@ def aadd():
 @app.route("/amanage")
 def amanage(): 
     users = User.query.all()
-    return render_template('adminaccounts.html')
+    return render_template('adminaccounts.html', users=users)
 
 @app.route("/aastock")
 def astock():
@@ -267,19 +278,26 @@ def Registerproduct():
 #api routes
 api.add_resource(CustomerRegister, '/Customer/add')
 api.add_resource(UserRegister, '/User/add')
+api.add_resource(UpdateUser, '/User/update')
+api.add_resource(DeleteUser, '/User/delete')
+api.add_resource(getname, '/user/<int:_id>')
 api.add_resource(Registerproducts, '/Products/add')
 api.add_resource(UpdateProduct, '/products/update')
 api.add_resource(UpdateStocks, '/update/stocks')
 api.add_resource(CustomerData, '/customer/<int:_id>')
 api.add_resource(getproduct, '/product/<int:_id>')
+api.add_resource(getproductname, '/product/<string:_name>')
 api.add_resource(deleteproduct, '/deleteproduct')
 api.add_resource(getorderlist, '/orderid/<int:_id>')
 api.add_resource(registerorder, '/registerorder')
 api.add_resource(recordorderlist, '/recordorderlist')
+api.add_resource(getBydate,'/dateid/<string:_date>')
+api.add_resource(getBydatex,'/dateidx/<string:_date>')
+
 api.add_resource(recordsales,'/recordsales')
 api.add_resource(salescustomer,'/salescustomer/<int:_id>')
-api.add_resource(getBydate,'/date')
 api.add_resource(UpdateQuantity, '/update/quantity')
+api.add_resource(UpdatexQuantity, '/update/xquantity')
 api.add_resource(approveorder,'/approveorder')
 api.add_resource(orderid,'/getorderid/<int:_orderid>')
 api.add_resource(customercontainer,'/updatecontainer')

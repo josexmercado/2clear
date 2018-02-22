@@ -47,6 +47,13 @@ class UpdateStocks(Resource):
 class getBydate(Resource):
 	def get(self, _date):
 	
-		stockbydate = Stock.getBydate(_date).all()
+		stocklist = Stock.getBydate(_date)
 		
-		return stockbydate.json()
+		return [stock.json() for stock in stocklist]
+
+class getBydatex(Resource):
+	def get(self, _date):
+	
+		stocklist = Stock.getBydatex(_date)
+		
+		return [stock.json() for stock in stocklist]

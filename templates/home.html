@@ -66,7 +66,8 @@
           <div class="pull-left info">
             <p id="user">{{session.name}}</p>
             <a href="#">
-              <i class="fa fa-circle text-success"></i> Online</a>
+              <i class="fa fa-circle text-success"></i>{{session.role}}</a>
+              <input v-model="message" id="rolex"  readonly="true" style="display: none;" class="form-control"  type="message" value="{{session.role}}">
           </div>
         </div>
         <!-- search form -->

@@ -26,7 +26,10 @@ class Stock(db.Model):
 
     @staticmethod
     def getBydate(_date):
-        return Stock.query.filter_by(date=_date).first()
+        return Stock.query.filter_by(date=_date,type = 'Stock In').all()
+
+    def getBydatex(_date):
+        return Stock.query.filter_by(date=_date,type = 'Stock Out').all()
 
     def insert(self):
         db.session.add(self)

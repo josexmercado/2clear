@@ -4,15 +4,14 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>2clear</title>
-  <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+  <link rel="stylesheet" href="/static/css/modal.css">
   <link rel="stylesheet" href="/static/bower_components/bootstrap/dist/css/bootstrap.min.css">
   <link rel="stylesheet" href="/static/bower_components/font-awesome/css/font-awesome.min.css">
   <link rel="stylesheet" href="/static/bower_components/Ionicons/css/ionicons.min.css">
   <link rel="stylesheet" href="/static/css/AdminLTE.min.css">
   <link rel="stylesheet" href="/static/css/skins/_all-skins.min.css">
   <link rel="stylesheet" href="/static/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">
-  <link rel="stylesheet" href="/static/css/bootstrap-datepicker.min.css">
   <script type="text/javascript" src="/static/plugins/jQuery/jQuery.min.js"></script>
 
 </head>
@@ -79,7 +78,7 @@
                   <a href="/aadd">
                     <i class="fa fa-circle-o"></i> Add User</a>
                 </li>
-                <li class="active">
+                <li>
                   <a href="/aastock">
                     <i class="fa fa-circle-o"></i>Stock In & Stock Out</a>
                 </li>
@@ -91,20 +90,74 @@
                   <a href="/amanage">
                     <i class="fa fa-circle-o"></i>Manage Accounts</a>
                 </li>
-                <li>
-                  <a href="/reports">
-                    <i class="fa fa-circle-o"></i>View Reports</a>
-                </li>
               </ul>
-
+            </li>
+          </ul>
         </form>
       </section>
+      </li>
+      </ul>
+      </form>
+      </section>
+
+      <form action="#" method="get" class="sidebar-form">
+        <ul class="fixed sidebar-menu">
+          <li class="active treeview">
+            <a href="#">
+              <i class="fa fa-dashboard"></i>
+              <span>In and Out Reports</span>
+              <ul class="treeview-menu">
+                <li>
+                  <a href="/reports">
+                    <i class="fa fa-circle-o"></i>Stock In Report</a>
+                </li>
+                <li>
+                  <a href="/reportsout">
+                    <i class="fa fa-circle-o"></i>Stock Out Report</a>
+                </li>
+              </ul>
+            </a>
+        </ul>
+        </span>
+      </form>
+      </section>
+
+      <form action="#" method="get" class="sidebar-form">
+        <ul class="fixed sidebar-menu">
+          <li class="active treeview">
+            <a href="#">
+              <i class="fa fa-dashboard"></i>
+              <span>Sales Reports</span>
+              <ul class="treeview-menu">
+                <li>
+                  <a href="/reports">
+                    <i class="fa fa-circle-o"></i>Order History</a>
+                </li>
+                <li>
+                  <a href="/reports">
+                    <i class="fa fa-circle-o"></i>Daily Sales Report</a>
+                </li>
+                <li>
+                  <a href="/reports">
+                    <i class="fa fa-circle-o"></i>Weekly Sales Report</a>
+                </li>
+                <li>
+                  <a href="/reports">
+                    <i class="fa fa-circle-o"></i>Monthly Sales Report</a>
+                </li>
+                </span>
+      </form>
+      </section>
+
+
     </aside>
+
+
 
     <div class="content-wrapper">
 
       <section class="content">
-        <h1> Admin Panel
+        <h1> Products
           <small>2clear</small>
         </h1>
         <div class="row">
@@ -118,7 +171,7 @@
               <div class="icon">
                 <i class="ion ion-bag"></i>
               </div>
-              <a href="/transactions" class="small-box-footer">Go
+              <a href="transactions " class="small-box-footer">Go
                 <i class="fa fa-arrow-circle-right"></i>
               </a>
             </div>
@@ -158,7 +211,7 @@
           <div class="col-lg-3 col-xs-6">
             <div class="small-box bg-red">
               <div class="inner">
-                <h3>Welcome Admin </h3>
+                <h3>Welcome Admin</h3>
 
                 <p>Admin Panel</p>
               </div>
@@ -170,132 +223,106 @@
               </a>
             </div>
           </div>
-
         </div>
       </section>
-      <div class="box-header with-border">
-        <h3 class="box-title">Stock in</h3>
-      </div>
-      <div class="box-body">
-        <div class="form-group">
-          <form action="/updatestocks" method="post">
-            <label for="product_name">Choose Product:</label>
 
-            <select type="input" list="browsers" id="product_name" class="form-control">
-            <datalist id="browsers">
-              {% for products in products %}
-              <option value="{{ products.pname }}">{{ products.pname }}</option>
-              {% endfor %}
-            </datalist>
-            </select>
-        </div>
-        <div class="form-group">
-        </div>
-        <label for="user_name">Option:</label>
-        <div>
-          <select v-model="message" class="form-control" name="type" id="type">
-            <option>Stock In</option>
-            <option>Stock Out</option>
-          </select>
-        </div>
-        <div class="form-group">
-          <label for="amount">Amount:</label>
+      <div class="row">
+        <div class="col-md-12">
+          <div class="box box-primary">
+            <div class="box-header with-border">
+              <h2>Daily stockin report</h2>
+            </div>
+            <div class="box-body">
+                <div>
+                <label for="user_name">Search date History:</label>
+                </div>
+                <form>
+                <div class="col-xs-3">
+              
+                <select type="message" id='sdate' class="form-control">
+                    {% for stocks in stocks %}
+                    <datalist>
+                      <option value="{{stocks.date}}">{{stocks.date}}</option>
+                    </datalist>
 
-          <input v-model="message" id="amount" class="form-control">
+                    {% endfor %}
+                </select>
+              </div>
+              
+              </form>
+                <br>
+                <br>  
+                  <table class="table table-bordered">
+                <thead>
+                  <tr>
+                    <th>Date</th>
+                    <th>ID</th>
+                    <th>Type</th>
+                    <th>Product Name</th>
+                    <th>Quantities</th>
+                    <tH>Recorded By</tH>
+                    
+                  </tr>
+                </thead>
+                
+                <tbody id="wadu">
+                  {% for stock in stocklist %}
+                  
+                  <tr>
+                    <td>{{ stock.date }}</td>
+                    <td>{{ stock.id }}</td>
+                    <td>{{ stock.type }}</td>
+                    <td>{{ stock.product }}</td>
+                    <th>{{ stock.amount }}</th>
+                    <td>{{ stock.recby}} </td>
+
+                    
+                    {% else %}
+                  </tr>
+                  {% endfor %}
+                </tbody>
+
+                <tbody id="tobeprinted">
+
+                </tbody>
+              </table>
+                  <a class="btn btn-primary">
+                    <i class="fa fa-print"></i> print</a>
+            </div>
+
+        
+          </div>
         </div>
-        <div class="form-group">
-          <label>Recorded by:</label>
-          
-        </div><input v-model="message" id='recby' class="form-control" value="{{session.name}}" readonly="true">
-        <input id="btn_record" type="button" class="btn btn-primary" value="Save">
+
       </div>
-      </form>
+      </section>
     </div>
   </div>
-  </form>
+
 </body>
-<script type="text/javascript">
-  $(function () {
-    $('#btn_record').unbind('click').on('click', function (e) {
-      e.preventDefault();
 
-      var product = $('#product_name').val();
-      var type = $('#type').val();
-      var amount = $('#amount').val();
-      var recby = $('#recby').val();
-
-      var tdate = new Date();
-        var dd = tdate.getDate(); //yields day
-        var MM = tdate.getMonth(); //yields month
-        var yyyy = tdate.getFullYear(); //yields year
-        var currentDate = (MM + 1)  + "-" + dd+ "-" + yyyy;
-        console.log('date', currentDate)
-      var jqxhr = $.ajax({
-        method: "POST",
-        url: "/update/stocks",
-        data: {
-          product: product,
-          type: type,
-          date: currentDate,
-          recby: recby,
-          amount: amount
-        }
-      })
-      if ($('#type').val()=="Stock In")
-      {
-        var jqxhr = $.ajax({
-        method: "POST",
-        url: "/update/quantity",
-        data: {
-          pname:product,
-          type:type,
-          quantity: amount
-        }
-      })
-      .done(function (data) {
-          alert(data.message);
-        })
-        .fail(function () {
-          alert("error");
-        })
-        .always(function () {
-          //alert($('#name').val() );
-        });
-      }
-      else
-      {
-        var jqxhr = $.ajax({
-        method: "POST",
-        url: "/update/xquantity",
-        data: {
-          pname:product,
-          type:type,
-          quantity: amount
-        }
-      })
-      .done(function (data) {
-          alert(data.message);
-        })
-        .fail(function () {
-          alert("error");
-        })
-        .always(function () {
-          //alert($('#name').val() );
-        });
-      }
-      $('#product_name').val("");
-      $('#type').val("");
-      $('#amount').val("");
-      $('#date').val("");
-    
-    });
-
-
-    $('#datepicker').datepicker({
-      autoclose: true
-    })
-  })
-
-</script>
 
 </html>
+<script type="text/javascript">
+$(function(){
+  $('#sdate').on('change', function(){
+    var date = $(this).find(":selected").val();
+    console.log(date, 'date');
+    var jqaxhr = $.ajax({
+      method: "GET",
+      url: window.location.origin+"/dateidx/"+date
+    })
+    .done(function(data){
+      console.log(data);
+      for (var i=0; i<data.length; i++) {
+        var row = $('<tr><td>' + data[i].date+ '</td><td>' + data[i].id + '</td><td>' + data[i].type + '</td><td>' + data[i].product + '</td><td>' + data[i].amount + '</td><td>' + data[i].recby + '</td>');
+        $('#tobeprinted').append(row);
+    }
+})
+.fail(function(e){
+      alert('error')
+    })
+
+  })   
+})    
+</script>
