@@ -48,7 +48,7 @@ class recordsales(Resource):
 			date=data.date,
 			)
 		new_sales.insert()
-		return {'message':'New Sales Recorded!'}
+
 
 class recordorderlist(Resource):
 
