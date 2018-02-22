@@ -16,32 +16,32 @@ class registerorder(Resource):
 			)
 		parser.add_argument('customerid',
 			type=str,
-			# required=True,
+			required=True,
 			help="This field cannot be left blank!"
 			)
 		parser.add_argument('customername',
 			type=str,
-			# required=True,
+			required=True,
 			help="This field cannot be left blank!"
 			)
 		parser.add_argument('totalbill',
 			type=str,
-			# required=True,
+			required=True,
 			help="This field cannot be left blank!"
 			)
 		parser.add_argument('recordedby',
 			type=str,
-			# required=True,
+			 required=True,
 			help="This field cannot be left blank!"
 			)
 		parser.add_argument('date',
 			type=str,
-			# required=True,
+			required=True,
 			help="This field cannot be left blank!"
 			)
 		parser.add_argument('status',
 			type=str,
-			# required=True,
+			required=True,
 			help="This field cannot be left blank!"
 			)
 		data = parser.parse_args()
@@ -64,27 +64,27 @@ class recordorderlist(Resource):
 		parser = reqparse.RequestParser()
 		parser.add_argument('orderid',
 			type=str,
-			#required=True,
+			required=True,
 			help="This field cannot be left blank!"
 			)
 		parser.add_argument('productid',
 			type=str,
-			# required=True,
+			required=True,
 			help="This field cannot be left blank!"
 			)
 		parser.add_argument('pname',
 			type=str,
-			# required=True,
+			 required=True,
 			help="This field cannot be left blank!"
 			)
 		parser.add_argument('quantity',
 			type=str,
-			# required=True,
+			 required=True,
 			help="This field cannot be left blank!"
 			)
 		parser.add_argument('subtotal',
 			type=str,
-			# required=True,
+			required=True,
 			help="This field cannot be left blank!"
 			)
 		data = parser.parse_args()
