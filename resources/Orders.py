@@ -72,6 +72,11 @@ class recordorderlist(Resource):
 			required=True,
 			help="This field cannot be left blank!"
 			)
+		parser.add_argument('type',
+			type=str,
+			required=True,
+			help="This field cannot be left blank!"
+			)
 		parser.add_argument('pname',
 			type=str,
 			 required=True,
@@ -91,6 +96,7 @@ class recordorderlist(Resource):
 
 		new_orderlist = Orderlist(
 			orderid=data.orderid,
+			type=data.type,
 			productid=data.productid,
 			pname=data.pname,
 			quantity=data.quantity,
@@ -115,6 +121,16 @@ class orderid(Resource):
 
 		return ordernumber.json()
 
+class orderhistory(Resource):
+
+	def get(self, _customerid):
+		
+		orderhistory = Orders.getByCustomerId(_customerid)
+	
+		# return orderhistory.json()
+		return [order.json() for order in orderhistory]
+
+
 class approveorder(Resource):
 
 	def post(self):
@@ -136,3 +152,4 @@ class approveorder(Resource):
 		updatex.commit()
 
 		return {'message':'Order Approved!'}
+

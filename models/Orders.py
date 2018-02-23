@@ -33,6 +33,10 @@ class Orders(db.Model):
     @staticmethod
     def getById(_id):
         return Orders.query.filter_by(orderid=_id).first()
+
+
+    def getByCustomerId(_customerid):
+        return Orders.query.filter_by(customerid=_customerid).all()
    
     def insert(self):
         db.session.add(self)

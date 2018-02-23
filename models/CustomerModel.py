@@ -1,4 +1,7 @@
 from db import db
+from sqlalchemy import update
+from flask_sqlalchemy import SQLAlchemy
+
 
 class CustomerModel(db.Model):
     __tablename__ = 'customers'
@@ -20,6 +23,7 @@ class CustomerModel(db.Model):
             'id':self.id,
             'name': self.name,
             'address': self.address,
+            'onhandid':self.onhandid,
             'number': self.number,
             'topay': self.topay,
             'account': self.account,
@@ -36,4 +40,7 @@ class CustomerModel(db.Model):
     
     def delete(self):
         db.session.delete(self)
+        db.session.commit()
+            
+    def commit(self):
         db.session.commit()
