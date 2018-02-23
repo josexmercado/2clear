@@ -16,7 +16,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-
+  <script src="/static/js/print.js"></script>
+  <link rel="stylesheet" type="text/css" href="/static/css/print.css">
 
 </head>
 
@@ -221,7 +222,7 @@
   </div>
 
   <!-- MODAL -->
-
+  <form method="post" action="#" id="printJS-form">
   <div class="modal fade" id="yourid" role="dialog">
     <div class="modal-dialog modal-lg">
       <div class="modal-content">
@@ -240,6 +241,7 @@
                   <th>TotalBill</th>
                   <th>Date</th>
                   <th>Status</th>
+                  <th>View Order Details</th>
                 </tr>
               </thead>
 
@@ -251,19 +253,20 @@
                   <td class="type"></td>
                   <td class="quantity"></td>
 
-                  <td>
                 </tr>
               </tbody>
             </table>
           </p>
         </div>
+      </form>
         <div class="modal-footer">
           <tfoot>
-            <a id="checkout" class="btn btn-primary checkout">Complete Customer Order
-              <i class="fa fa-truck"></i>
-              <a id="printorderlist" class="btn btn-primary print">Print Order Details
-                <i class="fa fa-print"></i>
-              </a>
+            <!-- <a id="printorderlist" class="btn btn-primary print">Print Order Details
+              <i class="fa fa-print"></i>
+            </a> -->
+            <button type="button" class="btn btn-primary print" onclick="printJS('printJS-form', 'html')">
+              Print Orderlist
+            </button>
           </tfoot>
 
           </table>
@@ -295,7 +298,8 @@
         $('#listorder').empty();
         for (var i = 0; i < data.length; i++) {
 
-          $('#listorder').append('<tr><td id="orderid">' + data[i].orderid + '</td><td id="totalbill">' + data[i].totalbill + '</td><td id="type">' + data[i].date + '</td><td id="quantity">' + data[i].status + '</td>');
+          $('#listorder').append('<tr><td id="orderid">' + data[i].orderid + '</td><td id="totalbill">' + data[i].totalbill + '</td><td id="type">' + data[i].date + '</td><td id="quantity">' + data[i].status + '</td>' + '<td id=' + data[i].orderid + '><a class="btn">View Order Details</a>' + '</td>');
+
 
         }
         $('#yourid').modal('show');

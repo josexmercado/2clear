@@ -180,7 +180,7 @@
         </div>
         <div class="form-group" hidden="true">
           <label for="customername" value="{{ customers.name }}"></label>
-          <input v-model="message" id="customername" class="form-control" readonly="true">
+          <input v-model="message" value="{{ customers.name }}" id="customername" class="form-control" readonly="true">
         </div>
 
 
@@ -446,6 +446,8 @@
 
         console.log('waDU', n)
         var orderid = Math.floor((Math.random() * 100) + 1);
+
+        
         for (var i = 0; i < n; i++) {
           var total = 0;
           var id = $("#myCart").find("tr").eq(i).find("td").eq(0).text();
@@ -457,16 +459,13 @@
           var user = $('#recordedby').val();
           var customerid = $('#customers').val();
           var total = parseFloat($("#total_bill").text());
-          var customer_name = $('#customername').val();
+          var customername = $('#customername').val();
           var status = "undelivered";
 
           console.log('id', id)
-          console.log('customername', customer_name)
+          console.log('customername', customername)
           console.log('quantity', quantity)
           console.log('subtotal', subtotal)
-
-
-
               // RECORD INTO ORDERLIST
               $.ajax({
             type: "Post",
@@ -485,7 +484,6 @@
             });
 
         }
-           
         var tdate = new Date();
         var dd = tdate.getDate(); //yields day
         var MM = tdate.getMonth(); //yields month
@@ -496,7 +494,7 @@
         $.ajax({
           type: "Post",
           url: "/registerorder",
-          data: { orderid: orderid, customerid: customerid, name: customer_name, totalbill: total, recordedby: user, date: currentDate, status: status }
+          data: { orderid: orderid, customerid: customerid, customername:customername, totalbill: total, recordedby: user, date: currentDate, status: status }
         })
           .done(function (data) {
             alert(data.message);

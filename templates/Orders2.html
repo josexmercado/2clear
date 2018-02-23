@@ -214,7 +214,7 @@
 
     <div class="modal fade" id="yourid" role="dialog">
       <div class="modal-dialog modal-lg">
-        <div class="modal-content" id >
+        <div class="modal-content" id>
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal">&times;</button>
 
@@ -247,50 +247,42 @@
                       <td class="totalbill"></td>
                       <td>
                     </tr>
-                  </div>
-                  </div>
-            </tbody>
-            </table>
-            </p>
-          </form>
-
-          <div class="modal-footer">
-            <tfoot>
-              <a id="checkout" class="btn btn-primary checkout">Complete Customer Order
-                <i class="fa fa-truck"></i>
-              </a>
-              <button type="button" class="btn btn-primary print" onclick="printJS('printJS-form', 'html')">
-                Print Orderlist
-              </button>
-            </tfoot>
-            <button type="button" class="btn btn-default closemodal " data-dismiss="modal">Close</button>
           </div>
+        </div>
+        </tbody>
+        </table>
+        </p>
+        </form>
+
+        <div class="modal-footer">
+          <tfoot>
+            <a id="checkout" class="btn btn-primary checkout">Complete Customer Order
+              <i class="fa fa-truck"></i>
+            </a>
+            <button type="button"  class="btn btn-primary print" onclick="printJS({printable: someJSONdata, properties: ['orderid'], type: 'json'})">
+              Print Order Data
+            </button>
+          </tfoot>
+          <button type="button" class="btn btn-default closemodal " data-dismiss="modal">Close</button>
+        </div>
 </body>
 
 </html>
 
 <script type="text/javascript">
 
-  someJSONdata = [
+  
+  $('.orderlist').click(function (e) {
+    e.preventDefault();
+
+    someJSONdata = [
     {
-      name: 'John Doe',
+      orderid: (this.id),
       email: 'john@doe.com',
       phone: '111-111-1111'
-    },
-    {
-      name: 'Barry Allen',
-      email: 'barry@flash.com',
-      phone: '222-222-2222'
-    },
-    {
-      name: 'Cool Dude',
-      email: 'cool@dude.com',
-      phone: '333-333-3333'
     }
   ];
 
-  $('.orderlist').click(function (e) {
-    e.preventDefault();
 
     var id = (this.id);
     var jqaxhr = $.ajax({
