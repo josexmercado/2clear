@@ -223,57 +223,57 @@
 
   <!-- MODAL -->
   <form method="post" action="#" id="printJS-form">
-  <div class="modal fade" id="yourid" role="dialog">
-    <div class="modal-dialog modal-lg">
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4 class="modal-title"> Customer Order History</h4>
-          <h4 class="modal-title" id="ordernumber"></h4>
-        </div>
-        <div class="modal-body">
+    <div class="modal fade" id="yourid" role="dialog">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title"> Customer Order History</h4>
+            <h4 class="modal-title" id="ordernumber"></h4>
+          </div>
+          <div class="modal-body">
 
-          <p>
-            <table class="table table-bordered">
-              <thead>
-                <tr>
-                  <th>Order ID</th>
-                  <th>TotalBill</th>
-                  <th>Date</th>
-                  <th>Status</th>
-                  <th>View Order Details</th>
-                </tr>
-              </thead>
+            <p>
+              <table class="table table-bordered">
+                <thead>
+                  <tr>
+                    <th>Order ID</th>
+                    <th>TotalBill</th>
+                    <th>Date</th>
+                    <th>Status</th>
+                    <th>View Order Details</th>
+                  </tr>
+                </thead>
 
-              <tbody id="listorder">
+                <tbody id="listorder">
 
-                <tr>
-                  <td id="orderid"></td>
-                  <td class="totalbill"></td>
-                  <td class="type"></td>
-                  <td class="quantity"></td>
+                  <tr>
+                    <td id="orderid"></td>
+                    <td class="totalbill"></td>
+                    <td class="type"></td>
+                    <td class="quantity"></td>
 
-                </tr>
-              </tbody>
-            </table>
-          </p>
-        </div>
-      </form>
-        <div class="modal-footer">
-          <tfoot>
-            <!-- <a id="printorderlist" class="btn btn-primary print">Print Order Details
+                  </tr>
+                </tbody>
+              </table>
+            </p>
+          </div>
+  </form>
+  <div class="modal-footer">
+    <tfoot>
+      <!-- <a id="printorderlist" class="btn btn-primary print">Print Order Details
               <i class="fa fa-print"></i>
             </a> -->
-            <button type="button" class="btn btn-primary print" onclick="printJS('printJS-form', 'html')">
-              Print Orderlist
-            </button>
-          </tfoot>
+      <button type="button" class="btn btn-primary print" onclick="printJS('printJS-form', 'html')">
+        Print Orderlist
+      </button>
+    </tfoot>
 
-          </table>
-          <button type="button" class="btn btn-default closemodal " data-dismiss="modal">Close</button>
-        </div>
-      </div>
-    </div>
+    </table>
+    <button type="button" class="btn btn-default closemodal " data-dismiss="modal">Close</button>
+  </div>
+  </div>
+  </div>
   </div>
   </div>
 
@@ -298,8 +298,12 @@
         $('#listorder').empty();
         for (var i = 0; i < data.length; i++) {
 
-          $('#listorder').append('<tr><td id="orderid">' + data[i].orderid + '</td><td id="totalbill">' + data[i].totalbill + '</td><td id="type">' + data[i].date + '</td><td id="quantity">' + data[i].status + '</td>' + '<td id=' + data[i].orderid + '><a class="btn">View Order Details</a>' + '</td>');
 
+          $('#listorder').append('<tr><td id="orderid">' + data[i].orderid + '</td><td id="totalbill">' + data[i].totalbill + '</td><td id="type">' + data[i].date + '</td><td id="quantity">' + data[i].status + '</td>' + '<td id=' + data[i].orderid + '> <details>   <summary>View Detailed Order History</summary> </details>' + '</td>');
+
+          // $('#listorder').append('<tr><td id="orderid">' + data[i].orderid + '</td><td id="totalbill">' + data[i].totalbill + '</td><td id="type">' + data[i].date + '</td><td id="quantity">' + data[i].status + '</td>');
+
+          // $('#listorder').append('<tr><td id="orderid">' + data[i].orderid + '</td><td id="totalbill">' + data[i].totalbill + '</td><td id="type">' + data[i].date + '</td><td id="quantity">' + data[i].status + '</td>');
 
         }
         $('#yourid').modal('show');
