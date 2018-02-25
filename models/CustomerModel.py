@@ -33,6 +33,8 @@ class CustomerModel(db.Model):
     def getById(_id):
         return CustomerModel.query.filter_by(id=_id).first()
 
+    def getByName(_name):
+        return CustomerModel.query.filter_by(name=_name).first()
 
     def insert(self):
         db.session.add(self)
