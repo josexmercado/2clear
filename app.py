@@ -20,7 +20,7 @@ from models.Sales import Sales
 from apps.sampleBlueprint import sample
 
 # all resources
-from resources.Customer import CustomerRegister, CustomerData
+from resources.Customer import CustomerRegister, CustomerData, getcustomer,UpdateCustomer, deletecustomer
 from resources.User import UserRegister,UpdateUser
 from resources.User import getname,DeleteUser
 from resources.Products import Registerproducts
@@ -132,7 +132,17 @@ def viewcustomers():
         return render_template('viewcustomers.html',products=products,customers=customers, orders=orders)
     else:
         return redirect('/')
+
+@app.route("/managecustomer")
+def managecustomer():
+    customers = CustomerModel.query.all()
+    products = Products.query.all()
+    orders = Orders.query.all()
     
+    if session.get('logged_in'):
+        return render_template('managecustomers.html',products=products,customers=customers, orders=orders)
+    else:
+        return redirect('/')
 
 @app.route("/registrations")
 def registrations():
@@ -320,6 +330,9 @@ api.add_resource(Registerproducts, '/Products/add')
 api.add_resource(UpdateProduct, '/products/update')
 api.add_resource(UpdateStocks, '/update/stocks')
 api.add_resource(CustomerData, '/customer/<int:_id>')
+api.add_resource(getcustomer, '/name/<string:_name>')
+
+api.add_resource(deletecustomer, '/deletecustomer')
 api.add_resource(getproduct, '/product/<int:_id>')
 api.add_resource(getproductname, '/product/<string:_name>')
 api.add_resource(deleteproduct, '/deleteproduct')
@@ -328,7 +341,7 @@ api.add_resource(registerorder, '/registerorder')
 api.add_resource(recordorderlist, '/recordorderlist')
 api.add_resource(getBydate,'/dateid/<string:_date>')
 api.add_resource(getBydatex,'/dateidx/<string:_date>')
-
+api.add_resource(UpdateCustomer, '/customer/update')
 api.add_resource(recordsales,'/recordsales')
 api.add_resource(salescustomer,'/salescustomer/<int:_id>')
 api.add_resource(UpdateQuantity, '/update/quantity')

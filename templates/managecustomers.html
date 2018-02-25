@@ -75,14 +75,14 @@
                 </span>
               </a>
               <ul class="treeview-menu">
-                <li class="active">
+                <li>
                   <a href="/registrations">
                     <i class="fa fa-circle-o"></i> Register New Customer</a>
                 </li>
-                <li>
-                    <a href="/managecustomer">
-                      <i class="fa fa-circle-o"></i> Manage Customers</a>
-                  </li>
+                <li class="active">
+                        <a href="/managecustomer">
+                          <i class="fa fa-circle-o"></i> Manage Customers</a>
+                      </li>
                 <li>
                   <a href="/viewcustomers">
                     <i class="fa fa-circle-o"></i>View Customer Details</a>
@@ -167,31 +167,9 @@
           </div>
         </div>
 
-        <div class="box box-primary">
-          <div class="box-header with-border">
-            <h3 class="box-title">Add Customer</h3>
-          </div>
-          <form method="POST">
-            <div class="box-body">
-              <div class="form-group">
-                <label for="customername">Customer Name:</label>
-                <input v-model="message" id="customername" name="tbcustomername" placeholder="ex: juan dela cruz" class="form-control">
-              </div>
-              <div class="form-group">
-                <label for="customeraddress">Customer Adress:</label>
-                <input v-model="message" id="customeraddress" name="tbcustomeraddress" placeholder="ex: general santos city" class="form-control">
-              </div>
-              <div class="form-group">
-                <label for="customercontact">Contact #:</label>
-                <input v-model="message" id="customercontact" name="tbcustomercontact" placeholder="ex: 09123456789" class="form-control">
-              </div>
-              <div class="box-footer">
-                <input id="btn_add_cust" type="submit" class="btn btn-primary" value="Add New Customer">
-              </div>
-            </form>
-        </div>
+      
 
-        <!-- <div class="box box-primary">
+        <div class="box box-primary">
             <div class="box-header with-border">
               <h3 class="box-title">Manage Customer</h3>
             </div>
@@ -199,21 +177,33 @@
               <div class="box-body">
                 <div class="form-group">
                   <label for="customername">Customer Name:</label>
-                  <input v-model="message" id="customername" name="tbcustomername" placeholder="ex: juan dela cruz" class="form-control">
+
+
+                  <select type="message" id="vcustomername" class="form-control">
+                        {% for customers in customers %}
+                        <datalist>
+                          <option id="selected" value="{{customers.name}}">{{customers.name}}</option>
+                        </datalist> 
+    
+                        {% endfor %}
+                      </select>
                 </div>
                 <div class="form-group">
                   <label for="customeraddress">Customer Adress:</label>
-                  <input v-model="message" id="customeraddress" name="tbcustomeraddress" placeholder="ex: general santos city" class="form-control">
+                  <input v-model="message" id="vcustomeraddress" name="tbcustomeraddress" readonly="true" class="form-control">
                 </div>
                 <div class="form-group">
                   <label for="customercontact">Contact #:</label>
-                  <input v-model="message" id="customercontact" name="tbcustomercontact" placeholder="ex: 09123456789" class="form-control">
+                  <input v-model="message" id="vcustomercontact" name="tbcustomercontact" readonly="true" class="form-control">
                 </div>
-                <div class="box-footer">
-                  <input id="btn_add_cust" type="submit" class="btn btn-primary" value="Add New Customer">
-                </div>
+                <div class="box-footer" id="app">
+                        <button id="btn_editcustomer" type="submit" class="btn btn-primary" >Edit</button>
+                        <button id="btn_canceledit" type="submit" style="display: none;" class="btn btn-primary" >Cancel edit</button>
+                        <button id="btn_deletecustomer"  class="btn btn-primary">Delete</button>
+                        <button id="btn_savecustomer" type="submit"  style="display: none;" class="btn btn-primary">Save</button>
+                    </div>
             </form>
-        </div> -->
+        </div>
       </div>
     </div>
 
@@ -222,7 +212,7 @@
 
 </body>
 <script type="text/javascript">
-  $(function () {
+  /* $(function () {
     $('#btn_add_cust').unbind('click').on('click', function (e) {
       e.preventDefault();
       var customername = $('#customername').val();
@@ -252,5 +242,94 @@
       $('#customercontact').val("");
     })
   })
+ */
+ $(function(){
+      $('#vcustomername').on('change', function(){
+        var name = $('#vcustomername').val();
+        console.log(name, 'name');
+        var jqaxhr = $.ajax({
+          method: "GET",
+          url: window.location.origin+"/name/"+name
+        })
+        .done(function(data){
+          console.log(data);
+          $('#vcustomeraddress').val(data.address);
+          $('#vcustomercontact').val(data.number);
+
+
+        })
+        .fail(function(e){
+          alert('error')
+        })
+        .always(function(){
+        })
+      })
+  })
+
+    $(function () {
+$('#btn_editcustomer').unbind('click').on('click', function (e) {
+      e.preventDefault();
+      $("#btn_canceledit").show();
+      $("#btn_savecustomer").show();
+      $("#btn_editcustomer").hide();
+      $('#vcustomeraddress').attr("readonly", false)
+      $('#vcustomercontact').attr("readonly", false)
+})
+$('#btn_canceledit').unbind('click').on('click', function (e) {
+      e.preventDefault();
+      $("#btn_canceledit").hide();
+      $("#btn_savecustomer").hide();
+      $("#btn_editcustomer").show();
+      $('#vcustomeraddress').attr("readonly", true)
+      $('#vcustomercontact').attr("readonly", true) 
+})
+$('#btn_savecustomer').unbind('click').on('click', function (e) {
+      e.preventDefault();
+      var name = $('#vcustomername').val();
+      var address = $('#vcustomeraddress').val();
+      var number = $('#vcustomercontact').val();
+                
+      var jqxhr = $.ajax({
+        method: "post",
+        url: "/customer/update",
+        data: {name:name, address: address, number: number}
+
+      })
+        .done(function (data) {
+          alert(data.message);
+        })
+        .fail(function () {
+          alert("error");
+        })
+        .always(function () {
+          //alert($('#name').val() );
+        });
+    });
+    $('#btn_deletecustomer').unbind('click').on('click', function (e) {
+      e.preventDefault();
+      var name = $('#vcustomername').val();
+      var jqxhr = $.ajax({
+        method: "delete",
+        url: "/deletecustomer",
+        data: {name:name}
+
+      })
+        .done(function (data) {
+          alert(data.message);
+          $('#vcustomeraddress').val("");
+          $('#vcustomercontact').val("");
+        })
+        .fail(function () {
+          alert("error");
+        })
+        .always(function () {
+          //alert($('#name').val() );
+        });
+    });
+  })
+
+
+
+
 
 </script>
