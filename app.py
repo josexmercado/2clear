@@ -48,7 +48,7 @@ from resources.Orders import orderhistory
 
 
 app = Flask(__name__)
-dbname   = 'mysql+pymysql://root:admin@127.0.0.1/2_clear'
+dbname   = 'mysql+pymysql://root:@127.0.0.1/2_clear'
 
 CORS(app, supports_credentials=True, resources={r"*": {"origins": "*"}})
 
@@ -100,6 +100,7 @@ def do_admin_login():
         session['name'] = result.name
         session['role'] =result.role
         # redirect to /home
+        flash('You were successfully logged in')
     else:
         flash('wrong password!')
         # redirect to login
@@ -116,24 +117,37 @@ def logout():
 def transactions():
     customers = CustomerModel.query.all()
     products = Products.query.all()
-    session['logged_in'] = True 
-    return render_template('transactions.html',products=products,customers=customers)
-
+    if session.get('logged_in'):
+        return render_template('transactions.html',products=products,customers=customers)
+    else:
+        return redirect('/') 
+    
 @app.route("/viewcustomers")
 def viewcustomers():
     customers = CustomerModel.query.all()
     products = Products.query.all()
     orders = Orders.query.all()
-    session['logged_in'] = True 
-    return render_template('viewcustomers.html',products=products,customers=customers, orders=orders)
+    
+    if session.get('logged_in'):
+        return render_template('viewcustomers.html',products=products,customers=customers, orders=orders)
+    else:
+        return redirect('/')
+    
 
 @app.route("/registrations")
 def registrations():
     return render_template('adduser.html')
 
-@app.route("/admin")
+@app.route("/admin", methods = ['GET','POST'])
 def admin():
-    return render_template('adminpanel.html')
+    
+    if session['role'] == 'admin':
+      
+      return render_template('adminpanel.html')
+    else:
+        flash('User not allowed')
+        return redirect('/')
+
     
 
 @app.route("/vieworders")
@@ -177,24 +191,45 @@ def process():
 @app.route("/aproduct" , methods = ['POST', 'GET','PUT','DELETE'])
 def adminproduct():
     products = Products.query.all()
+    if session['role'] == 'admin':
+      
+      return render_template('adminproducts.html',products=products)
+    else:
+        flash('User not allowed')
+        return redirect('/')
     
-    return render_template('adminproducts.html',products=products)
 
 @app.route("/aadd")
 def aadd(): 
-
-    return render_template('adminadduser.html')
+    if session['role'] == 'admin':
+      
+      return render_template('adminadduser.html')
+    else:
+        flash('User not allowed')
+        return redirect('/')
+    
 
 @app.route("/amanage")
-def amanage(): 
+def amanage():     
     users = User.query.all()
-    return render_template('adminaccounts.html', users=users)
+    if session['role'] == 'admin':
+      
+      return render_template('adminaccounts.html', users=users)
+    else:
+        flash('User not allowed')
+        return redirect('/')
+    
 
 @app.route("/aastock")
 def astock():
     products = Products.query.all()
+    if session['role'] == 'admin':
+      
+      return render_template('adminstockin.html', products=products)
+    else:
+        flash('User not allowed')
+        return redirect('/')
     
-    return render_template('adminstockin.html', products=products)
 
 
 #@app.route("/aastock/<int:_id>", methods=['POST','GET'])
