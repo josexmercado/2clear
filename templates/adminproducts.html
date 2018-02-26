@@ -227,16 +227,18 @@
                       <div class="form-group">
                           <label for="id">product ID</td>
                           <input v-model="message" readonly="true" id="prid" class="form-control" >
-                      </div>
-                      <div class="form-group">
-                          <label for="sp">Product Type: </td>      
-                          <input v-model="message" readonly="true" id="vtype" class="form-control" >      
-                      </div>
-                      <div class="form-group">
-                          <label for="vprice">Product Price</td>
-                          <input v-model="message" readonly="true" id="vprice" class="form-control" >
-                      </div>
-                      <div class="form-group">
+                        </div>
+                        <div class="form-group">
+                          <label for="sp">Product Type: </td>
+                            <select v-model="message" id="vtype" readonly="true" class="form-control">
+                              <option>Sale</option>
+                              <option>Rental</option>                            
+                        </div>
+                        <div class="form-group">
+                           <label for="rp">Product Price</label>
+                           <input v-model="message" readonly="true" id="vprice" class="form-control">
+                        </div>
+                        <div class="form-group">
                           <label for="sp">Product Quantity</td>
                           <input v-model="message" readonly="true" id="vquantity" class="form-control" >
                       </div>
