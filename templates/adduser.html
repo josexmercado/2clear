@@ -185,6 +185,10 @@
                 <label for="customercontact">Contact #:</label>
                 <input v-model="message" id="customercontact" name="tbcustomercontact" placeholder="ex: 09123456789" class="form-control">
               </div>
+              <div class="form-group">
+                <label for="deposit">Deposit to account:</label>
+                <input v-model="message" id="deposit" name="tbcustomercontact" placeholder="OPTIONAL" class="form-control">
+              </div>
               <div class="box-footer">
                 <input id="btn_add_cust" type="submit" class="btn btn-primary" value="Add New Customer">
               </div>
@@ -230,7 +234,7 @@
       var customercontact = $('#customercontact').val();
       var onhandid  = '0'
       var topay = '0'
-      var account = '0'
+      var account = $('#deposit').val();
 
       var jqxhr = $.ajax({
         method: "post",
