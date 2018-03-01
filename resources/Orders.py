@@ -148,7 +148,7 @@ class approveorder(Resource):
 		data = parser.parse_args()
 		Orderss = Orders.getById(data.orderid)
 		updatex = Orders.query.filter_by(orderid=Orderss.orderid).first()
-		updatex.status= "delivered"
+		updatex.status= data.status
 		updatex.commit()
 
 		return {'message':'Order Approved!'}

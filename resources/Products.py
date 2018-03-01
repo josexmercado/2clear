@@ -177,3 +177,26 @@ class deliverproduct(Resource):
 
 		return {'message':'wow!'}
 
+
+class cancelorder(Resource):
+	
+	def post(self):
+		parser = reqparse.RequestParser()
+		parser.add_argument('pname',
+			type=str,
+			required=True,
+			help="This field cannot be left blank!"
+			)
+		parser.add_argument('quantity',
+			type=int,
+			required=True,
+			help="This field cannot be left blank!"
+			)
+		data = parser.parse_args()
+		product = Products.getByName(data.pname)
+		xupdatex = Products.query.filter_by(pname=product.pname).first()
+		xupdatex.quantity= Products.quantity + data.quantity
+		xupdatex.commit()
+
+		return {'message':'wow!'}
+

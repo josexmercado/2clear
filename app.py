@@ -43,6 +43,7 @@ from resources.Orders import orderid
 from resources.Products import deliverproduct
 from resources.Customer import customercontainer
 from resources.Orders import orderhistory
+from resources.Products import cancelorder
 
 
 
@@ -352,7 +353,7 @@ api.add_resource(customercontainer,'/updatecontainer')
 api.add_resource(deliverproduct,'/deliverproduct')
 api.add_resource(orderhistory,'/orderhistory/<int:_customerid>')
 api.add_resource(returncontainer,'/returncontainer')
-
+api.add_resource(cancelorder,'/cancelorder')
 
 #register blueprints here
 app.register_blueprint(sample, url_prefix='/sample')
