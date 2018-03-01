@@ -23,33 +23,19 @@ from apps.sampleBlueprint import sample
 from resources.Customer import CustomerRegister, CustomerData, getcustomer,UpdateCustomer, deletecustomer, returncontainer
 from resources.User import UserRegister,UpdateUser
 from resources.User import getname,DeleteUser
-from resources.Products import Registerproducts
-from resources.Products import UpdateProduct
-from resources.stocks import UpdateStocks
-from resources.stocks import getBydate
-from resources.stocks import getBydatex
-from resources.Products import getproduct
-from resources.Products import getproductname
-from resources.Products import UpdateQuantity
-from resources.Products import UpdatexQuantity
-from resources.Products import deleteproduct
-from resources.Orders import registerorder
-from resources.Orders import recordorderlist
+from resources.Products import Registerproducts,UpdateProduct,getproduct,getproductname,UpdateQuantity,UpdatexQuantity,deleteproduct,cancelorder
+from resources.stocks import UpdateStocks, getBydate, getBydatex,getBymonth
+from resources.Orders import registerorder,recordorderlist,salescustomer,approveorder,orderid,orderhistory
 from resources.Orderlist import getorderlist
 from resources.Sales import recordsales
-from resources.Orders import salescustomer
-from resources.Orders import approveorder
-from resources.Orders import orderid
 from resources.Products import deliverproduct
 from resources.Customer import customercontainer
-from resources.Orders import orderhistory
-from resources.Products import cancelorder
 
 
 
 
 app = Flask(__name__)
-dbname   = 'mysql+pymysql://root:admin@127.0.0.1/2_clear'
+dbname   = 'mysql+pymysql://root:@127.0.0.1/2_clear'
 
 CORS(app, supports_credentials=True, resources={r"*": {"origins": "*"}})
 
@@ -172,6 +158,11 @@ def vieworders():
 def reports():
     stocks= Stock.query.all()
     return render_template('reports.html',stocks=stocks)
+
+@app.route("/reportsmonth")
+def reportsmonth():
+    stocks= Stock.query.all()
+    return render_template('monthlyreports.html',stocks=stocks)
 
 @app.route("/reportsout")
 def reportsout():
@@ -354,6 +345,7 @@ api.add_resource(deliverproduct,'/deliverproduct')
 api.add_resource(orderhistory,'/orderhistory/<int:_customerid>')
 api.add_resource(returncontainer,'/returncontainer')
 api.add_resource(cancelorder,'/cancelorder')
+api.add_resource(getBymonth,'/month/<int:_mm>')
 
 #register blueprints here
 app.register_blueprint(sample, url_prefix='/sample')

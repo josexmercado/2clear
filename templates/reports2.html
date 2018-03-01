@@ -308,6 +308,7 @@ $(function(){
   $('#sdate').on('change', function(){
     var date = $(this).find(":selected").val();
     console.log(date, 'date');
+
     var jqaxhr = $.ajax({
       method: "GET",
       url: window.location.origin+"/dateidx/"+date

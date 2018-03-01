@@ -8,6 +8,7 @@ class Stock(db.Model):
     product = db.Column(db.String(45))
     amount = db.Column(db.Integer)
     date = db.Column(db.String(45))
+    mm = db.Column(db.String(20))
     recby= db.Column(db.String(50))
 
     def __init__(self, *args, **kwargs):
@@ -21,12 +22,16 @@ class Stock(db.Model):
             'product': self.product,
             'amount': self.amount,
             'date': self.date,
+            'mm': self.mm,
             'recby': self.recby
         }
 
     @staticmethod
     def getBydate(_date):
         return Stock.query.filter_by(date=_date,type = 'Stock In').all()
+
+    def getBymonth(_mm):
+        return Stock.query.filter_by(mm=_mm).all()
 
     def getBydatex(_date):
         return Stock.query.filter_by(date=_date,type = 'Stock Out').all()

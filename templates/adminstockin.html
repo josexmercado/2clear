@@ -229,7 +229,8 @@
         var MM = tdate.getMonth(); //yields month
         var yyyy = tdate.getFullYear(); //yields year
         var currentDate = (MM + 1)  + "-" + dd+ "-" + yyyy;
-        console.log('date', currentDate)
+        var mm = (MM+1);
+        console.log('date', currentDate, mm)
       var jqxhr = $.ajax({
         method: "POST",
         url: "/update/stocks",
@@ -238,7 +239,8 @@
           type: type,
           date: currentDate,
           recby: recby,
-          amount: amount
+          amount: amount,
+          mm:mm
         }
       })
       if ($('#type').val()=="Stock In")
