@@ -259,30 +259,27 @@
             <a id="checkout" class="btn btn-primary checkout">Complete Customer Order
               <i class="fa fa-truck"></i>
             </a>
-            <button type="button"  class="btn btn-primary print" onclick="printJS({printable: someJSONdata, properties: ['orderid' , 'customername'], type: 'json'})">
-              Print Order Data
+            <button type="button" class="btn btn-primary print" onclick="exportTableToCSV('OrderList.csv')">
+              Print Orderlist
             </button>
-          </tfoot>
-          <button type="button" class="btn btn-default closemodal " data-dismiss="modal">Close</button>
+
+            <label for="sp">Select Mode of Payment: </td>
+              <select v-model="message" id="paytype" readonly="true" value=" " class="form-control">
+                <option>Debit/Credit</option>
+                <option>Oncash</option>
+
         </div>
+        </tfoot>
+        <button type="button" class="btn btn-default closemodal " data-dismiss="modal">Close</button>
+      </div>
 </body>
 
 </html>
 
 <script type="text/javascript">
 
-  
   $('.orderlist').click(function (e) {
     e.preventDefault();
-
-    someJSONdata = [
-    {
-      orderid: (this.id),
-      email: 'john@doe.com',
-      phone: '111-111-1111'
-    }
-  ];
-
 
     var id = (this.id);
     var jqaxhr = $.ajax({
@@ -318,92 +315,213 @@
           $('.checkout').on('click', function (e) {
             e.preventDefault();
 
-            var totalbill = $('#totalbill').html();
-            tenderedcash = prompt('Input Tendered Cash Amount(Total Bill of): ' + totalbill),
-              number_only = /^\d+$/;
+            var modeofpayment = $('#paytype').val();
+            console.log(modeofpayment)
+            var oncash = "Oncash"
+            console.log("Aw", oncash)
 
-            if (number_only.test(tenderedcash)) {
+            if (modeofpayment == oncash) {
 
-              if (tenderedcash >= parseInt(totalbill)) {
+              var totalbill = $('#totalbill').html();
+              tenderedcash = prompt('Input Tendered Cash Amount(Total Bill of): ' + totalbill),
+                number_only = /^\d+$/;
 
-                var change = tenderedcash - parseInt(totalbill);
-                alert('Customer Change is: ' + change + ' php');
-                var jqaxhr = $.ajax({
-                  method: "GET",
-                  url: window.location.origin + "/salescustomer/" + id
-                })
-                  .done(function (data) {
-                    console.log(data)
-                    var customerid = data.customerid;
-                    var customername = data.customername;
-                    // Variaballs 
-                    var tdate = new Date();
-                    var dd = tdate.getDate(); //yields day
-                    var MM = tdate.getMonth(); //yields month
-                    var yyyy = tdate.getFullYear(); //yields year
-                    var currentDate = (MM + 1) + "-" + dd + "-" + yyyy;
-                    var ordernumber = $('#ordernumber').text();
-                    var recordedby = $('#userstatus').text();
-                    console.log(customerid, customername)
-                    $.ajax({
-                      type: "Post",
-                      url: "/recordsales",
-                      data: { ordernumber: ordernumber, customerid: customerid, customername: customername, totalsale: totalbill, recordedby: recordedby, date: currentDate }
-                    })
+              if (number_only.test(tenderedcash)) {
 
-                    var jqaxhr = $.ajax({
-                      method: "GET",
-                      url: window.location.origin + "/getorderid/" + ordernumber
-                    })
-                      .done(function (data) {
-                        console.log("order", data)
+                if (tenderedcash >= parseInt(totalbill)) {
+
+                  var change = tenderedcash - parseInt(totalbill);
+                  alert('Customer Change is: ' + change + ' php');
+                  var jqaxhr = $.ajax({
+                    method: "GET",
+                    url: window.location.origin + "/salescustomer/" + id
+                  })
+                    .done(function (data) {
+                      console.log(data)
+                      var customerid = data.customerid;
+                      var customername = data.customername;
+                      // Variaballs 
+                      var tdate = new Date();
+                      var dd = tdate.getDate(); //yields day
+                      var MM = tdate.getMonth(); //yields month
+                      var yyyy = tdate.getFullYear(); //yields year
+                      var currentDate = (MM + 1) + "-" + dd + "-" + yyyy;
+                      var ordernumber = $('#ordernumber').text();
+                      var recordedby = $('#userstatus').text();
+                      console.log(customerid, customername)
+                      $.ajax({
+                        type: "Post",
+                        url: "/recordsales",
+                        data: { ordernumber: ordernumber, customerid: customerid, customername: customername, totalsale: totalbill, recordedby: recordedby, date: currentDate }
                       })
-                    var status = "delivered "
-                    $.ajax({
-                      type: "Post",
-                      url: "/approveorder",
-                      data: { orderid: ordernumber, status: status }
-                    })
-                      .done(function (data) {
-                        var p = $("#listorder").find("tr").length;
+                      var jqaxhr = $.ajax({
+                        method: "GET",
+                        url: window.location.origin + "/getorderid/" + ordernumber
+                      })
+                        .done(function (data) {
+                          console.log("order", data)
+                        })
+                      var status = "delivered "
+                      $.ajax({
+                        type: "Post",
+                        url: "/approveorder",
+                        data: { orderid: ordernumber, status: status }
+                      })
+                        .done(function (data) {
+                          var p = $("#listorder").find("tr").length;
 
-                        for (var l = 0; l < p; l++) {
-                          if (type = $("#listorder").find("tr").eq(l).find("td").eq(2).text() == "Rental") {
+                          for (var l = 0; l < p; l++) {
+                            if (type = $("#listorder").find("tr").eq(l).find("td").eq(1).text() == "Water Container") {
 
-                            var quantitits = $("#listorder").find("tr").eq(l).find("td").eq(3).text();
-                            console.log("type", type)
-                            console.log("quantitits", quantitits)
-                            $.ajax({
-                              type: "Post",
-                              url: "/updatecontainer",
-                              data: { orderid: ordernumber, type: type, quantity: quantitits }
-                            })
-                              .done(function (data) {
-                              });
+                              var quantitits = $("#listorder").find("tr").eq(l).find("td").eq(3).text();
+                              console.log("type", type)
+                              console.log("quantitits", quantitits)
+                              $.ajax({
+                                type: "Post",
+                                url: "/updatecontainer",
+                                data: { orderid: ordernumber, type: type, quantity: quantitits }
+                              })
+                                .done(function (data) {
+                                });
+                            }
                           }
-                        }
-                      })
-                      .done(function (data) {
-                        alert('Order Approved!');
-                        window.location.href = "http://localhost:4000/";
-                      })
-                  })
-                  .fail(function (e) {
-                    alert('error')
-                  })
-                  .always(function () {
-                  })
-
+                        })
+                        .done(function (data) {
+                          alert('Order Approved!');
+                          window.location.href = "http://localhost:4000/";
+                        })
+                    })
+                    .fail(function (e) {
+                      alert('error')
+                    })
+                    .always(function () {
+                    })
+                } else {
+                  alert('Invalid Input, Tendered amount is invalid');
+                }
               } else {
-                alert('Invalid Input, Tendered amount is invalid');
+                alert('Invalid Input, the prompt only accepts numbers');
               }
             } else {
-              alert('Invalid Input, the prompt only accepts numbers');
+
+              var jqaxhr = $.ajax({
+                method: "GET",
+                url: window.location.origin + "/salescustomer/" + id
+              })
+                .done(function (data) {
+                  console.log(data)
+                  var customerid = data.customerid;
+                  var customername = data.customername;
+                  // Variaballs 
+                  var tdate = new Date();
+                  var dd = tdate.getDate(); //yields day
+                  var MM = tdate.getMonth(); //yields month
+                  var yyyy = tdate.getFullYear(); //yields year
+                  var currentDate = (MM + 1) + "-" + dd + "-" + yyyy;
+                  var ordernumber = $('#ordernumber').text();
+                  var recordedby = $('#userstatus').text();
+                  console.log(customerid, customername)
+                  $.ajax({
+                    type: "Post",
+                    url: "/recordsales",
+                    data: { ordernumber: ordernumber, customerid: customerid, customername: customername, totalsale: totalbill, recordedby: recordedby, date: currentDate }
+                  })
+                  var jqaxhr = $.ajax({
+                    method: "GET",
+                    url: window.location.origin + "/getorderid/" + ordernumber
+                  })
+                    .done(function (data) {
+                      console.log("order", data)
+                    })
+                  var status = "delivered "
+                  $.ajax({
+                    type: "Post",
+                    url: "/approveorder",
+                    data: { orderid: ordernumber, status: status }
+                  })
+                    .done(function (data) {
+                      var p = $("#listorder").find("tr").length;
+
+                      for (var l = 0; l < p; l++) {
+                        if (type = $("#listorder").find("tr").eq(l).find("td").eq(1).text() == "Water Container") {
+
+                          var quantitits = $("#listorder").find("tr").eq(l).find("td").eq(3).text();
+                          console.log("type", type)
+                          console.log("quantitits", quantitits)
+                          $.ajax({
+                            type: "Post",
+                            url: "/updatecontainer",
+                            data: { orderid: ordernumber, type: type, quantity: quantitits , debit:totalbill }
+                          })
+                            .done(function (data) {
+                            });
+                        }
+                      }
+                    })
+                    .done(function (data) {
+                      alert('Order Approved!');
+                      window.location.href = "http://localhost:4000/";
+                    })
+                })
+                .fail(function (e) {
+                  alert('error')
+                })
+                .always(function () {
+                })
+
             }
 
           })
+
+
         })
+
       });
 
   });
+
+  function downloadCSV(csv, filename) {
+    var csvFile;
+    var downloadLink;
+
+    // CSV file
+    csvFile = new Blob([csv], { type: "text/csv" });
+
+    // Download link
+    downloadLink = document.createElement("a");
+
+    // File name
+    downloadLink.download = filename;
+
+    // Create a link to the file
+    downloadLink.href = window.URL.createObjectURL(csvFile);
+
+    // Hide download link
+    downloadLink.style.display = "none";
+
+    // Add the link to DOM
+    document.body.appendChild(downloadLink);
+
+    // Click download link
+    downloadLink.click();
+  }
+
+  function exportTableToCSV(filename) {
+    var csv = [];
+    var rows = document.querySelectorAll("table tr");
+
+    for (var i = 0; i < rows.length; i++) {
+      var row = [], cols = rows[i].querySelectorAll("td, th");
+
+      for (var j = 0; j < cols.length; j++)
+        row.push(cols[j].innerText);
+
+      csv.push(row.join(","));
+    }
+
+    // Download CSV file
+    downloadCSV(csv.join("\n"), filename);
+  }
+
+
 </script>

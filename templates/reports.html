@@ -233,25 +233,25 @@
               <h2>Daily stockin report</h2>
             </div>
             <div class="box-body">
-                <div>
+              <div>
                 <label for="user_name">Search date History:</label>
-                </div>
-                <form>
+              </div>
+              <form>
                 <div class="col-xs-3">
-              
-                <select type="message" id='sdate' class="form-control">
+
+                  <select type="message" id='sdate' class="form-control">
                     {% for stocks in stocks %}
                     <datalist>
                       <option value="{{stocks.date}}">{{stocks.date}}</option>
                     </datalist>
 
                     {% endfor %}
-                </select>
-              </div>
+                  </select>
+                </div>
               </form>
-                <br>
-                <br>  
-                  <table class="table table-bordered">
+              <br>
+              <br>
+              <table class="table table-bordered">
                 <thead>
                   <tr>
                     <th>Date</th>
@@ -260,20 +260,21 @@
                     <th>Product Name</th>
                     <th>Quantities</th>
                     <tH>Recorded By</tH>
-                    
-                    
+
+
                   </tr>
                 </thead>
-                
+
                 <tbody id="tobeprinted">
 
                 </tbody>
               </table>
-                  <a class="btn btn-primary">
-                    <i class="fa fa-print"></i> print</a>
+              <button type="button" class="btn btn-primary print" onclick="exportTableToCSV('DailyReport.csv')">
+                Print Orderlist
+              </button>
             </div>
 
-        
+
           </div>
         </div>
 
@@ -287,25 +288,73 @@
 
 </html>
 <script type="text/javascript">
-$(function(){
-      $('#sdate').on('change', function(){
-        var date = $(this).find(":selected").val();
-        console.log(date, 'date');
-        var jqaxhr = $.ajax({
-          method: "GET",
-          url: window.location.origin+"/dateid/"+date
-        })
-        .done(function(data){
+  $(function () {
+    $('#sdate').on('change', function () {
+
+      var date = $(this).find(":selected").val();
+      console.log(date, 'date');
+      var jqaxhr = $.ajax({
+        method: "GET",
+        url: window.location.origin + "/dateid/" + date
+      })
+        .done(function (data) {
           console.log(data);
-          for (var i=0; i<data.length; i++) {
-            var row = $('<tr><td>' + data[i].date+ '</td><td>' + data[i].id + '</td><td>' + data[i].type + '</td><td>' + data[i].product + '</td><td>' + data[i].amount + '</td><td>' + data[i].recby + '</td>');
+
+          $('#tobeprinted').empty();
+          for (var i = 0; i < data.length; i++) {
+            var row = $('<tr><td>' + data[i].date + '</td><td>' + data[i].id + '</td><td>' + data[i].type + '</td><td>' + data[i].product + '</td><td>' + data[i].amount + '</td><td>' + data[i].recby + '</td>');
             $('#tobeprinted').append(row);
-        }
-    })
-    .fail(function(e){
+          }
+        })
+        .fail(function (e) {
           alert('error')
         })
-    
-      })   
-})    
- </script>
+
+    })
+  })
+
+
+  function downloadCSV(csv, filename) {
+    var csvFile;
+    var downloadLink;
+
+    // CSV file
+    csvFile = new Blob([csv], { type: "text/csv" });
+
+    // Download link
+    downloadLink = document.createElement("a");
+
+    // File name
+    downloadLink.download = filename;
+
+    // Create a link to the file
+    downloadLink.href = window.URL.createObjectURL(csvFile);
+
+    // Hide download link
+    downloadLink.style.display = "none";
+
+    // Add the link to DOM
+    document.body.appendChild(downloadLink);
+
+    // Click download link
+    downloadLink.click();
+  }
+
+  function exportTableToCSV(filename) {
+    var csv = [];
+    var rows = document.querySelectorAll("table tr");
+
+    for (var i = 0; i < rows.length; i++) {
+      var row = [], cols = rows[i].querySelectorAll("td, th");
+
+      for (var j = 0; j < cols.length; j++)
+        row.push(cols[j].innerText);
+
+      csv.push(row.join(","));
+    }
+
+    // Download CSV file
+    downloadCSV(csv.join("\n"), filename);
+  }
+
+</script>

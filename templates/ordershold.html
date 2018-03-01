@@ -190,7 +190,7 @@
                   {% for row in orders if row.status == "undelivered" %}
                   <tr>
 
-                    <td class="id" id={{ row.orderid }} value={{ row.orderid }}>{{ row.orderid }}</td>
+                    <td class="id" id={{ row.orderid }} value={ { row.orderid }}>{{ row.orderid }}</td>
                     <td class="type">{{ row.customername }}</td>
                     <td class="totalbill">{{ row.totalbill}}</td>
                     <td class="quantity">{{ row.recordedby }}</td>
@@ -199,7 +199,6 @@
                       <a name="listt">
                         <button id={{ row.orderid }} type="button" class="fa fa-check orderlist" class="trigger" data-target="#yourid">View Order Details</button>
                     </td>
-
                     {% else %}
                   </tr>
                   {% endfor %}
@@ -215,7 +214,7 @@
 
     <div class="modal fade" id="yourid" role="dialog">
       <div class="modal-dialog modal-lg">
-        <div class="modal-content" id>
+        <div class="modal-content" id >
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal">&times;</button>
 
@@ -248,32 +247,24 @@
                       <td class="totalbill"></td>
                       <td>
                     </tr>
-          </div>
-        </div>
-        </tbody>
-        </table>
-        </p>
-        </form>
+                  </div>
+                  </div>
+            </tbody>
+            </table>
+            </p>
+          </form>
 
-        <div class="modal-footer">
-          <tfoot>
-            <a id="checkout" class="btn btn-primary checkout">Complete Customer Order
-              <i class="fa fa-truck"></i>
-            </a>
-            <button type="button" class="btn btn-primary print" onclick="exportTableToCSV('OrderList.csv')">
-              Print Orderlist
-            </button>
-            <a id="cancel" class="btn btn-primary Cancel">Cancel Order
-              <i class="fa fa-x"></i>
-            </a>
-            <label for="sp">Select Mode of Payment: </td>
-              <select v-model="message" id="paytype" readonly="true" value="  " class="form-control">
-                <option>Debit/Credit</option>
-                <option>Oncash</option>
-        </div>
-        </tfoot>
-        <button type="button" class="btn btn-default closemodal " data-dismiss="modal">Close</button>
-      </div>
+          <div class="modal-footer">
+            <tfoot>
+              <a id="checkout" class="btn btn-primary checkout">Complete Customer Order
+                <i class="fa fa-truck"></i>
+              </a>
+              <button type="button" class="btn btn-primary print" onclick="printJS('printJS-form', 'html')">
+                Print Orderlist
+              </button>
+            </tfoot>
+            <button type="button" class="btn btn-default closemodal " data-dismiss="modal">Close</button>
+          </div>
 </body>
 
 </html>
@@ -317,7 +308,6 @@
           $('.checkout').on('click', function (e) {
             e.preventDefault();
 
-
             var totalbill = $('#totalbill').html();
             tenderedcash = prompt('Input Tendered Cash Amount(Total Bill of): ' + totalbill),
               number_only = /^\d+$/;
@@ -350,6 +340,7 @@
                       url: "/recordsales",
                       data: { ordernumber: ordernumber, customerid: customerid, customername: customername, totalsale: totalbill, recordedby: recordedby, date: currentDate }
                     })
+
                     var jqaxhr = $.ajax({
                       method: "GET",
                       url: window.location.origin + "/getorderid/" + ordernumber
@@ -403,70 +394,6 @@
           })
         })
       });
+
   });
-
-  $('.cancel').click(function (e) {
-    e.preventDefault();
-
-    var type ="Water Container"
-    var id = (this.id)
-    var quantitits = $("#listorder").find("tr").eq(1).find("td").eq(3).text();
-    console.log("quantitits", quantitits)
-    $.ajax({
-      type: "Post",
-      url: "/updatecontainer",
-      data: { orderid: ordernumber, type: type, quantity: quantitits }
-    })
-      .done(function (data) {
-        alert('Order Cancelled!');
-        window.location.href = "http://localhost:4000/";
-      })
-
-  })
-
-
-  function downloadCSV(csv, filename) {
-    var csvFile;
-    var downloadLink;
-
-    // CSV file
-    csvFile = new Blob([csv], { type: "text/csv" });
-
-    // Download link
-    downloadLink = document.createElement("a");
-
-    // File name
-    downloadLink.download = filename;
-
-    // Create a link to the file
-    downloadLink.href = window.URL.createObjectURL(csvFile);
-
-    // Hide download link
-    downloadLink.style.display = "none";
-
-    // Add the link to DOM
-    document.body.appendChild(downloadLink);
-
-    // Click download link
-    downloadLink.click();
-  }
-
-  function exportTableToCSV(filename) {
-    var csv = [];
-    var rows = document.querySelectorAll("table tr");
-
-    for (var i = 0; i < rows.length; i++) {
-      var row = [], cols = rows[i].querySelectorAll("td, th");
-
-      for (var j = 0; j < cols.length; j++)
-        row.push(cols[j].innerText);
-
-      csv.push(row.join(","));
-    }
-
-    // Download CSV file
-    downloadCSV(csv.join("\n"), filename);
-  }
-
-
 </script>

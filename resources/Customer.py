@@ -2,6 +2,7 @@ from flask_restful import Resource, reqparse
 from models.CustomerModel import CustomerModel
 from models.Orderlist import Orderlist
 from models.Orders import Orders
+from models.Products import Products
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import update
 from db import db
@@ -131,6 +132,34 @@ class customercontainer(Resource):
 		Orderss = Orders.getById(data.orderid)
 		xupdatex = CustomerModel.query.filter_by(id=Orderss.customerid).first()
 		xupdatex.onhandid = CustomerModel.onhandid + data.quantity
+
 		xupdatex.commit()
+
+		return {'message':'wow!'}
+
+
+class returncontainer(Resource):
+	
+	def post(self):
+		parser = reqparse.RequestParser()
+		parser.add_argument('id',
+			type=int,
+			# required=True,
+			help="This field cannot be left blank!"
+			)
+		parser.add_argument('quantity',
+			type=int,
+			# required=True,
+			help="This field cannot be left blank!"
+			)
+		data = parser.parse_args()
+		xupdatex = CustomerModel.query.filter_by(id=data.id).first()
+		xupdatex.onhandid = CustomerModel.onhandid - data.quantity
+		xupdatex.commit()
+
+		xupdatep = Products.query.filter_by(id="3").first()
+		xupdatep.quantity = Products.quantity + data.quantity
+		xupdatep.commit()
+
 
 		return {'message':'wow!'}

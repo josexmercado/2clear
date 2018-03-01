@@ -20,7 +20,7 @@ from models.Sales import Sales
 from apps.sampleBlueprint import sample
 
 # all resources
-from resources.Customer import CustomerRegister, CustomerData, getcustomer,UpdateCustomer, deletecustomer
+from resources.Customer import CustomerRegister, CustomerData, getcustomer,UpdateCustomer, deletecustomer, returncontainer
 from resources.User import UserRegister,UpdateUser
 from resources.User import getname,DeleteUser
 from resources.Products import Registerproducts
@@ -48,7 +48,7 @@ from resources.Orders import orderhistory
 
 
 app = Flask(__name__)
-dbname   = 'mysql+pymysql://root:@127.0.0.1/2_clear'
+dbname   = 'mysql+pymysql://root:admin@127.0.0.1/2_clear'
 
 CORS(app, supports_credentials=True, resources={r"*": {"origins": "*"}})
 
@@ -351,6 +351,7 @@ api.add_resource(orderid,'/getorderid/<int:_orderid>')
 api.add_resource(customercontainer,'/updatecontainer')
 api.add_resource(deliverproduct,'/deliverproduct')
 api.add_resource(orderhistory,'/orderhistory/<int:_customerid>')
+api.add_resource(returncontainer,'/returncontainer')
 
 
 #register blueprints here
