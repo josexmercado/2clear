@@ -258,7 +258,7 @@
                     <th>TotalBill</th>
                     <th>Date</th>
                     <th>Status</th>
-                    <th>View Order Details</th>
+                    <!-- <th>View Order Details</th> -->
                   </tr>
                 </thead>
 
@@ -316,12 +316,15 @@
         for (var i = 0; i < data.length; i++) {
 
 
-          $('#listorder').append('<tr><td id="orderid">' + data[i].orderid + '</td><td id="totalbill">' + data[i].totalbill + '</td><td id="type">' + data[i].date + '</td><td id="quantity">' + data[i].status + '</td>' + '<td id=' + data[i].orderid + '> <details>   <summary>View Detailed Order History</summary> <p id="orderlist" ></p></details>' + '</td>');
+          // $('#listorder').append('<tr><td id="orderid">' + data[i].orderid + '</td><td id="totalbill">' + data[i].totalbill + '</td><td id="type">' + data[i].date + '</td><td id="quantity">' + data[i].status + '</td>' + '<td id=' + data[i].orderid + '> <details>   <summary>View Detailed Order History</summary> <p id="orderlist" ></p> </details>' + '</td>');
 
-          // $('#listorder').append('<tr><td id="orderid">' + data[i].orderid + '</td><td id="totalbill">' + data[i].totalbill + '</td><td id="type">' + data[i].date + '</td><td id="quantity">' + data[i].status + '</td>');
+          $('#listorder').append('<tr><td id="orderid">' + data[i].orderid + '</td><td id="totalbill">' + data[i].totalbill + '</td><td id="type">' + data[i].date + '</td><td id="quantity">' + data[i].status + '</td>' + '</td>');
 
-          // $('#listorder').append('<tr><td id="orderid">' + data[i].orderid + '</td><td id="totalbill">' + data[i].totalbill + '</td><td id="type">' + data[i].date + '</td><td id="quantity">' + data[i].status + '</td>');
-
+          $('#listorder').append('<td id=' + data[i].orderid + '</td> <details> <summary>View Detailed Order History</summary>  <p id="orderlist" >  asd </p> </details>' + '</td>');
+            
+          // <td id="orderid">' + data[i].orderid + '</td><td id="totalbill">' + data[i].totalbill + '</td><td id="type">' + data[i].date + '</td><td id="quantity">' + data[i].status + '</td>'
+      
+      
         }
         $('#yourid').modal('show');
 
