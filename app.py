@@ -326,7 +326,7 @@ api.add_resource(getcustomer, '/name/<string:_name>')
 
 api.add_resource(deletecustomer, '/deletecustomer')
 api.add_resource(getproduct, '/product/<int:_id>')
-api.add_resource(getproductname, '/product/<string:_name>')
+api.add_resource(getproductname, '/product/<string:_pname>')
 api.add_resource(deleteproduct, '/deleteproduct')
 api.add_resource(getorderlist, '/orderid/<int:_id>')
 api.add_resource(registerorder, '/registerorder')
