@@ -12,6 +12,7 @@ class Orders(db.Model):
     recordedby = db.Column(db.String(45))
     customerid = db.Column(db.String(45))
     status = db.Column(db.String(45))
+    comment = db.Column(db.String(45))
     date  = db.Column(db.String(20))
     mm = db.Column(db.String(10))
     def __init__(self, *args, **kwargs):
@@ -29,6 +30,8 @@ class Orders(db.Model):
             'customername': self.customername,
             'status': self.status,
             'mm': self.mm,
+            'comment': self.comment,
+
         }
     
     @staticmethod

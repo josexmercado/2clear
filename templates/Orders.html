@@ -302,6 +302,7 @@
         var totalbill = 0;
         for (var i = 0; i < data.length; i++) {
           console.log("orderid", data.orderid)
+          console.log("sdf", data[i].productid)
           $('#listorder').append('<tr><td id="orderid">' + data[i].productid + '</td><td id="productid">' + data[i].pname + '</td><td id="type">' + data[i].type + '</td><td id="quantity">' + data[i].quantity + '</td><td id="subtotal">' + data[i].subtotal + '</td>');
 
           var totalbill = totalbill + parseFloat(data[i].subtotal);
@@ -412,7 +413,7 @@
     e.preventDefault();
 
 
-    tenderedcash = prompt("Input Reason: ");
+
     var id = $('#ordernumber').html();
     console.log("ani", id)
     var jqaxhr = $.ajax({
@@ -445,10 +446,11 @@
             console.log("order", data)
           })
         var status = "Canceled"
+        tenderedcash = prompt("Input Reason: ");
         $.ajax({
           type: "Post",
           url: "/approveorder",
-          data: { orderid: ordernumber, status: status }
+          data: { orderid: ordernumber, status: status , comment:tenderedcash}
         })
           .done(function (data) {
             var p = $("#listorder").find("tr").length;

@@ -192,10 +192,12 @@ class cancelorder(Resource):
 			required=True,
 			help="This field cannot be left blank!"
 			)
+	
 		data = parser.parse_args()
 		product = Products.getByName(data.pname)
 		xupdatex = Products.query.filter_by(pname=product.pname).first()
 		xupdatex.quantity= Products.quantity + data.quantity
+	
 		xupdatex.commit()
 
 		return {'message':'wow!'}

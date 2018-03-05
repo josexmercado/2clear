@@ -44,6 +44,7 @@ class registerorder(Resource):
 			required=True,
 			help="This field cannot be left blank!"
 			)
+			
 		data = parser.parse_args()
 
 		new_orders = Orders(
@@ -56,7 +57,7 @@ class registerorder(Resource):
 			status=data.status
 			)
 		new_orders.insert()
-		return {'message':'New Order Registered!'}
+
 
 class recordorderlist(Resource):
 
@@ -103,7 +104,7 @@ class recordorderlist(Resource):
 			subtotal=data.subtotal
 			)
 		new_orderlist.insert()
-		return {'message':'Orderlist Recorded!'}
+
 
 class salescustomer(Resource):
 
@@ -145,11 +146,16 @@ class approveorder(Resource):
 			required=True,
 			help="This field cannot be left blank!"
 			)
+		parser.add_argument('comment',
+			type=str,
+			required=True,
+			help="This field cannot be left blank!"
+			)
 		data = parser.parse_args()
 		Orderss = Orders.getById(data.orderid)
 		updatex = Orders.query.filter_by(orderid=Orderss.orderid).first()
 		updatex.status= data.status
+		updatex.comment= data.comment
 		updatex.commit()
 
-		return {'message':'Order Approved!'}
 

@@ -13,6 +13,10 @@
   <link rel="stylesheet" href="/static/css/skins/_all-skins.min.css">
   <link rel="stylesheet" href="/static/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">
   <script type="text/javascript" src="/static/plugins/jQuery/jQuery.min.js"></script>
+  <script src="/static/js/print.js"></script>
+  <link rel="stylesheet" type="text/css" href="/static/css/print.css">
+  <script href="/static/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="/static/plugins/js/bootstrap.min.js"></script>
 </head>
 
 <body class="hold-transition skin-blue sidebar-mini">
@@ -236,7 +240,7 @@
               </div>
               <div class="box-body">
                 <table class="table table-bordered">
-                  <thead>
+                  <thead id="cart">
                     <tr>
                       <th>ID</th>
                       <th>Type</th>
@@ -262,7 +266,7 @@
                       <th></th>
                       <th></th>
                       <th>
-                        <a id="checkout" class="btn btn-primary checkout">Register Customer Order
+                        <a id="checkout"  class="btn btn-primary checkout">Register Customer Order
                           <i class="fa fa-save"></i>
                         </a>
                       </th>
@@ -447,7 +451,7 @@
         console.log('waDU', n)
         var orderid = Math.floor((Math.random() * 100) + 1);
 
-        
+
         for (var i = 0; i < n; i++) {
           var total = 0;
           var id = $("#myCart").find("tr").eq(i).find("td").eq(0).text();
@@ -466,11 +470,11 @@
           console.log('customername', customername)
           console.log('quantity', quantity)
           console.log('subtotal', subtotal)
-              // RECORD INTO ORDERLIST
-              $.ajax({
+          // RECORD INTO ORDERLIST
+          $.ajax({
             type: "Post",
             url: "/recordorderlist",
-            data: { orderid: orderid, pname: product_name, type:type, productid: id, quantity: quantity, subtotal: subtotal }
+            data: { orderid: orderid, pname: product_name, type: type, productid: id, quantity: quantity, subtotal: subtotal }
           })
 
             .done(function (data) {
@@ -494,7 +498,7 @@
         $.ajax({
           type: "Post",
           url: "/registerorder",
-          data: { orderid: orderid, customerid: customerid, customername:customername, totalbill: total, recordedby: user, date: currentDate, status: status }
+          data: { orderid: orderid, customerid: customerid, customername: customername, totalbill: total, recordedby: user, date: currentDate, status: status }
         })
           .done(function (data) {
             alert(data.message);
@@ -507,30 +511,75 @@
           });
         // update product
         var x = $("#myCart").find("tr").length;
-        for (var o = 0; o < x; o++) 
-        {
+        for (var o = 0; o < x; o++) {
           var idd = $("#myCart").find("tr").eq(o).find("td").eq(0).text();
           var quantitits = $("#myCart").find("tr").eq(o).find("td").eq(4).text();
-        $.ajax({
-          type: "Post",
-          url: "/deliverproduct",
-          
-          data: { id: idd, quantity: quantitits }
-        })
-          .done(function (data) {
-            console.log("id", id)
-            window.location.href = "http://localhost:4000/";
+          $.ajax({
+            type: "Post",
+            url: "/deliverproduct",
+
+            data: { id: idd, quantity: quantitits }
           })
-          .fail(function () {
-            alert("error");
-          })
-          .always(function () {
-            //alert($('#name').val() );
-          });
+            .done(function (data) {
+              console.log("id", id)
+    ;
+               window.location.href = "http://localhost:4000/";
+            })
+            .fail(function () {
+              alert("error");
+            })
+            .always(function () {
+              //alert($('#name').val() );
+            });
+
         }
-        })
-
-      });
-
+        alert('Order Approved!');
       })
+
+    });
+
+  })
+
+  function downloadCSV(csv, filename) {
+    var csvFile;
+    var downloadLink;
+
+    // CSV file
+    csvFile = new Blob([csv], { type: "text/csv" });
+
+    // Download link
+    downloadLink = document.createElement("a");
+
+    // File name
+    downloadLink.download = filename;
+
+    // Create a link to the file
+    downloadLink.href = window.URL.createObjectURL(csvFile);
+
+    // Hide download link
+    downloadLink.style.display = "none";
+
+    // Add the link to DOM
+    document.body.appendChild(downloadLink);
+
+    // Click download link
+    downloadLink.click();
+  }
+
+  function exportTableToCSV(filename) {
+    var csv = [];
+    var rows = document.querySelectorAll("#Customername,#Cart,#MyCart tr");
+
+    for (var i = 0; i < rows.length; i++) {
+      var row = [], cols = rows[i].querySelectorAll("td, th");
+
+      for (var j = 0; j < cols.length; j++)
+        row.push(cols[j].innerText);
+
+      csv.push(row.join(","));
+    }
+
+    // Download CSV file
+    downloadCSV(csv.join("\n"), filename);
+  }
 </script>

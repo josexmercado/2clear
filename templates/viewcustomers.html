@@ -258,6 +258,7 @@
                     <th>TotalBill</th>
                     <th>Date</th>
                     <th>Status</th>
+                    <th>Comments</th>
                     <!-- <th>View Order Details</th> -->
                   </tr>
                 </thead>
@@ -269,6 +270,7 @@
                     <td class="totalbill"></td>
                     <td class="type"></td>
                     <td class="quantity"></td>
+                    <td class="Comment"></td>
 
                   </tr>
                 </tbody>
@@ -311,59 +313,72 @@
     })
       .done(function (data) {
         console.log("id", id)
-        console.log("data", data)
+
         $('#listorder').empty();
         for (var i = 0; i < data.length; i++) {
 
+          $('#listorder').append('<tr><td >' + data[i].orderid + '</td><td id="totalbill">' + data[i].totalbill + '</td><td id="type">' + data[i].date + '</td><td id="quantity">' + data[i].status + '</td><td id="Comment">' + data[i].comment + '</td>' + '</td>');
 
-          // $('#listorder').append('<tr><td id="orderid">' + data[i].orderid + '</td><td id="totalbill">' + data[i].totalbill + '</td><td id="type">' + data[i].date + '</td><td id="quantity">' + data[i].status + '</td>' + '<td id=' + data[i].orderid + '> <details>   <summary>View Detailed Order History</summary> <p id="orderlist" ></p> </details>' + '</td>');
+          // $('#listorder').append('<td id=' + data[i].orderid + '</td> <details> <summary >View Detailed Order History</summary>' + '<table class="table table-bordered"><thead><tr><th> Product ID </th> <th> Product Name </th> <th> Type </th> <th> Quantity </th> <th> Subtotal </th> </tr></thead> <tbody id=s'+data[i].orderid+'> <tr> <td id="pid"> </td><td class="pname"></td><td class="type"></td><td class="quantity"></td><td class="subtotal"></td></tr></tbody></table> ' + ' </details>' + '</td>');
 
-          $('#listorder').append('<tr><td id="orderid">' + data[i].orderid + '</td><td id="totalbill">' + data[i].totalbill + '</td><td id="type">' + data[i].date + '</td><td id="quantity">' + data[i].status + '</td>' + '</td>');
+          $('#listorder').append('<td id=' + data[i].orderid + '</td> <details> <summary >View Detailed Order History</summary>' + ' <div class="row"><div class="col-md-12"><div class="box box-primary"><div class="box-header with-border"><table class="table table-bordered"><thead><tr><th> Product ID </th> <th> Product Name </th> <th> Type </th> <th> Quantity </th> <th> Subtotal </th> </tr></thead> <tbody id=s' + data[i].orderid + '></tbody></table> ' + ' </details>' + '</td>');
 
-          $('#listorder').append('<td id=' + data[i].orderid + '</td> <details> <summary>View Detailed Order History</summary>  <p id="orderlist" >  asd </p> </details>' + '</td>');
-            
-          // <td id="orderid">' + data[i].orderid + '</td><td id="totalbill">' + data[i].totalbill + '</td><td id="type">' + data[i].date + '</td><td id="quantity">' + data[i].status + '</td>'
-      
-      
+
+
+          console.log("ORDERID", data[i].orderid)
+          var jqaxhr = $.ajax({
+            method: "GET",
+            url: window.location.origin + "/orderid/" + data[i].orderid
+
+          })
+            .done(function (dataa) {
+              for (var m = 0; m < dataa.length; m++) {
+
+                console.log("id", dataa[m].orderid)
+
+                $("#s" + dataa[m].orderid).append('<tr><td class="pid">' + dataa[m].productid + '</td><td class="pname">' + dataa[m].pname + '</td><td class="type">' + dataa[m].type + '</td><td class="quantity">' + dataa[m].quantity + '</td><td class="subtotal">' + dataa[m].subtotal + '</td>');
+
+              }
+            })
         }
         $('#yourid').modal('show');
+
 
       })
       .fail(function (e) {
         alert('error')
       })
 
+  })
 
-    $(function () {
-      $('#btn_add_cust').unbind('click').on('click', function (e) {
-        e.preventDefault();
-        var customername = $('#customername').val();
-        var customeraddress = $('#customeraddress').val();
-        var customercontact = $('#customercontact').val();
+  $(function () {
+    $('#btn_add_cust').unbind('click').on('click', function (e) {
+      e.preventDefault();
+      var customername = $('#customername').val();
+      var customeraddress = $('#customeraddress').val();
+      var customercontact = $('#customercontact').val();
 
 
-        var jqxhr = $.ajax({
-          method: "post",
-          url: "/Customer/add",
-          data: { customername: customername, customeraddress: customeraddress, customercontact: customercontact }
-        })
-          .done(function (data) {
-            alert(data.message);
-          })
-          .fail(function () {
-            alert("error");
-          })
-          .always(function () {
-            //alert($('#name').val() );
-          });
-
-        $('#customername').val("");
-        $('#customeraddress').val("");
-        $('#customercontact').val("");
+      var jqxhr = $.ajax({
+        method: "post",
+        url: "/Customer/add",
+        data: { customername: customername, customeraddress: customeraddress, customercontact: customercontact }
       })
+        .done(function (data) {
+          alert(data.message);
+        })
+        .fail(function () {
+          alert("error");
+        })
+        .always(function () {
+          //alert($('#name').val() );
+        });
+
+      $('#customername').val("");
+      $('#customeraddress').val("");
+      $('#customercontact').val("");
     })
-  }
-  );
+  })
 
 
   $(function () {
