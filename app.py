@@ -20,7 +20,7 @@ from models.Sales import Sales
 from apps.sampleBlueprint import sample
 
 # all resources
-from resources.Customer import CustomerRegister, CustomerData, getcustomer,UpdateCustomer, deletecustomer, returncontainer
+from resources.Customer import CustomerRegister, CustomerData, getcustomer,UpdateCustomer, deletecustomer, returncontainer,UpdateAccount
 from resources.User import UserRegister,UpdateUser
 from resources.User import getname,DeleteUser
 from resources.Products import Registerproducts,UpdateProduct,getproduct,getproductname,UpdateQuantity,UpdatexQuantity,deleteproduct,cancelorder
@@ -326,7 +326,7 @@ api.add_resource(getcustomer, '/name/<string:_name>')
 
 api.add_resource(deletecustomer, '/deletecustomer')
 api.add_resource(getproduct, '/product/<int:_id>')
-api.add_resource(getproductname, '/product/<string:_name>')
+api.add_resource(getproductname, '/product/<string:_pname>')
 api.add_resource(deleteproduct, '/deleteproduct')
 api.add_resource(getorderlist, '/orderid/<int:_id>')
 api.add_resource(registerorder, '/registerorder')
@@ -335,6 +335,8 @@ api.add_resource(getBydate,'/dateid/<string:_date>')
 api.add_resource(getBydatex,'/dateidx/<string:_date>')
 api.add_resource(UpdateCustomer, '/customer/update')
 api.add_resource(recordsales,'/recordsales')
+api.add_resource(UpdateAccount,'/acctupdate')
+
 api.add_resource(salescustomer,'/salescustomer/<int:_id>')
 api.add_resource(UpdateQuantity, '/update/quantity')
 api.add_resource(UpdatexQuantity, '/update/xquantity')

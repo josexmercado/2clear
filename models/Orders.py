@@ -14,7 +14,6 @@ class Orders(db.Model):
     status = db.Column(db.String(45))
     comment = db.Column(db.String(45))
     date  = db.Column(db.String(20))
-    mm = db.Column(db.String(10))
     def __init__(self, *args, **kwargs):
         for name, value in kwargs.items():
             setattr(self, name, value)
@@ -29,7 +28,6 @@ class Orders(db.Model):
             'customerid': self.customerid,
             'customername': self.customername,
             'status': self.status,
-            'mm': self.mm,
             'comment': self.comment,
 
         }

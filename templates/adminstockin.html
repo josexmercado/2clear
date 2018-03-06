@@ -262,11 +262,32 @@
         })
         .always(function () {
           //alert($('#name').val() );
+
+
+          
         });
       }
       else
       {
-        var jqxhr = $.ajax({
+        var pname = $('#product_name').val();
+        console.log(pname,'pname');
+        var jqaxhr = $.ajax({
+          method: "GET",
+          url: window.location.origin+"/product/" + pname
+        })
+        .done(function(data){
+          console.log(data);
+
+          if ($('#amount').val() < data.quantity)
+          {
+
+            alert('Invalid quantity, the number of items you encoded exceeds the available products.');
+
+            
+          }
+          else
+          {
+            var jqxhr = $.ajax({
         method: "POST",
         url: "/update/xquantity",
         data: {
@@ -293,10 +314,14 @@
     });
 
 
+          }
+        });
+
+       
     $('#datepicker').datepicker({
       autoclose: true
     })
-  })
+  });
 
 </script>
 

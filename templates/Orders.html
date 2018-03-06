@@ -320,8 +320,98 @@
         $(function () {
           $('.checkout').on('click', function (e) {
             e.preventDefault();
+            
+        if ($('#paytype').val() == "Debit/Credit")
+        {
+
+          var account = $('#totalbill').html();
+          var jqaxhr = $.ajax({
+                  method: "GET",
+                  url: window.location.origin + "/salescustomer/" + id
+                })
+                  .done(function (data) {
+                    console.log(data)
+                    var customerid = data.customerid;
+                    var customername = data.customername;
+                    // Variaballs 
+                    var tdate = new Date();
+                    var dd = tdate.getDate(); //yields day
+                    var MM = tdate.getMonth(); //yields month
+                    var yyyy = tdate.getFullYear(); //yields year
+                    var currentDate = (MM + 1) + "-" + dd + "-" + yyyy;
+                    var ordernumber = $('#ordernumber').text();
+                    var recordedby = $('#userstatus').text();
+                    console.log(customerid, customername) 
+                    $.ajax({
+                      type: "Post",
+                      url: "/recordsales",
+                      data: { ordernumber: ordernumber, customerid: customerid, customername: customername, totalsale: totalbill, recordedby: recordedby, date: currentDate }
+                    })
+                    $.ajax({
+                    type: "post",
+                    url: "/acctupdate",
+                    data: {id:customerid, account:account }
+
+                    })
+                    .done(function (data) {
+                    alert(data.message);
+                    })
+                    .fail(function () {
+                      alert("error");
+                    })
+                    .always(function () {
+          //alert($('#name').val() );
+                    });
 
 
+                    var jqaxhr = $.ajax({
+                      method: "GET",
+                      url: window.location.origin + "/getorderid/" + ordernumber
+                    })
+                      .done(function (data) {
+                        console.log("order", data)
+                      })
+                    var status = "delivered "
+                    $.ajax({
+                      type: "Post",
+                      url: "/approveorder",
+                      data: { orderid: ordernumber, status: status }
+                    })
+                      .done(function (data) {
+                        var p = $("#listorder").find("tr").length;
+
+                        for (var l = 0; l < p; l++) {
+                          if (type = $("#listorder").find("tr").eq(l).find("td").eq(1).text() == "Water Container") {
+
+                            var quantitits = $("#listorder").find("tr").eq(l).find("td").eq(3).text();
+                            console.log("type", type)
+                            console.log("quantitits", quantitits)
+                            $.ajax({
+                              type: "Post",
+                              url: "/updatecontainer",
+                              data: { orderid: ordernumber, type: type, quantity: quantitits }
+                            })
+                              .done(function (data) {
+                              });
+                          }
+                        }
+                      })
+                      .done(function (data) {
+                        alert('Order Approved!');
+                        window.location.href = "http://localhost:4000/";
+                      })
+                  })
+                  .fail(function (e) {
+                    alert('error')
+                  })
+                  .always(function () {
+                  })
+
+
+
+        }
+        else
+        {
             var totalbill = $('#totalbill').html();
             tenderedcash = prompt('Input Tendered Cash Amount(Total Bill of): ' + totalbill),
               number_only = /^\d+$/;
@@ -403,7 +493,7 @@
             } else {
               alert('Invalid Input, the prompt only accepts numbers');
             }
-
+        }
           })
         })
       });

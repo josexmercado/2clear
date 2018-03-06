@@ -1,6 +1,6 @@
 from flask_restful import Resource, reqparse
 from models.Stock import Stock
-import datetime
+from datetime import datetime
 
 class UpdateStocks(Resource):
 	def get(self):
@@ -54,6 +54,15 @@ class getBymonth(Resource):
 	def get(self, _mm):
 	
 		stocklist = Stock.getBymonth(_mm)
+		
+		return [stock.json() for stock in stocklist]
+
+
+class getByweek(Resource):
+	def get(self, _week):
+	
+		week = Stock.getByweek(_week)
+		datetime.strptime(week, '%m-%d-%y')
 		
 		return [stock.json() for stock in stocklist]
 
