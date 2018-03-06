@@ -251,7 +251,7 @@
           <div class="modal-body">
 
             <p>
-              <table class="table table-bordered">
+              <table id="Orderdetails" class="table table-bordered">
                 <thead>
                   <tr>
                     <th>Order ID</th>
@@ -271,10 +271,13 @@
                     <td class="type"></td>
                     <td class="quantity"></td>
                     <td class="Comment"></td>
-
                   </tr>
+                </table>
+                  <tr>                   
+                  </tr>
+
                 </tbody>
-              </table>
+          
             </p>
           </div>
   </form>
@@ -317,12 +320,12 @@
         $('#listorder').empty();
         for (var i = 0; i < data.length; i++) {
 
-          $('#listorder').append('<tr><td >' + data[i].orderid + '</td><td id="totalbill">' + data[i].totalbill + '</td><td id="type">' + data[i].date + '</td><td id="quantity">' + data[i].status + '</td><td id="Comment">' + data[i].comment + '</td>' + '</td>');
+          $('#listorder').append('<tr><td >' + data[i].orderid + '</td><td id="totalbill">' + data[i].totalbill + '</td><td id="type">' + data[i].date + '</td><td id="quantity">' + data[i].status + '</td><td id="Comment">' + data[i].comment + '</td>' + '</tr></td>');
 
-          // $('#listorder').append('<td id=' + data[i].orderid + '</td> <details> <summary >View Detailed Order History</summary>' + '<table class="table table-bordered"><thead><tr><th> Product ID </th> <th> Product Name </th> <th> Type </th> <th> Quantity </th> <th> Subtotal </th> </tr></thead> <tbody id=s'+data[i].orderid+'> <tr> <td id="pid"> </td><td class="pname"></td><td class="type"></td><td class="quantity"></td><td class="subtotal"></td></tr></tbody></table> ' + ' </details>' + '</td>');
+          // $('#listorder').append('<td id=' + data[i].orderid + '</td> ' + '<table class="table table-bordered"><thead><tr><th> Product ID </th> <th> Product Name </th> <th> Type </th> <th> Quantity </th> <th> Subtotal </th> </tr></thead> <tbody id=s' + data[i].orderid + '> <tr> <td id="pid"> </td><td class="pname"></td><td class="type"></td><td class="quantity"></td><td class="subtotal"></td></tr></tbody></table></td>');
 
-          $('#listorder').append('<td id=' + data[i].orderid + '</td> <details> <summary >View Detailed Order History</summary>' + ' <div class="row"><div class="col-md-12"><div class="box box-primary"><div class="box-header with-border"><table class="table table-bordered"><thead><tr><th> Product ID </th> <th> Product Name </th> <th> Type </th> <th> Quantity </th> <th> Subtotal </th> </tr></thead> <tbody id=s' + data[i].orderid + '></tbody></table> ' + ' </details>' + '</td>');
-
+          // $('#listorder').append('<td id=' + data[i].orderid + '</td> <details> <summary >View Detailed Order History</summary>' + ' <div class="row"><div class="col-md-12"><div class="box box-primary"><div class="box-header with-border"><table class="table table-bordered"><thead><tr><th> Product ID </th> <th> Product Name </th> <th> Type </th> <th> Quantity </th> <th> Subtotal </th> </tr></thead> <tbody id=s' + data[i].orderid + '></tbody></table> ' + ' </details>' + '</td>');
+           $('#listorder').append('<td id=' + data[i].orderid + '</td> <details> <summary >View Detailed Order History</summary>' + ' <div class="row"><div class="col-md-12"><div class="box box-primary"><div class="box-header with-border"><table class="table table-bordered"><thead><tr><th> Product ID </th> <th> Product Name </th> <th> Type </th> <th> Quantity </th> <th> Subtotal </th> </tr></thead> <tr><tbody id=s' + data[i].orderid + '></tbody></table> ' + ' </details>' + '</td></tr>');
 
 
           console.log("ORDERID", data[i].orderid)
