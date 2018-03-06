@@ -59,6 +59,27 @@ class getcustomer(Resource):
 
 		return customername.json()
 
+class UpdateAccount(Resource):
+	
+	def post(self):
+		parser = reqparse.RequestParser()
+		parser.add_argument('id',
+			type=str,
+			)
+		parser.add_argument('account',
+			type=int,
+			required=True,
+			help="This field cannot be left blank!"
+			)
+		data = parser.parse_args()
+		customer = CustomerModel.getById(data.id)
+		updatex = CustomerModel.query.filter_by(id=customer.id).first()
+		updatex.account= updatex.account - data.account
+		updatex.commit()
+
+		return {'message':'Customer Updated!'}
+
+
 class UpdateCustomer(Resource):
 	
 	def post(self):
