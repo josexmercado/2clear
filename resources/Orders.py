@@ -148,7 +148,7 @@ class approveorder(Resource):
 			)
 		parser.add_argument('comment',
 			type=str,
-			required=True,
+			# required=True,
 			help="This field cannot be left blank!"
 			)
 		data = parser.parse_args()
