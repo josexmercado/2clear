@@ -271,7 +271,7 @@
             </a>
             <label for="sp">Select Mode of Payment: </td>
               <select v-model="message" id="paytype" readonly="true" value="  " class="form-control">
-                <option>Debit/Credit</option>
+                <option>Debit</option>
                 <option>Oncash</option>
         </div>
         </tfoot>
@@ -321,7 +321,7 @@
           $('.checkout').on('click', function (e) {
             e.preventDefault();
             
-        if ($('#paytype').val() == "Debit/Credit")
+        if ($('#paytype').val() == "Debit")
         {
 
           var account = $('#totalbill').html();
@@ -353,16 +353,6 @@
                     data: {id:customerid, account:account }
 
                     })
-                    .done(function (data) {
-                    alert(data.message);
-                    })
-                    .fail(function () {
-                      alert("error");
-                    })
-                    .always(function () {
-          //alert($('#name').val() );
-                    });
-
 
                     var jqaxhr = $.ajax({
                       method: "GET",
