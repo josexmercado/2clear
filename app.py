@@ -20,7 +20,7 @@ from models.Sales import Sales
 from apps.sampleBlueprint import sample
 
 # all resources
-from resources.Customer import CustomerRegister, CustomerData, getcustomer,UpdateCustomer, deletecustomer, returncontainer,UpdateAccount
+from resources.Customer import CustomerRegister, CustomerData, getcustomer,UpdateCustomer, deletecustomer, returncontainer,UpdateAccount,UpdateAccount2
 from resources.User import UserRegister,UpdateUser
 from resources.User import getname,DeleteUser
 from resources.Products import Registerproducts,UpdateProduct,getproduct,getproductname,UpdateQuantity,UpdatexQuantity,deleteproduct,cancelorder
@@ -336,6 +336,7 @@ api.add_resource(getBydatex,'/dateidx/<string:_date>')
 api.add_resource(UpdateCustomer, '/customer/update')
 api.add_resource(recordsales,'/recordsales')
 api.add_resource(UpdateAccount,'/acctupdate')
+api.add_resource(UpdateAccount2,'/acctupdate2')
 
 api.add_resource(salescustomer,'/salescustomer/<int:_id>')
 api.add_resource(UpdateQuantity, '/update/quantity')
