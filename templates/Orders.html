@@ -323,7 +323,7 @@
 
             if ($('#paytype').val() == "Debit") {
 
-              var account = $('#totalbill').html();
+              var totalbill = $('#totalbill').html();
               var jqaxhr = $.ajax({
                 method: "GET",
                 url: window.location.origin + "/salescustomer/" + id
@@ -345,43 +345,7 @@
                     type: "Post",
                     url: "/recordsales",
                     data: { ordernumber: ordernumber, customerid: customerid, customername: customername, totalsale: totalbill, recordedby: recordedby, date: currentDate }
-                  })
-
-
-
-                  //CONDITIONAL STATEMENT IF BALANCE IS ZERO
-                  //
-            //       var totalbill = $('#totalbill').html();
-            //       tenderedcash = prompt('Input Tendered Cash Amount(Total Bill of): ' + totalbill),
-            //   number_only = /^\d+$/;
-
-            // if (number_only.test(tenderedcash)) {
-
-            //   if (tenderedcash >= parseInt(totalbill)) {
-
-            //     var change = tenderedcash - parseInt(totalbill);
-            //     alert('Customer Change is: ' + change + ' php');
-
-                  
-
-              
-                //CREDIT TO ACCOUNT
-                  $.ajax({
-                    type: "post",
-                    url: "/acctupdate",
-                    data: { id: customerid, account: account }
-
-                  })
-                    .done(function (data) {
-                      alert(data.message);
-                    })
-                    .fail(function () {
-                      alert("error");
-                    })
-                    .always(function () {
-                      //alert($('#name').val() );
-                    });
-
+                  })                  
 
                   var jqaxhr = $.ajax({
                     method: "GET",
@@ -389,7 +353,8 @@
                   })
                     .done(function (data) {
                       console.log("order", data)
-                    })
+                      var idcustomer = data.customerid
+                    
                   var status = "delivered "
                   $.ajax({
                     type: "Post",
@@ -416,15 +381,84 @@
                       }
                     })
                     .done(function (data) {
-                      alert('Order Approved!');
+                      
+
+
+                      var jqaxhr = $.ajax({
+                      method: "GET",
+                    url: window.location.origin + "/customer/" + idcustomer
+                  })
+                    .done(function (data) {
+                      var acctbal = data.account;
+
+                    
+                      //condition if account balance is less than bill
+                      if(acctbal > totalbill)
+                      {
+                        alert('deducted ' + totalbill + 'php from your account')
+                          //debit credit code
+                          $.ajax({
+                                      type: "post",
+                                      url: "/acctupdate",
+                                      data: { id: customerid, account: totalbill }
+
+                                      })
+                                      alert('Order Approved!');
                       window.location.href = "http://localhost:4000/";
+                      }
+                      else
+                      {
+                        if(confirm('Insufficient account balance, Would you like to add cash as credit'))
+                        {
+                          credit = prompt('Amount of cash to add as credit '),
+              number_only = /^\d+$/;
+                        if(credit)
+                                    {
+                                      $.ajax({
+                                      type: "post",
+                                      url: "/acctupdate2",
+                                      data: { id: customerid, account: credit }
+
+                                            })
+                                        //debit credit code
+                                      $.ajax({
+                                      type: "post",
+                                      url: "/acctupdate",
+                                      data: { id: customerid, account: totalbill }
+
+                                      })
+                                      alert('Order Approved!');
+                      window.location.href = "http://localhost:4000/";
+                                    }
+                          
+                        }
+                        else
+                        {
+                          window.location.href = "http://localhost:4000/";
+                        }
+
+                        
+                        
+                      }
+
+                      
+                  
+                      
+                    })
+                    .fail(function () {
+                      alert("error");
+                    })
+                    .always(function () {
+                      //alert($('#name').val() );
+                    });
+                      
+
+                  })
+
                     })
                 })
-                .fail(function (e) {
-                  alert('error')
-                })
-                .always(function () {
-                })
+                
+              
 
             }
             else {
@@ -437,33 +471,7 @@
               if (tenderedcash >= parseInt(totalbill)) {
 
                 var change = tenderedcash - parseInt(totalbill);
-                // var result = window.confirm({content:'Customer Change is:',
-                //                             buttons:{  
-                //                               ok: {
-                //                             text: 'Confirm',
-                //                             action: function ()
-                //                             {
-                                  
-                //                             }
-                //                             },
-                //                             close: {
-                //                             text: 'Cancel',
-                //                             action: function ()
-                //                             {
-                                  
-                //                             }
-                //                             } 
-                //                             }
-                                            
-                                            
-                                            
-                //                             });
-                
-            
-                
-
                
-                
                 var jqaxhr = $.ajax({
                   method: "GET",
                   url: window.location.origin + "/salescustomer/" + id
@@ -488,11 +496,7 @@
                     })
 
 
-                    $.ajax({
-                      type: "Post",
-                      url: "/acctupdate2",
-                      data: { id: customerid, account: change }
-                    })
+                   
                     var jqaxhr = $.ajax({
                       method: "GET",
                       url: window.location.origin + "/getorderid/" + ordernumber
@@ -526,8 +530,31 @@
                         }
                       })
                       .done(function (data) {
+                      if(change !=0)
+                      {
+
+                                 if(confirm('Would you like to credit your change to your account'))
+                                 {
+                                  $.ajax({
+                      type: "Post",
+                      url: "/acctupdate2",
+                      data: { id: customerid, account: change }
+                    })
+                    alert('Order Approved!');
+                        
+                                 }
+                                else
+                                {
+                                  alert('Order Approvedx!');
+                        
+                                } 
+                                window.location.href = "http://localhost:4000/";
+                      }
+                      else 
+                      {
                         alert('Order Approved!');
                         window.location.href = "http://localhost:4000/";
+                      }
                       })
                   })
                   .fail(function (e) {
