@@ -497,7 +497,7 @@
 
         $.ajax({
           type: "Post",
-          url: "/registerorder",
+          url: "/regorder",
           data: { orderid: orderid, customerid: customerid, customername: customername, totalbill: total, recordedby: user, date: currentDate, status: status }
         })
           .done(function (data) {

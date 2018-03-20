@@ -25,7 +25,7 @@ from resources.User import UserRegister,UpdateUser
 from resources.User import getname,DeleteUser
 from resources.Products import Registerproducts,UpdateProduct,getproduct,getproductname,UpdateQuantity,UpdatexQuantity,deleteproduct,cancelorder
 from resources.stocks import UpdateStocks, getBydate, getBydatex,getBymonth
-from resources.Orders import registerorder,recordorderlist,salescustomer,approveorder,orderid,orderhistory
+from resources.Orders import registerorder ,recordorderlist,salescustomer,approveorder,orderid,orderhistory
 from resources.Orderlist import getorderlist
 from resources.Sales import recordsales
 from resources.Products import deliverproduct
@@ -329,7 +329,7 @@ api.add_resource(getproduct, '/product/<int:_id>')
 api.add_resource(getproductname, '/product/<string:_pname>')
 api.add_resource(deleteproduct, '/deleteproduct')
 api.add_resource(getorderlist, '/orderid/<int:_id>')
-api.add_resource(registerorder, '/registerorder')
+api.add_resource(registerorder, '/regorder')
 api.add_resource(recordorderlist, '/recordorderlist')
 api.add_resource(getBydate,'/dateid/<string:_date>')
 api.add_resource(getBydatex,'/dateidx/<string:_date>')
