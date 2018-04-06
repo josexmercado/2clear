@@ -27,6 +27,9 @@ class User(db.Model):
     @staticmethod
     def getUserId(_id):
         return User.query.filter_by(id=_id).first()
+    
+    def find_by_username(_username):
+        return User.query.filter_by(username=_username).first()
 
     def insert(self):
         db.session.add(self)
